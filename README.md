@@ -4,6 +4,8 @@ LazyDraft 是具備完整離線能力的輕量純文字記事本（PWA），底�
 
 > [繁體中文](README.md) · [English](README_EN.md) · [简体中文](README_ZH_CN.md)
 
+![LazyDraft Snapshot](img/snapshot.png)
+
 本專案 fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)。經由移除冗餘功能、補足實用工具並全面扁平化介面呈現後，定位為**個人工作時的輕量純文字白板**。在日常編輯筆記或向 AI Agent 撰寫 Prompt 指令時，能透過乾淨無干擾的版面與清晰大字體，在筆電上獲得更舒適流暢的輸入體驗。
 
 **日常核心工作流**：

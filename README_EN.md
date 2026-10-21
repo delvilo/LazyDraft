@@ -4,6 +4,8 @@ LazyDraft is an offline-capable, lightweight plain-text notepad (PWA) powered by
 
 > [繁體中文](README.md) · [English](README_EN.md) · [简体中文](README_ZH_CN.md)
 
+![LazyDraft Snapshot](img/snapshot.png)
+
 This project is forked from [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad). After trimming unnecessary features, integrating essential tools, and flattening the user interface, it is tailored as a **lightweight digital whiteboard for daily work**. It provides a clean, distraction-free layout with clear, large typography—perfect for drafting notes or composing prompts for AI Agents on laptops.
 
 **Core Workflow**:

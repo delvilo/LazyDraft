@@ -1,0 +1,222 @@
+/* Google Cloud Sync Modal & Button Styling */
+.google-sync-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.google-sync-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.google-sync-btn.signed-in {
+  background: rgba(66, 133, 244, 0.25);
+  color: #4285f4;
+  box-shadow: 0 0 6px rgba(66, 133, 244, 0.6);
+}
+
+.google-sync-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Modal Content */
+#googleSyncModal .modal-dialog {
+  max-width: 520px;
+}
+
+#googleSyncModal .modal-content {
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+#googleSyncModal .modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+#googleSyncModal .modal-title {
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+}
+
+#googleSyncModal .modal-body {
+  padding: 22px;
+}
+
+.sync-user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.sync-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #cbd5e1;
+}
+
+.sync-user-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.sync-user-name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sync-user-email {
+  font-size: 13px;
+  color: #64748b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sync-action-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sync-action-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.sync-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.sync-btn-push {
+  background: #2563eb;
+  color: #fff;
+}
+.sync-btn-push:hover {
+  background: #1d4ed8;
+}
+
+.sync-btn-pull {
+  background: #059669;
+  color: #fff;
+}
+.sync-btn-pull:hover {
+  background: #047857;
+}
+
+.sync-btn-clear {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.sync-btn-clear:hover {
+  background: #fee2e2;
+}
+
+.sync-status-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #475569;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.sync-login-prompt {
+  text-align: center;
+  padding: 24px 10px;
+}
+
+.sync-google-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Dark mode */
+body.dark #googleSyncModal .modal-content {
+  background-color: #1e2630;
+  color: #e6edf3;
+}
+
+body.dark #googleSyncModal .modal-header {
+  background-color: #171d26;
+  border-bottom-color: #2d3748;
+}
+
+body.dark #googleSyncModal .modal-title {
+  color: #e6edf3;
+}
+
+body.dark .sync-user-card {
+  background: #26313f;
+}
+
+body.dark .sync-user-name {
+  color: #f0f6fc;
+}
+
+body.dark .sync-user-email {
+  color: #8b949e;
+}
+
+body.dark .sync-status-box {
+  background: #171d26;
+  border-color: #2d3748;
+  color: #8b949e;
+}
+
+body.dark .sync-btn-clear {
+  border-color: #7f1d1d;
+  color: #f87171;
+}
+body.dark .sync-btn-clear:hover {
+  background: #450a0a;
+}

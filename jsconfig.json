@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "allowJs": true,
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "include": [
+    "ai-regexr/js/contracts.js",
+    "ai-regexr/js/app.js",
+    "ai-regexr/js/pattern.js",
+    "ai-regexr/js/render.js",
+    "ai-regexr/js/runner.js",
+    "ai-regexr/js/offline.js",
+    "js/ime/v76/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "ai-regexr/vendor/**"
+  ]
+}

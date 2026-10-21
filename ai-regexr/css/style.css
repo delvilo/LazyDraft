@@ -1,0 +1,396 @@
+/* AI-RegExr Styling - Minimalist theme matching LazyDraft & Tabbypad */
+:root {
+  --regexr-bg: #fbfaf5;
+  --regexr-fg: #222222;
+  --regexr-card-bg: #ffffff;
+  --regexr-border: #d0d7de;
+  --regexr-header-bg: #343a40;
+  --regexr-hl-bg: #fff3a8;
+  --regexr-hl-border: #e6b800;
+  --regexr-hl-active: #ffe066;
+}
+
+body.dark {
+  --regexr-bg: #0d1117;
+  --regexr-fg: #e6edf3;
+  --regexr-card-bg: #161b22;
+  --regexr-border: #30363d;
+  --regexr-header-bg: #161b22;
+  --regexr-hl-bg: #3b3a1a;
+  --regexr-hl-border: #9e851a;
+  --regexr-hl-active: #5c5520;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--regexr-bg);
+  color: var(--regexr-fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+}
+
+.regexr-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Navbar */
+.regexr-navbar {
+  height: 50px;
+  background-color: var(--regexr-header-bg);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.regexr-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.regexr-brand:hover,
+.regexr-brand:focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.regexr-brand img.logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.regexr-brand-badge {
+  background: #28a745;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.regexr-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.regexr-nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.regexr-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Controls Bar (Expression & Options) */
+.regexr-controls-bar {
+  background: var(--regexr-card-bg);
+  border-bottom: 1px solid var(--regexr-border);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.regexr-expression-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.regexr-delimiter {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 20px;
+  font-weight: bold;
+  color: #888888;
+  user-select: none;
+}
+
+.regexr-input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.regexr-pattern-input {
+  width: 100%;
+  height: 38px;
+  padding: 6px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 15px;
+  border: 1px solid var(--regexr-border);
+  border-radius: 6px;
+  background: var(--regexr-card-bg);
+  color: var(--regexr-fg);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.regexr-pattern-input:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.regexr-pattern-input.is-invalid {
+  border-color: #e74c3c !important;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2) !important;
+}
+
+/* Engine & Flags Row */
+.regexr-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.regexr-engine-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.regexr-engine-selector select {
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid var(--regexr-border);
+  background: var(--regexr-card-bg);
+  color: var(--regexr-fg);
+  padding: 2px 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.regexr-flags-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.regexr-flag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.regexr-flag-label input[type="checkbox"] {
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Status Bar */
+.regexr-status-bar {
+  background: var(--regexr-bg);
+  padding: 4px 16px;
+  font-size: 12px;
+  color: #666666;
+  border-bottom: 1px solid var(--regexr-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+body.dark .regexr-status-bar {
+  color: #8b949e;
+}
+
+.regexr-status-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.regexr-status-badge {
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #e1e4e8;
+  color: #24292e;
+}
+
+body.dark .regexr-status-badge {
+  background: #30363d;
+  color: #e6edf3;
+}
+
+.regexr-status-badge.has-matches {
+  background: #28a745;
+  color: #ffffff;
+}
+
+.regexr-status-badge.has-error {
+  background: #d73a49;
+  color: #ffffff;
+}
+
+.regexr-status-badge.is-loading {
+  background: #0366d6;
+  color: #ffffff;
+}
+
+.regexr-error-msg {
+  color: #d73a49;
+  font-weight: 500;
+}
+
+body.dark .regexr-error-msg {
+  color: #f85149;
+}
+
+/* Editor Workspace & Backdrop Highlighting */
+.regexr-editor-workspace {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--regexr-card-bg);
+}
+
+.regexr-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+.regexr-highlights {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  color: transparent;
+  min-height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  tab-size: 4;
+  font-weight: 400;
+  font-variant-ligatures: none;
+}
+
+.regexr-highlights mark {
+  background-color: var(--regexr-hl-bg);
+  border-bottom: 2px solid var(--regexr-hl-border);
+  color: transparent;
+  border-radius: 2px;
+}
+
+.regexr-textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  color: var(--regexr-fg);
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  z-index: 2;
+  tab-size: 4;
+  font-weight: 400;
+  font-variant-ligatures: none;
+}
+
+/* Responsive adjustments for narrow screen / Gemini sidebar */
+@media (max-width: 768px) {
+  .regexr-controls-bar {
+    padding: 8px 12px;
+  }
+  .regexr-options-row {
+    gap: 8px;
+  }
+  .regexr-highlights,
+  .regexr-textarea {
+    padding: 12px;
+  }
+}
+
+/* A zero-width match is painted without adding any inline character width. */
+.regexr-highlights mark.zero-match {
+  display: inline;
+  position: relative;
+  border: 0;
+  padding: 0;
+}
+.regexr-highlights mark.zero-match::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1em;
+  width: 2px;
+  background: var(--regexr-hl-border);
+}
+.regexr-status-bar { gap: 8px; flex-wrap: wrap; }
+.regexr-status-left { min-width: 0; flex-wrap: wrap; gap: 8px; }
+.regexr-status-badge { white-space: nowrap; }
+.regexr-offline-status { margin-left: auto; font-size: 11px; }
+.regexr-navbar { min-height: 50px; height: auto; box-sizing: border-box; gap: 8px; padding: 8px 16px; }
+@media (max-width: 600px) {
+  .regexr-nav-btn span { display: none; }
+  .regexr-navbar { padding: 8px 12px; }
+  .regexr-brand { font-size: 14px; gap: 5px; }
+  .regexr-brand-badge { display: none; }
+  .regexr-input-wrapper { min-width: 0; }
+  .regexr-status-bar { padding: 6px 12px; }
+}

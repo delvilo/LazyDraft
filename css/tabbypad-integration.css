@@ -1,0 +1,261 @@
+/* Tabbypad Integration Styles */
+.tabbypad-linked-pill {
+  position: fixed;
+  bottom: 72px;
+  right: 18px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #28a745;
+  color: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  font-weight: 500;
+  user-select: none;
+  animation: tabbypadFadeIn 0.2s ease-out;
+}
+
+.tabbypad-linked-pill.dirty {
+  background: #fd7e14;
+}
+
+.tabbypad-pill-badge {
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.tabbypad-pill-title {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabbypad-pill-btn {
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.tabbypad-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.tabbypad-pill-unlink {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+.tabbypad-pill-unlink:hover {
+  color: #fff;
+}
+
+@keyframes tabbypadFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Styling */
+#tabbypadModal .modal-dialog {
+  max-width: 800px;
+}
+
+#tabbypadModal .modal-content {
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  border: none;
+}
+
+#tabbypadModal .modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+#tabbypadModal .modal-title {
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#tabbypadModal .modal-body {
+  padding: 20px;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.tabbypad-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.tabbypad-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tabbypad-search {
+  flex: 1;
+  max-width: 280px;
+  margin-left: auto;
+}
+
+.tabbypad-list-container {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tabbypad-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.tabbypad-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s;
+  cursor: pointer;
+  gap: 12px;
+}
+
+.tabbypad-item:last-child {
+  border-bottom: none;
+}
+
+.tabbypad-item:hover {
+  background: #f8f9fa;
+}
+
+.tabbypad-item.active-item {
+  background: #e7f5ff;
+  border-left: 4px solid #339af0;
+}
+
+.tabbypad-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tabbypad-item-title {
+  font-weight: 600;
+  color: #212529;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+
+.tabbypad-item-meta {
+  font-size: 12px;
+  color: #868e96;
+  display: flex;
+  gap: 12px;
+}
+
+.tabbypad-item-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.tabbypad-action-btn {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tabbypad-load-btn {
+  background: #007bff;
+  color: #fff;
+}
+.tabbypad-load-btn:hover {
+  background: #0069d9;
+}
+
+.tabbypad-empty-state {
+  padding: 40px 20px;
+  text-align: center;
+  color: #868e96;
+}
+
+/* Dark mode support */
+body.dark #tabbypadModal .modal-content {
+  background-color: #1e2630;
+  color: #e6edf3;
+}
+
+body.dark #tabbypadModal .modal-header {
+  background-color: #171d26;
+  border-bottom-color: #2d3748;
+}
+
+body.dark #tabbypadModal .modal-title {
+  color: #e6edf3;
+}
+
+body.dark .tabbypad-list-container {
+  border-color: #2d3748;
+}
+
+body.dark .tabbypad-item {
+  border-bottom-color: #26313f;
+}
+
+body.dark .tabbypad-item:hover {
+  background: #26313f;
+}
+
+body.dark .tabbypad-item.active-item {
+  background: #1c344d;
+  border-left-color: #58a6ff;
+}
+
+body.dark .tabbypad-item-title {
+  color: #f0f6fc;
+}
+
+body.dark .tabbypad-item-meta {
+  color: #8b949e;
+}

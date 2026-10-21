@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-RegExr | Regular Expressions Test</title>
+    <meta name="description" content="A fast, distraction-free Regular Expressions tester supporting JavaScript and PCRE2 WASM engines.">
+    <meta name="theme-color" content="#343a40">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="regexr-app">
+        <!-- Top Navbar -->
+        <header class="regexr-navbar">
+            <a href="../" class="regexr-brand" title="返回主記事本">
+                <img src="../img/notepad-apple-icon.png" alt="LazyDraft" class="logo" />
+                <span>LazyDraft</span>
+                <span style="opacity: 0.5;">/</span>
+                <span>AI-RegExr</span>
+                <span class="regexr-brand-badge">WASM</span>
+            </a>
+            <div class="regexr-nav-actions">
+                <button type="button" id="copyPatternBtn" class="regexr-nav-btn" title="複製完整表示式 (/pattern/flags)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>複製表示式</span>
+                </button>
+                <button type="button" id="sendToNotepadBtn" class="regexr-nav-btn" title="將所有匹配項目傳送至主頁記事本">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                    <span>傳送至主頁</span>
+                <button type="button" id="openFileBtn" class="regexr-nav-btn" title="開啟本機文字檔（UTF-8，最大 10 MiB）">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v2M3 10h18l-3 10H3V10Z"></path>
+                        <path d="M8 14h6m-3-3 3 3-3 3"></path>
+                    </svg>
+                    <span>開啟檔案</span>
+                </button>
+                <input type="file" id="localFileInput" style="display: none;" aria-hidden="true">
+                <button type="button" id="clearTextBtn" class="regexr-nav-btn" title="清空長文本編輯區">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span>清空文本</span>
+                </button>
+                <button type="button" id="themeToggleBtn" class="regexr-nav-btn" title="切換深色 / 淺色模式">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Controls: Regular Expression Input & Engine/Flags Options -->
+        <section class="regexr-controls-bar">
+            <div class="regexr-expression-row">
+                <span class="regexr-delimiter">/</span>
+                <div class="regexr-input-wrapper">
+                    <input type="text" id="patternInput" class="regexr-pattern-input" aria-label="Regular Expression" placeholder="裸表示式或 /pattern/flags" spellcheck="false" autocomplete="off" autofocus />
+                </div>
+                <span class="regexr-delimiter">/</span>
+            </div>
+
+            <div class="regexr-options-row">
+                <div class="regexr-engine-selector">
+                    <label for="engineSelect" style="margin: 0; font-weight: 600;">Engine:</label>
+                    <select id="engineSelect" aria-label="選擇 Regular Expression 引擎">
+                        <option value="javascript">JavaScript (RegExp)</option>
+                        <option value="pcre">PCRE2 (WASM，不等同 PHP)</option>
+                    </select>
+                </div>
+
+                <div class="regexr-flags-group" id="flagsContainer" role="group" aria-label="Regex Flags">
+                    <!-- Dynamic checkboxes inserted by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Summary Bar -->
+        <div class="regexr-status-bar" id="statusBar" role="status" aria-live="polite">
+            <div class="regexr-status-left">
+                <span id="statusBadge" class="regexr-status-badge">0 筆匹配</span>
+                <span id="statusText">等待輸入...</span>
+            </div>
+            <div id="statusTime" class="regexr-status-time"></div>
+            <span id="offlineStatus" class="regexr-offline-status">離線資源尚未就緒</span>
+        </div>
+
+        <!-- Long Textarea with Synchronized Backdrop Highlights -->
+        <main class="regexr-editor-workspace">
+            <div id="backdrop" class="regexr-backdrop" aria-hidden="true">
+                <pre id="highlightsPre" class="regexr-highlights"></pre>
+            </div>
+            <textarea id="longTextarea" class="regexr-textarea" aria-label="測試文本" placeholder="在此貼上需要測試的長文本（最大 10 MiB UTF-8）..." spellcheck="false"></textarea>
+        </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "web_apps": [
+    {
+      "manifest": "https://note.lazyai.day/manifest.json",
+      "details": {
+        "paths": ["/*"]
+      }
+    }
+  ]
+}

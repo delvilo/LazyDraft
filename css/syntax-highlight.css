@@ -1,0 +1,243 @@
+/* ==========================================================================
+   Syntax Highlighting Layer Styles (Colors only, no metrics/layout shifts)
+   ========================================================================== */
+
+/* Syntax controls in navbar */
+.syntax-controls-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.syntax-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  line-height: 1;
+}
+
+.syntax-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.syntax-toggle-btn[aria-pressed="true"],
+.syntax-toggle-btn.active {
+  background: #10b981 !important;
+  color: #fff !important;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.syntax-lang-select {
+  display: none;
+  height: 28px;
+  padding: 0 6px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.syntax-controls-container.active .syntax-lang-select {
+  display: inline-block;
+  opacity: 1;
+}
+
+.syntax-lang-select:focus {
+  border-color: #10b981;
+}
+
+.syntax-lang-select option {
+  background: #202428;
+  color: #fff;
+}
+
+/* Starter template container positioning */
+.starter-template {
+  position: relative;
+}
+
+/* Background syntax highlight backdrop */
+#syntaxBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+  z-index: 1;
+  display: none;
+}
+
+#syntaxHighlightLayer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  pointer-events: none;
+  display: block;
+  /* Colors only, font properties will be synchronized dynamically from textarea */
+}
+
+/* In active syntax mode: textarea text is made transparent so backdrop colors show through */
+#textareaContainer.syntax-active #note {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  caret-color: #191919 !important;
+  z-index: 2;
+  position: relative;
+  background: transparent !important;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) #textareaContainer.syntax-active #note {
+  caret-color: #dedede !important;
+}
+
+#textareaContainer.syntax-active #syntaxBackdrop {
+  display: block !important;
+}
+
+/* Token Colors - Light Theme (default) */
+/* Important: Do not set font-weight: bold or font-style: italic to avoid horizontal letter shifts */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a737d;
+}
+
+.token.punctuation {
+  color: #24292e;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #d73a49;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #032f62;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #e36209;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #6f42c1;
+}
+
+.token.function,
+.token.class-name {
+  color: #005cc5;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e36209;
+}
+
+/* Token Colors - Dark Theme (:is(body.dark, #textareaContainer.dark, .dark)) */
+:is(body.dark, #textareaContainer.dark, .dark) .token.comment,
+:is(body.dark, #textareaContainer.dark, .dark) .token.prolog,
+:is(body.dark, #textareaContainer.dark, .dark) .token.doctype,
+:is(body.dark, #textareaContainer.dark, .dark) .token.cdata {
+  color: #8b949e;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.punctuation {
+  color: #c9d1d9;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.property,
+:is(body.dark, #textareaContainer.dark, .dark) .token.tag,
+:is(body.dark, #textareaContainer.dark, .dark) .token.boolean,
+:is(body.dark, #textareaContainer.dark, .dark) .token.number,
+:is(body.dark, #textareaContainer.dark, .dark) .token.constant,
+:is(body.dark, #textareaContainer.dark, .dark) .token.symbol,
+:is(body.dark, #textareaContainer.dark, .dark) .token.deleted {
+  color: #ff7b72;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.selector,
+:is(body.dark, #textareaContainer.dark, .dark) .token.attr-name,
+:is(body.dark, #textareaContainer.dark, .dark) .token.string,
+:is(body.dark, #textareaContainer.dark, .dark) .token.char,
+:is(body.dark, #textareaContainer.dark, .dark) .token.builtin,
+:is(body.dark, #textareaContainer.dark, .dark) .token.inserted {
+  color: #a5d6ff;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.operator,
+:is(body.dark, #textareaContainer.dark, .dark) .token.entity,
+:is(body.dark, #textareaContainer.dark, .dark) .token.url,
+:is(body.dark, #textareaContainer.dark, .dark) .language-css .token.string,
+:is(body.dark, #textareaContainer.dark, .dark) .style .token.string {
+  color: #f0883e;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.atrule,
+:is(body.dark, #textareaContainer.dark, .dark) .token.attr-value,
+:is(body.dark, #textareaContainer.dark, .dark) .token.keyword {
+  color: #d2a8ff;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.function,
+:is(body.dark, #textareaContainer.dark, .dark) .token.class-name {
+  color: #79c0ff;
+}
+
+:is(body.dark, #textareaContainer.dark, .dark) .token.regex,
+:is(body.dark, #textareaContainer.dark, .dark) .token.important,
+:is(body.dark, #textareaContainer.dark, .dark) .token.variable {
+  color: #ffa657;
+}
+
+/* Picture-in-Picture & Floating Window Layout */
+@media all and (display-mode: picture-in-picture) {
+  #syntaxBackdrop {
+    height: 100% !important;
+  }
+}

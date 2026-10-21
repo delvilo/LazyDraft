@@ -1,0 +1,116 @@
+{
+  "short_name": "LazyDraft",
+  "name": "LazyDraft",
+  "description": "Offline-capable, distraction-free plain-text drafting with LazyDraft",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "img/icon-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-196.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "img/screenshot1.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    },
+    {
+      "src": "img/screenshot2.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    },
+    {
+      "src": "img/screenshot-desktop-dark.png",
+      "type": "image/png",
+      "form_factor": "wide",
+      "sizes": "2460x1674"
+    },
+    {
+      "src": "img/screenshot-desktop-light.png",
+      "type": "image/png",
+      "form_factor": "wide",
+      "sizes": "2460x1674"
+    },
+    {
+      "src": "img/screenshot-tool-wide.png",
+      "type": "image/png",
+      "form_factor": "wide",
+      "sizes": "2460x1674"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Rich Text Notes",
+      "short_name": "Rich Text Notes",
+      "description": "A simple tool to write in rich text with a bunch of formatting options.",
+      "url": "rich-text-notes/",
+      "icons": [
+        {
+          "src": "img/minitools/rich-text-notes.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Markdown Editor",
+      "short_name": "Markdown Editor",
+      "description": "A simple Markdown editor with two pane layout.",
+      "url": "markdown-editor/",
+      "icons": [
+        {
+          "src": "img/minitools/markdown-editor.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Tabbypad",
+      "short_name": "Tabbypad",
+      "description": "A convenient tool that allows you to jot down multiple notes without any fuss.",
+      "url": "tabbypad/",
+      "icons": [
+        {
+          "src": "img/minitools/tabbypad.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "start_url": "index.html",
+  "theme_color": "#3F51B5",
+  "background_color": "#EEEEEE",
+  "display_override": ["minimal-ui"]
+}

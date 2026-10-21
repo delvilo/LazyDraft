@@ -1,0 +1,91 @@
+{
+  "version": "regexr-v23201f618899",
+  "assetCount": 17,
+  "assets": [
+    {
+      "path": "../favicon.ico",
+      "size": 1590,
+      "sha256": "202a0c45729dc9a572b9248b1ec3fa9ad3982e8f6558c5fefaad6be3ba3306af"
+    },
+    {
+      "path": "../img/notepad-apple-icon.png",
+      "size": 2333,
+      "sha256": "c1a36b1ee26150d7dfc177a07ac12c3cbcbe8df2be668dd28a5bfba04240aade"
+    },
+    {
+      "path": "css/style.css",
+      "size": 7935,
+      "sha256": "7e6c4a6b19c1e86e84656256d5ed4d3f86dd35d2ae4f0552b14f7d91bbbdc9dd"
+    },
+    {
+      "path": "index.html",
+      "size": 6255,
+      "sha256": "25a1aa010ff1f7650181e721d830015e3b8e1e55e12aeee2ad9824db0facf73f"
+    },
+    {
+      "path": "js/app.js",
+      "size": 16231,
+      "sha256": "b7f61236924ad4cf015a694027efce69f8c7d7359749fce447b0ddb2c010a613"
+    },
+    {
+      "path": "js/contracts.js",
+      "size": 1200,
+      "sha256": "fad8915d73e269adf2f13c8dd2ebb42e2bbaae08c2cf7cca01b62a3e907e799e"
+    },
+    {
+      "path": "js/engines/javascript.js",
+      "size": 3833,
+      "sha256": "6e09f06e6a0119c0fd1c8e69a5530170000188e8c24a956e6bc749f575fd342d"
+    },
+    {
+      "path": "js/engines/pcre.js",
+      "size": 12162,
+      "sha256": "83e83f48cc787d76e7934920795007273802b367f97641f866dae0270fd8919f"
+    },
+    {
+      "path": "js/offline.js",
+      "size": 5801,
+      "sha256": "24520a597d39892ff2ef1bb3b904da198d8199d4bdc6d7fff38e0fa101e24090"
+    },
+    {
+      "path": "js/pattern.js",
+      "size": 4005,
+      "sha256": "013523d4c7bc86abcff0cb5a2008a509b1e3266b5826cdebe73bb67fce92a776"
+    },
+    {
+      "path": "js/regex-worker.js",
+      "size": 4157,
+      "sha256": "40b16b12e377e0bac5a0740894d659c4ea529346b7831bc33022b19ce9fcc18d"
+    },
+    {
+      "path": "js/render.js",
+      "size": 2416,
+      "sha256": "8f588f60b20c74623c98f9e5f6be814c81e0474d9b1d50ec1d74dad9df9db937"
+    },
+    {
+      "path": "js/runner.js",
+      "size": 8891,
+      "sha256": "c7f615424fff1cc72152667334172ff46a7f3eca4d1be2d823508930593c5ba4"
+    },
+    {
+      "path": "vendor/pcre2/LICENCE.md",
+      "size": 4011,
+      "sha256": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811"
+    },
+    {
+      "path": "vendor/pcre2/pcre2.d.ts",
+      "size": 1291,
+      "sha256": "95ed4806efea9a213c60c534448810f171ece8bc0bd254647e5e42b1a67ebb7c"
+    },
+    {
+      "path": "vendor/pcre2/pcre2.js",
+      "size": 384342,
+      "sha256": "079a8f27f16bb18d24e0f6892853237917cb927838935ac7cb188830e969fb1d"
+    },
+    {
+      "path": "vendor/vendor-manifest.json",
+      "size": 901,
+      "sha256": "16ab6849f50d5f5980b3bb40fb81ee833dce8ff34cb3a74a2f05254e60fb30ec"
+    }
+  ]
+}

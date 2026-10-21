@@ -1,0 +1,29 @@
+{
+  "package": {
+    "name": "pcre2",
+    "version": "10.49",
+    "gitRepository": "https://github.com/PCRE2Project/pcre2.git",
+    "gitTag": "pcre2-10.49",
+    "gitCommit": "6f9d7c1373262c541324a16a358785b33ef116cf",
+    "compiler": "emcc (Emscripten 6.0.13)",
+    "license": "BSD-3-Clause WITH PCRE2-exception"
+  },
+  "shim": {
+    "source": "scripts/pcre2_shim.c",
+    "sha256": "c9d4a2021d2a689fd1c214a6ed54de60dfe23152052de10844d764e6ac9f62fc"
+  },
+  "files": {
+    "vendor/pcre2/pcre2.js": {
+      "size": 384342,
+      "sha256": "079a8f27f16bb18d24e0f6892853237917cb927838935ac7cb188830e969fb1d"
+    },
+    "vendor/pcre2/pcre2.d.ts": {
+      "size": 1291,
+      "sha256": "95ed4806efea9a213c60c534448810f171ece8bc0bd254647e5e42b1a67ebb7c"
+    },
+    "vendor/pcre2/LICENCE.md": {
+      "size": 4011,
+      "sha256": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811"
+    }
+  }
+}

@@ -77,6 +77,7 @@ const TabbypadStorage = {
 
             tx.oncomplete = () => resolve(note);
             tx.onerror = (e) => reject(e.target.error);
+            tx.onabort = () => reject(tx.error || new Error('Tabbypad save transaction aborted'));
         });
     },
 
@@ -102,6 +103,7 @@ const TabbypadStorage = {
 
             tx.oncomplete = () => resolve(true);
             tx.onerror = (e) => reject(e.target.error);
+            tx.onabort = () => reject(tx.error || new Error('Tabbypad update transaction aborted'));
         });
     },
 

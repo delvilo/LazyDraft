@@ -6,7 +6,7 @@
 
 ![LazyDraft Snapshot](img/snapshot.png)
 
-Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)。日常流程：**編輯草稿 → 存入 Tabbypad 項目 → 載入、修改並手動更新**。
+Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)。日常流程：**編輯草稿 → 新增／更新 Tabbypad 項目 → 自動清空並開始下一份草稿**。
 
 ## 編輯與工具
 
@@ -23,10 +23,13 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 - 無候選或輸入錯誤時保留組字並提示；待提交字根不進入正文或自動儲存。有字根時第一次 `Ctrl/Cmd+Z` 僅取消組字，其餘復原／重做由瀏覽器處理，不保證每次選字獨立一步。
 - 字典首次啟用時解析，載入失敗可重試。完成主頁離線快取後，首次啟用亦可離線使用。驗收範圍為**桌面 Chrome／Edge＋實體鍵盤**，不保證手機軟鍵盤或其他瀏覽器相容。
 - 麥克風或 `Ctrl/Cmd+M` 切換語音轉文字，文字插入游標處。使用 Web Speech API；語言可跟隨瀏覽器或於偏好設定選擇。可用性依瀏覽器與語音服務而定，不保證離線。
+- 載入時僅建立辨識物件，不啟動錄音或詢問權限；API 不存在或建構失敗時，隱藏麥克風、語言設定與語音快捷鍵說明，且不攔截 `Ctrl/Cmd+M`。成功建立不保證服務可用；使用時的權限／服務錯誤會提示，保留入口供重試。
 
 ### Tabbypad 與 Google 同步
 
-- **Tabbypad**：可存為新項目、載入及手動「更新原項目」。載入前可另存草稿或捨棄；更新會檢查其他分頁的修改／刪除衝突。重新整理保留草稿，但解除項目連結，避免誤更新。
+- **Tabbypad**：可載入既有項目編輯，或存為新項目。新增與手動「更新原項目」（含右下角按鈕）成功後，若草稿與連結未變更，會清空並解除連結、關閉管理視窗，焦點回到純文字編輯器；重新整理仍維持空白。
+- **儲存保護**：儲存失敗、取消、衝突未解決或等待期間草稿／連結改變，都不清空目前內容。若已存入 Tabbypad，但無法保存空白本機草稿，會提示「已儲存，但未清空」，保留內容與連結供處理。
+- **備份與載入**：載入另一項目前可另存草稿或捨棄；備份成功才繼續載入，不會停在空白畫面，備份失敗則保留原稿。更新仍檢查其他分頁的修改／刪除衝突；未歸檔的本機草稿重開仍保留，但解除項目連結。
 - **Google 同步（選用）**：Google 登入後跨裝置 Push／Pull；後端以帳號 `sub` 識別，Redis 暫存 **48 小時**。Push 上傳目前草稿；空白草稿須確認才清空雲端。Pull 遇到不同原稿時可覆蓋、附加或先備份至 Tabbypad。
 - **隱私**：一般編輯與本機開檔不會自動上傳；手動 Push 會上傳全文，包含可能存在的密碼與金鑰。同步需要 PHP／Redis 後端，不是純靜態部署功能。
 
@@ -105,10 +108,10 @@ npm run release
 ## 部署與維護
 
 - 完整部署靜態目錄至 HTTP／HTTPS；離線功能須 HTTPS 或 localhost 並完成首次快取。Google 同步另需 PHP／Redis。Nginx／Tengine 使用 HTTP/2 時保留 `keepalive_timeout 60s;`，勿設為 `0`。
-- 主頁 `sw.js` 快取為 `v82`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v76/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
+- 主頁 `sw.js` 快取為 `v85`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v76/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
 - PCRE2 固定來源與雜湊見 `vendor-manifest.json`，授權見 [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md)；請透過建置流程重建，不手改產生的膠水程式。
 - 圖示來源為 `img/lazydraft-icon.svg`；安裝開發工具與 Chrome 後執行 `node scripts/build-icons.mjs`。變更共用圖示後也須執行 `npm run release`。
-- 保留既有 PWA 身分、儲存鍵與資料庫名稱。更新不需卸載或清除網站資料；桌面捷徑名稱／圖示更新由瀏覽器與系統管理。
+- 保留既有 PWA 身分、儲存鍵與資料庫名稱。安裝入口與提示由瀏覽器管理，頁面不提供自訂安裝按鈕。更新不需卸載或清除網站資料；桌面捷徑名稱／圖示更新由瀏覽器與系統管理。
 
 ## 授權
 

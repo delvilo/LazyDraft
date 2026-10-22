@@ -19,7 +19,7 @@ $(document).ready(function () {
 		metaThemeColor
 	};
 	
-	const noteItem = state.note && state.note != '' ? state.note : welcomeText;
+	const noteItem = state.note !== null ? state.note : welcomeText;
 	const characterAndWordCountText = calculateCharactersAndWords(noteItem);
 
 	
@@ -95,9 +95,15 @@ $(document).ready(function () {
 	let isRecording = false;
 	const voiceBtn = $('#voiceDictationToggle');
 
-	if (!SpeechRecognition) {
-		voiceBtn.parent().hide();
-	} else {
+	if (typeof SpeechRecognition === 'function') {
+		try {
+			recognition = new SpeechRecognition();
+		} catch (e) {
+			console.warn('Speech recognition unavailable:', e);
+		}
+	}
+
+	if (recognition) {
 		function getEffectiveVoiceLang() {
 			const chosen = localStorage.getItem('userChosenVoiceLang') || editorConfig.defaultVoiceLang;
 			if (!chosen || chosen === 'auto') {
@@ -107,7 +113,7 @@ $(document).ready(function () {
 		}
 
 		function initRecognition() {
-			const rec = new SpeechRecognition();
+			const rec = recognition;
 			rec.continuous = true;
 			rec.interimResults = false;
 			rec.lang = getEffectiveVoiceLang();
@@ -136,17 +142,8 @@ $(document).ready(function () {
 
 			rec.onerror = function (event) {
 				console.warn('Speech recognition error:', event.error);
-				if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-					Swal.fire({
-						toast: true,
-						position: 'bottom',
-						icon: 'error',
-						title: '無法存取麥克風，請檢查瀏覽器麥克風權限',
-						showConfirmButton: false,
-						timer: 3000
-					});
-				}
 				stopDictation();
+				showDictationError(event.error);
 			};
 
 			rec.onend = function () {
@@ -161,8 +158,6 @@ $(document).ready(function () {
 					stopDictation();
 				}
 			};
-
-			return rec;
 		}
 
 		function insertTextAtCursor(text) {
@@ -185,15 +180,28 @@ $(document).ready(function () {
 			}
 		}
 
+		function showDictationError(error) {
+			const permissionDenied = error === 'not-allowed' || error === 'service-not-allowed';
+			Swal.fire({
+				toast: true,
+				position: 'bottom',
+				icon: 'error',
+				title: permissionDenied
+					? '無法存取麥克風，請檢查瀏覽器麥克風權限'
+					: '語音辨識失敗，請檢查網路或辨識服務後重試',
+				showConfirmButton: false,
+				timer: 3000
+			});
+		}
+
 		function startDictation() {
 			if (isRecording) return;
-			if (!recognition) {
-				recognition = initRecognition();
-			}
 			try {
 				recognition.start();
 			} catch (e) {
 				console.warn('Recognition start error:', e);
+				stopDictation();
+				showDictationError();
 			}
 		}
 
@@ -214,6 +222,8 @@ $(document).ready(function () {
 				startDictation();
 			}
 		}
+
+		initRecognition();
 
 		voiceBtn.on('click', function () {
 			toggleDictation();
@@ -246,6 +256,7 @@ $(document).ready(function () {
 		});
 
 		window.updateVoiceLang = updateVoiceLang;
+		$('.voice-dictation-control').removeClass('hidden').removeAttr('hidden');
 	}
 	
 
@@ -1070,11 +1081,10 @@ $(document).ready(function () {
 			event.preventDefault();
 		}
 		handleBoshiamyShortcut(event);
-		if ((event.ctrlKey || event.metaKey) && event.code === 'KeyM') {
+		if ((event.ctrlKey || event.metaKey) && event.code === 'KeyM' &&
+			typeof window.toggleDictation === 'function') {
 			event.preventDefault();
-			if (typeof window.toggleDictation === 'function') {
-				window.toggleDictation();
-			}
+			window.toggleDictation();
 		}
 
 
@@ -1211,6 +1221,7 @@ $(document).ready(function () {
 	// ==================== Tabbypad Integration ====================
 	let currentLinkedTabbypadId = null;
 	let currentLinkedTabbypadBaseContent = null;
+	let tabbypadDraftRevision = 0;
 	let tabbypadNotesCache = [];
 
 	function getFirstLineTitle(content) {
@@ -1248,6 +1259,7 @@ $(document).ready(function () {
 	}
 
 	function unlinkTabbypadNote(showToast = true) {
+		tabbypadDraftRevision++;
 		currentLinkedTabbypadId = null;
 		currentLinkedTabbypadBaseContent = null;
 		updateTabbypadPillUI();
@@ -1323,8 +1335,60 @@ $(document).ready(function () {
 		return $('<div>').text(str || '').html();
 	}
 
+	function captureTabbypadDraft() {
+		return {
+			content: notepad.note.val(),
+			linkedId: currentLinkedTabbypadId,
+			linkedBase: currentLinkedTabbypadBaseContent,
+			revision: tabbypadDraftRevision
+		};
+	}
+
+	function isTabbypadDraftUnchanged(draft) {
+		return notepad.note.val() === draft.content
+			&& currentLinkedTabbypadId === draft.linkedId
+			&& currentLinkedTabbypadBaseContent === draft.linkedBase
+			&& tabbypadDraftRevision === draft.revision;
+	}
+
+	function showTabbypadNotice(title, icon = 'warning') {
+		Swal.fire({
+			toast: true, position: 'bottom', icon, title,
+			showConfirmButton: false, timer: icon === 'success' ? 2000 : 3000
+		});
+	}
+
+	function finishTabbypadSave(draft, title) {
+		if (!isTabbypadDraftUnchanged(draft)) {
+			showTabbypadNotice('已儲存；草稿或連結已變更，保留目前內容與連結');
+			return false;
+		}
+		try {
+			// Persist the empty draft before mutating the editor or link.
+			setState('note', '');
+		} catch (err) {
+			console.warn('Tabbypad saved, but clearing the local draft failed:', err);
+			showTabbypadNotice('已儲存，但未清空；無法儲存空白草稿，內容與連結已保留');
+			return false;
+		}
+		notepad.note.val('');
+		unlinkTabbypadNote(false);
+		notepad.note[0].dispatchEvent(new Event('input', { bubbles: true }));
+		updateWordCountPill('');
+		refreshBoshiamyDocument();
+		if (notepad.tabbypadModal.hasClass('in')) {
+			notepad.tabbypadModal.one('hidden.bs.modal', () => notepad.note[0].focus());
+			notepad.tabbypadModal.modal('hide');
+		} else {
+			notepad.note[0].focus();
+		}
+		showTabbypadNotice(title, 'success');
+		return true;
+	}
+
 	async function saveCurrentAsNewTabbypadItem() {
-		const content = notepad.note.val();
+		const draft = captureTabbypadDraft();
+		const content = draft.content;
 		if (!content || !content.trim()) {
 			Swal.fire({
 				toast: true,
@@ -1337,34 +1401,17 @@ $(document).ready(function () {
 			return null;
 		}
 
+		let newNote;
 		try {
-			const newNote = await window.TabbypadStorage.createNote(content);
-			currentLinkedTabbypadId = newNote.id;
-			currentLinkedTabbypadBaseContent = newNote.content;
-			updateTabbypadPillUI();
-			await refreshTabbypadList(notepad.tabbypadSearchInput.val());
-
-			Swal.fire({
-				toast: true,
-				position: 'bottom',
-				icon: 'success',
-				title: '已存為新的 Tabbypad 項目！',
-				showConfirmButton: false,
-				timer: 2000
-			});
-			return newNote;
+			newNote = await window.TabbypadStorage.createNote(content);
 		} catch (err) {
 			console.error('Failed to save new Tabbypad item:', err);
-			Swal.fire({
-				toast: true,
-				position: 'bottom',
-				icon: 'error',
-				title: '儲存失敗，請檢查資料庫狀態',
-				showConfirmButton: false,
-				timer: 3000
-			});
+			showTabbypadNotice('儲存失敗，請檢查資料庫狀態；原草稿已保留', 'error');
 			return null;
 		}
+		finishTabbypadSave(draft, '已存為新的 Tabbypad 項目，草稿已清空並解除連結');
+		await refreshTabbypadList(notepad.tabbypadSearchInput.val());
+		return newNote;
 	}
 
 	async function updateLinkedTabbypadItem() {
@@ -1380,14 +1427,21 @@ $(document).ready(function () {
 			return;
 		}
 
-		const content = notepad.note.val();
+		const draft = captureTabbypadDraft();
+		const content = draft.content;
 
 		// Conflict detection: verify database state first
 		let dbNote;
 		try {
-			dbNote = await window.TabbypadStorage.getNoteById(currentLinkedTabbypadId);
+			dbNote = await window.TabbypadStorage.getNoteById(draft.linkedId);
 		} catch (err) {
 			console.error('Error fetching note for conflict check:', err);
+			showTabbypadNotice('無法讀取 Tabbypad 項目，原草稿與連結已保留', 'error');
+			return;
+		}
+		if (!isTabbypadDraftUnchanged(draft)) {
+			showTabbypadNotice('草稿或連結已變更，已停止更新');
+			return;
 		}
 
 		if (!dbNote) {
@@ -1400,14 +1454,18 @@ $(document).ready(function () {
 				confirmButtonText: '存為新項目',
 				cancelButtonText: '取消'
 			});
-			if (result.isConfirmed) {
+			if (!isTabbypadDraftUnchanged(draft)) {
+				showTabbypadNotice('草稿或連結已變更，已停止更新');
+				return;
+			}
+			if (result.value || result.isConfirmed) {
 				await saveCurrentAsNewTabbypadItem();
 			}
 			return;
 		}
 
 		// Content modified by other tab
-		if (dbNote.content !== currentLinkedTabbypadBaseContent) {
+		if (dbNote.content !== draft.linkedBase) {
 			const result = await Swal.fire({
 				icon: 'warning',
 				title: '偵測到內容衝突',
@@ -1416,6 +1474,10 @@ $(document).ready(function () {
 				confirmButtonText: '重新載入最新版本',
 				cancelButtonText: '另存為新項目'
 			});
+			if (!isTabbypadDraftUnchanged(draft)) {
+				showTabbypadNotice('草稿或連結已變更，已停止更新');
+				return;
+			}
 
 			if (result.value || result.isConfirmed) {
 				try {
@@ -1449,34 +1511,25 @@ $(document).ready(function () {
 
 		// Safe to update
 		try {
-			await window.TabbypadStorage.updateNote(currentLinkedTabbypadId, content);
-			currentLinkedTabbypadBaseContent = content;
-			updateTabbypadPillUI();
-			await refreshTabbypadList(notepad.tabbypadSearchInput.val());
-
-			Swal.fire({
-				toast: true,
-				position: 'bottom',
-				icon: 'success',
-				title: 'Tabbypad 原項目已成功更新！',
-				showConfirmButton: false,
-				timer: 2000
-			});
+			await window.TabbypadStorage.updateNote(draft.linkedId, content);
 		} catch (err) {
 			console.error('Failed to update Tabbypad item:', err);
-			Swal.fire({
-				toast: true,
-				position: 'bottom',
-				icon: 'error',
-				title: '更新失敗，原草稿已完整保留',
-				showConfirmButton: false,
-				timer: 3000
-			});
+			showTabbypadNotice('更新失敗，原草稿與連結已保留', 'error');
+			return;
 		}
+		const cleared = finishTabbypadSave(draft, 'Tabbypad 原項目已更新，草稿已清空並解除連結');
+		if (!cleared && currentLinkedTabbypadId === draft.linkedId
+			&& currentLinkedTabbypadBaseContent === draft.linkedBase) {
+			// Keep newer edits linked against the version we just committed.
+			currentLinkedTabbypadBaseContent = content;
+			updateTabbypadPillUI();
+		}
+		await refreshTabbypadList(notepad.tabbypadSearchInput.val());
 	}
 
 	async function confirmAndLoadTabbypadNote(targetNote) {
-		const currentVal = notepad.note.val();
+		const draft = captureTabbypadDraft();
+		const currentVal = draft.content;
 		const hasDifferentContent = currentVal.trim() && currentVal !== targetNote.content;
 
 		if (hasDifferentContent) {
@@ -1490,10 +1543,25 @@ $(document).ready(function () {
 			});
 
 			if (result.value || result.isConfirmed) {
-				await saveCurrentAsNewTabbypadItem();
+				if (!isTabbypadDraftUnchanged(draft)) {
+					showTabbypadNotice('草稿或連結已變更，已停止載入');
+					return;
+				}
+				try {
+					// Backup is not a direct archive: keep the draft until the target loads.
+					await window.TabbypadStorage.createNote(currentVal);
+				} catch (err) {
+					console.error('Failed to back up Tabbypad draft:', err);
+					showTabbypadNotice('Tabbypad 備份失敗，未載入項目；原草稿已保留', 'error');
+					return;
+				}
 			} else if (result.dismiss !== Swal.DismissReason.cancel) {
 				return; // Closed by clicking backdrop / escape
 			}
+		}
+		if (!isTabbypadDraftUnchanged(draft)) {
+			showTabbypadNotice('草稿或連結已變更，已停止載入；已建立的備份仍保留');
+			return;
 		}
 
 		const newContent = targetNote.content || '';
@@ -1562,6 +1630,7 @@ $(document).ready(function () {
 
 	// Monitor editor input to update linked pill dirty status
 	notepad.note.on('input', function () {
+		tabbypadDraftRevision++;
 		if (currentLinkedTabbypadId) {
 			updateTabbypadPillUI();
 		}
@@ -1804,55 +1873,6 @@ $(document).ready(function () {
 		});
 	});
 
-	// ==================== PWA Installation Prompt ====================
-	let deferredInstallPrompt = null;
-	const installContainer = $('#installAppContainer');
-	const installBtn = $('#installAppBtn');
-
-	window.addEventListener('beforeinstallprompt', (e) => {
-		// Prevent the mini-infobar from appearing on mobile
-		e.preventDefault();
-		// Stash the event so it can be triggered later.
-		deferredInstallPrompt = e;
-		// Update UI notify the user they can install the PWA
-		if (installContainer.length) {
-			installContainer.show();
-		}
-	});
-
-	if (installBtn.length) {
-		installBtn.on('click', async () => {
-			if (!deferredInstallPrompt) {
-				// If not supported or already installed, provide guidance
-				if (typeof Swal !== 'undefined' && Swal.fire) {
-					Swal.fire({
-						title: '加到主畫面',
-						text: '若使用 iOS/iPadOS，請點擊 Safari 的「分享」按鈕，再點「加入主畫面」。Android 亦可透過瀏覽器選單「安裝應用程式」。',
-						type: 'info',
-						confirmButtonText: '了解'
-					});
-				}
-				return;
-			}
-			// Show the install prompt
-			deferredInstallPrompt.prompt();
-			// Wait for the user to respond to the prompt
-			const { outcome } = await deferredInstallPrompt.userChoice;
-			// Clear the deferredPrompt variable, since it can only be used once
-			deferredInstallPrompt = null;
-			if (outcome === 'accepted') {
-				installContainer.hide();
-			}
-		});
-	}
-
-	window.addEventListener('appinstalled', () => {
-		deferredInstallPrompt = null;
-		if (installContainer.length) {
-			installContainer.hide();
-		}
-		console.log('LazyDraft PWA was installed successfully');
-	});
 });
 
 document.addEventListener("fullscreenchange", function () {

@@ -300,35 +300,6 @@ table tr td {
     box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
   }
 }
-.pwa-install-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  width: 28px;
-  height: 28px;
-  color: #ffffff;
-}
-
-.pwa-install-btn svg {
-  display: block;
-}
-
-.pwa-install-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  box-shadow: 0 0 8px rgba(33, 150, 243, 0.6);
-}
-
-.dark .pwa-install-btn {
-  color: #ffffff;
-}
-
 .dropdown-menu {
   top: 124%;
   padding: 8px 0;
@@ -1377,26 +1348,6 @@ a {
 #resetPreferences {
   float: right;
   margin-right: 2px;
-}
-
-.install-app-btn-container {
-  display: none;
-}
-
-.install-app-btn {
-  padding: 5px 10px;
-  background-color: #3F51B5;
-  color: white;
-  font-weight: bold;
-  font-size: 13px;
-  border-radius: 6px;
-}
-
-.install-app-btn:hover,
-.install-app-btn:focus {
-  text-decoration: none;
-  color: white;
-  transform: scale(1.05);
 }
 
 #changelog {
@@ -2668,7 +2619,6 @@ a {
 .keyboard-icon,
 .fullscreen-icon,
 .focus-mode-icon,
-.pwa-install-icon,
 .floating-window-icon {
   display: inline-flex !important;
 }

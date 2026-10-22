@@ -395,6 +395,10 @@
               <td><kbd>ctrl</kbd> / <kbd><span>⌘</span>command</kbd> + <kbd>b</kbd></td>
               <td>切換嘸蝦米輸入法開關</td>
             </tr>
+            <tr>
+              <td><kbd>ctrl</kbd> + <kbd>alt</kbd> / <kbd>⌃ control</kbd> + <kbd>⌥ option</kbd></td>
+              <td>嘸蝦米中英切換：編輯器有焦點時，純兩鍵組合放開切換</td>
+            </tr>
             <tr class="voice-dictation-control hidden" hidden>
               <td><kbd>ctrl</kbd> / <kbd><span>⌘</span>command</kbd> + <kbd>m</kbd></td>
               <td>切換語音轉文字錄音開關</td>
@@ -609,10 +613,11 @@
                 <div class="col-sm-6 col-md-5">
                   <div class="checkbox checbox-switch">
                     <label>
-                        <input type="checkbox" name="spellCheck" id="spellCheck"/>
+                        <input type="checkbox" name="spellCheck" id="spellCheck" aria-describedby="spellCheckImeNotice"/>
                         <span></span>
                     </label>
                   </div>
+                  <small id="spellCheckImeNotice" class="help-block hidden" role="status">嘸蝦米中文模式暫停拼字檢查</small>
                 </div>
               </div>
 
@@ -655,7 +660,7 @@
               <div class="form-group">
                 <label class="control-label col-sm-6 col-md-6 generic-flex">
                   嘸蝦米輸入法 (Web IME)
-                  <a href="#" data-toggle="tooltip" title="在編輯器內直接以嘸蝦米字根輸入中文（快速鍵 Ctrl/Cmd + B）。">
+                  <a href="#" data-toggle="tooltip" title="Ctrl/Cmd+B 開關嘸蝦米；編輯器內純 Ctrl+Alt／Control+Option 放開切換中英。小寫組字，大寫直輸。">
                     <img src="img/tooltip.svg" alt="Tooltip" />
                   </a>
                 </label>
@@ -736,11 +741,11 @@
 
   <script src="js/libraries/jquery.min.js"></script>
   <script src="js/libraries/bootstrap.min.js"></script>
-  <script src="js/utils.js?v=78"></script>
+  <script src="js/utils.js?v=87"></script>
   <script src="js/tabbypad-bridge.js?v=85"></script>
   <script src="js/google-sync.js?v=78"></script>
   <script src="js/selector.js?v=78"></script>
-  <script src="js/app.js?v=85"></script>
+  <script src="js/app.js?v=87"></script>
   <script src="js/syntax-highlighter.js?v=82"></script>
 
 

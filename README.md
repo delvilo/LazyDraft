@@ -19,9 +19,11 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 
 ### 嘸蝦米與語音
 
-- 按「蝦」或 `Ctrl/Cmd+B` 啟用嘸蝦米，免安裝系統輸入法。最多 4 碼；空白或 Enter 送出當頁第一字，`0–9` 選字（0 為第一字），上／下或 PageUp／PageDown 翻頁，Backspace 修正、Esc 取消。
+- 按「蝦」或 `Ctrl/Cmd+B` 開關嘸蝦米。字母字根僅限小寫，保留 `, . ' [ ]`；大寫直接輸出並取消待選字根，不切換模式。最多 4 碼；空白或 Enter 送出當頁第一字，`0–9` 選字（0 為第一字），上／下或 PageUp／PageDown 翻頁，Backspace 修正、Esc 取消。
 - 無候選或輸入錯誤時保留組字並提示；待提交字根不進入正文或自動儲存。有字根時第一次 `Ctrl/Cmd+Z` 僅取消組字，其餘復原／重做由瀏覽器處理，不保證每次選字獨立一步。
 - 字典首次啟用時解析，載入失敗可重試。完成主頁離線快取後，首次啟用亦可離線使用。驗收範圍為**桌面 Chrome／Edge＋實體鍵盤**，不保證手機軟鍵盤或其他瀏覽器相容。
+- 啟用後每次從中文模式開始，不記憶中英模式。textarea 有焦點時，純 `Ctrl+Alt`（macOS `Control+Option`）放開一鍵切換一次；第三鍵、AltGr 或失去焦點則取消。切英文會取消待選字根，所有輸入走原生；切換時提示模式，懸浮視窗亦適用。系統可能攔截快捷鍵，例如 VoiceOver。
+- 中文模式（含載入與開頁還原）關閉原生拼字檢查與自動校正，Spellcheck 鎖定並附原因。英文模式恢復拼字偏好及可調整開關，設定英文語言提示與 `autocorrect=on`；停用、取消或載入失敗恢復原設定。模式切換不改寫拼字偏好，實際檢查與校正依瀏覽器／系統能力；重設偏好恢復預設值。
 - 麥克風或 `Ctrl/Cmd+M` 切換語音轉文字，文字插入游標處。使用 Web Speech API；語言可跟隨瀏覽器或於偏好設定選擇。可用性依瀏覽器與語音服務而定，不保證離線。
 - 載入時僅建立辨識物件，不啟動錄音或詢問權限；API 不存在或建構失敗時，隱藏麥克風、語言設定與語音快捷鍵說明，且不攔截 `Ctrl/Cmd+M`。成功建立不保證服務可用；使用時的權限／服務錯誤會提示，保留入口供重試。
 
@@ -108,7 +110,7 @@ npm run release
 ## 部署與維護
 
 - 完整部署靜態目錄至 HTTP／HTTPS；離線功能須 HTTPS 或 localhost 並完成首次快取。Google 同步另需 PHP／Redis。Nginx／Tengine 使用 HTTP/2 時保留 `keepalive_timeout 60s;`，勿設為 `0`。
-- 主頁 `sw.js` 快取為 `v85`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v76/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
+- 主頁 `sw.js` 快取為 `v87`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v87/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
 - PCRE2 固定來源與雜湊見 `vendor-manifest.json`，授權見 [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md)；請透過建置流程重建，不手改產生的膠水程式。
 - 圖示來源為 `img/lazydraft-icon.svg`；安裝開發工具與 Chrome 後執行 `node scripts/build-icons.mjs`。變更共用圖示後也須執行 `npm run release`。
 - 保留既有 PWA 身分、儲存鍵與資料庫名稱。安裝入口與提示由瀏覽器管理，頁面不提供自訂安裝按鈕。更新不需卸載或清除網站資料；桌面捷徑名稱／圖示更新由瀏覽器與系統管理。

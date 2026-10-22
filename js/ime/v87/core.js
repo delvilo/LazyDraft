@@ -233,11 +233,10 @@ export class BoshiamyCore {
       return { consume: false, commit: null };
     }
 
-    // Radicals: letters (a-z, A-Z) and symbols (, . ' [ ])
-    if (/^[a-zA-Z,.'\[\]]$/.test(key)) {
-      const radical = key.toLowerCase();
+    // Radicals: lowercase letters (a-z) and symbols (, . ' [ ])
+    if (/^[a-z,.'\[\]]$/.test(key)) {
       if (this.buffer.length < this.maxCodeLength) {
-        this.buffer += radical;
+        this.buffer += key;
         this.candidates = this.dictionary[this.buffer] || EMPTY_CANDIDATES;
         this.pageIndex = 0;
         this.message = '';

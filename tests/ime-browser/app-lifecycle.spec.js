@@ -32,6 +32,7 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
   });
 
   test('enabling and saved preference: toggle activates, persists across reload', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('userChosenSpellCheck', 'Yes'));
     await page.goto('/index.html');
     await page.waitForLoadState('domcontentloaded');
 
@@ -45,6 +46,10 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
     await expect(prefCheckbox).toBeChecked();
+    await expect(page.locator('#note')).toHaveAttribute('spellcheck', 'false');
+    await expect(page.locator('#spellCheck')).toBeDisabled();
+    await expect(page.locator('#spellCheck')).not.toBeChecked();
+    expect(await page.evaluate(() => localStorage.getItem('userChosenSpellCheck'))).toBe('Yes');
 
     // Verify localStorage preference
     const savedPref = await page.evaluate(() => localStorage.getItem('userChosenBoshiamy'));
@@ -56,6 +61,8 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
 
     const reloadedToggle = page.locator('#boshiamyToggle');
     await expect(reloadedToggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#note')).toHaveAttribute('spellcheck', 'false');
+    await expect(page.locator('#spellCheck')).toBeDisabled();
 
     // Verify IME responds to radical typing
     const note = page.locator('#note');
@@ -70,16 +77,21 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
     // Cancel pending buffer with Escape
     await page.keyboard.press('Escape');
     await expect(candidateBar).toBeHidden();
+    await reloadedToggle.click();
+    await expect(note).toHaveAttribute('spellcheck', 'true');
+    await expect(page.locator('#spellCheck')).toBeEnabled();
+    await expect(page.locator('#spellCheck')).toBeChecked();
   });
 
   test('rapid enable-disable during delayed load: respects target state', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('userChosenSpellCheck', 'Yes'));
     // Intercept dictionary request to simulate network latency
     let fulfillDict;
     const dictPromise = new Promise((resolve) => {
       fulfillDict = resolve;
     });
 
-    await page.route('**/js/ime/v76/boshiamy-dict.json', async (route) => {
+    await page.route('**/js/ime/v87/boshiamy-dict.json', async (route) => {
       await dictPromise;
       await route.continue();
     });
@@ -95,9 +107,13 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
 
     // Wait until aria-busy="true" is set
     await expect(toggle).toHaveAttribute('aria-busy', 'true');
+    await expect(page.locator('#note')).toHaveAttribute('spellcheck', 'false');
+    await expect(page.locator('#spellCheck')).toBeDisabled();
 
     // While loading, rapidly click again to cancel/disable
     await toggle.click();
+    await expect(page.locator('#note')).toHaveAttribute('spellcheck', 'true');
+    await expect(page.locator('#spellCheck')).toBeEnabled();
 
     // Allow dictionary load to finish
     fulfillDict();
@@ -116,8 +132,9 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
   });
 
   test('load error then explicit retry: recovers on retry', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('userChosenSpellCheck', 'Yes'));
     let shouldFail = true;
-    await page.route('**/js/ime/v76/boshiamy-dict.json', async (route) => {
+    await page.route('**/js/ime/v87/boshiamy-dict.json', async (route) => {
       if (shouldFail) {
         await route.abort('failed');
       } else {
@@ -136,6 +153,9 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
     // Wait for failure state to settle
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
     await expect(toggle).toHaveAttribute('aria-busy', 'false');
+    await expect(page.locator('#note')).toHaveAttribute('spellcheck', 'true');
+    await expect(page.locator('#spellCheck')).toBeEnabled();
+    expect(await page.evaluate(() => localStorage.getItem('userChosenSpellCheck'))).toBe('Yes');
 
     // Fix network for retry
     shouldFail = false;
@@ -143,6 +163,8 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
     // Second attempt (explicit retry)
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#note')).toHaveAttribute('spellcheck', 'false');
+    await expect(page.locator('#spellCheck')).toBeDisabled();
 
     // Verify functionality after successful retry
     const note = page.locator('#note');
@@ -152,6 +174,48 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
     await expect(page.locator('#boshiamyBar')).toBeVisible();
 
     await page.keyboard.press('Escape');
+  });
+
+  test('startup intent pauses spellcheck before the module loads, and reset cancels that intent', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('userChosenBoshiamy', 'Yes');
+      localStorage.setItem('userChosenSpellCheck', 'Yes');
+    });
+    let releaseModule;
+    const moduleReady = new Promise(resolve => { releaseModule = resolve; });
+    let dictionaryFetched = false;
+    page.on('request', request => {
+      if (request.url().includes('boshiamy-dict.json')) dictionaryFetched = true;
+    });
+    await page.route('**/js/ime/v87/boshiamy.js', async route => {
+      await moduleReady;
+      await route.continue();
+    });
+    try {
+      await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
+      const note = page.locator('#note');
+      const spellcheck = page.locator('#spellCheck');
+      await expect(spellcheck).toBeDisabled();
+      await expect(note).toHaveAttribute('spellcheck', 'false');
+      await page.locator('#boshiamyToggle').click();
+      await expect(note).toHaveAttribute('spellcheck', 'true');
+      await expect(spellcheck).toBeEnabled();
+      await page.locator('#boshiamyToggle').click();
+      await expect(note).toHaveAttribute('spellcheck', 'false');
+      await page.locator('a#preferences').click();
+      await page.locator('#resetPreferences').click();
+      await expect(note).toHaveAttribute('spellcheck', 'true');
+      await expect(spellcheck).toBeEnabled();
+      await expect(spellcheck).toBeChecked();
+      releaseModule();
+      await expect(page.locator('#boshiamyToggle')).toHaveAttribute('aria-busy', 'false');
+      await expect(page.locator('#boshiamyToggle')).toHaveAttribute('aria-pressed', 'false');
+      expect(dictionaryFetched).toBe(false);
+      expect(await page.evaluate(() => localStorage.getItem('userChosenBoshiamy'))).toBeNull();
+      expect(await page.evaluate(() => localStorage.getItem('userChosenSpellCheck'))).toBeNull();
+    } finally {
+      releaseModule();
+    }
   });
 
   test('offline first enable: works via Service Worker precache', async ({ browser }) => {

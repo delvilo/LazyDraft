@@ -28,6 +28,7 @@ test.describe('Boshiamy IME Layout, OwnerDocument Adoption, and Teardown', () =>
   });
 
   test('floating editor commits in its own document and resumes after returning to the main tab', async ({ page, context }) => {
+    await page.addInitScript(() => localStorage.setItem('userChosenSpellCheck', 'Yes'));
     await page.goto('/index.html');
     const note = page.locator('#note');
     await note.fill('');
@@ -42,8 +43,15 @@ test.describe('Boshiamy IME Layout, OwnerDocument Adoption, and Teardown', () =>
     await expect(floating.locator('#boshiamyBar')).toBeVisible();
     await floating.keyboard.press('Space');
     await expect(floatingNote).toHaveValue('對');
+    await expect(floatingNote).toHaveAttribute('spellcheck', 'false');
+    await floating.keyboard.press(process.platform === 'darwin' ? 'Meta+b' : 'Control+b');
+    await expect(floatingNote).toHaveAttribute('spellcheck', 'true');
+    await expect(page.locator('#spellCheck')).toBeEnabled();
+    await floating.keyboard.press(process.platform === 'darwin' ? 'Meta+b' : 'Control+b');
+    await expect(floatingNote).toHaveAttribute('spellcheck', 'false');
     await floating.close();
     await expect(note).toHaveValue('對');
+    await expect(note).toHaveAttribute('spellcheck', 'false');
     await note.focus();
     await page.keyboard.type('a');
     await expect(page.locator('#boshiamyBar')).toBeVisible();
@@ -56,7 +64,7 @@ test.describe('Boshiamy IME Layout, OwnerDocument Adoption, and Teardown', () =>
     await page.waitForLoadState('domcontentloaded');
 
     await page.evaluate(async () => {
-      const { TextareaController } = await import('../../js/ime/v76/textarea-controller.js');
+      const { TextareaController } = await import('../../js/ime/v87/textarea-controller.js');
       const textarea = document.getElementById('fixture-note');
       const testDict = { a: ['字'] };
 

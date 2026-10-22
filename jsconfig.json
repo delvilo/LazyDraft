@@ -16,7 +16,7 @@
     "ai-regexr/js/render.js",
     "ai-regexr/js/runner.js",
     "ai-regexr/js/offline.js",
-    "js/ime/v76/*.js"
+    "js/ime/v87/*.js"
   ],
   "exclude": [
     "node_modules",

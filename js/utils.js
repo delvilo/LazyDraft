@@ -102,8 +102,14 @@ function getCurrentDate() {
     return currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
 }
 
-function showToast(message) {
-    let toast = document.getElementById('toast');
+function showToast(message, ownerDocument = document) {
+    let toast = ownerDocument.getElementById('toast');
+    if (!toast) {
+        toast = ownerDocument.createElement('div');
+        toast.id = 'toast';
+        ownerDocument.body.appendChild(toast);
+    }
+    toast.setAttribute('role', 'status');
     toast.className = 'show';
     toast.innerHTML = message;
     

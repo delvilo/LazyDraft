@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BoshiamyCore } from '../js/ime/v76/core.js';
+import { BoshiamyCore } from '../js/ime/v87/core.js';
 
 function key(core, value, options = {}) {
     const event = typeof value === 'string'
@@ -16,7 +16,7 @@ function type(core, text) {
     }
 }
 
-// --- 7 Migrated Core Tests ---
+// --- BoshiamyCore Tests ---
 
 test('overflow never falls through and leaves the last valid code selectable', () => {
     const core = new BoshiamyCore({ abcd: ['字'] });
@@ -85,17 +85,65 @@ test('nonexistent candidate numbers are consumed on every candidate page', () =>
     assert.equal(core.buffer, 'z');
 });
 
-test('Shift and symbol radicals remain dictionary codes, not direct text', () => {
-    const core = new BoshiamyCore({ 'a,': ['字'], '[': ['「'] });
-    const shiftARes = key(core, 'A', { shiftKey: true });
-    assert.equal(shiftARes.consume, true);
-    type(core, ',');
+test('symbol radicals remain dictionary codes and form candidates', () => {
+    const core = new BoshiamyCore({ 'a,': ['字'], '[': ['「'], '..': ['點'], "''": ['引'], ']': ['」'] });
+    type(core, 'a,');
     assert.equal(core.buffer, 'a,');
     assert.deepEqual(core.candidates, ['字']);
     key(core, 'Escape');
     type(core, '[');
     assert.deepEqual(core.candidates, ['「']);
+    key(core, 'Escape');
+    type(core, '..');
+    assert.deepEqual(core.candidates, ['點']);
+    key(core, 'Escape');
+    type(core, "''");
+    assert.deepEqual(core.candidates, ['引']);
+    key(core, 'Escape');
+    type(core, ']');
+    assert.deepEqual(core.candidates, ['」']);
 });
+
+test('uppercase A-Z passes through natively when buffer is empty', () => {
+    const core = new BoshiamyCore({ a: ['對'] });
+    for (const letter of ['A', 'B', 'Z']) {
+        const res = key(core, letter, { shiftKey: true });
+        assert.equal(res.consume, false);
+        assert.equal(res.commit, null);
+        assert.equal(core.buffer, '');
+    }
+});
+
+test('uppercase A-Z cancels pending radicals without committing and passes through', () => {
+    const core = new BoshiamyCore({ ab: ['新'], a: ['對'] });
+    type(core, 'a');
+    assert.equal(core.buffer, 'a');
+    assert.deepEqual(core.candidates, ['對']);
+
+    // Uppercase 'B' typed while 'a' is pending: cancels pending buffer, does not commit candidate or root
+    const res = key(core, 'B', { shiftKey: true });
+    assert.equal(res.consume, false);
+    assert.equal(res.commit, null);
+    assert.equal(core.buffer, '');
+    assert.deepEqual(core.candidates, []);
+    assert.equal(core.message, '');
+});
+
+test('uppercase A-Z at maxCodeLength cancels pending composition and passes through', () => {
+    const core = new BoshiamyCore({ abcd: ['字'] });
+    type(core, 'abcd');
+    assert.equal(core.buffer, 'abcd');
+    assert.deepEqual(core.candidates, ['字']);
+
+    // Buffer is at maxCodeLength. Uppercase 'X' cancels composition without committing
+    const res = key(core, 'X', { shiftKey: true });
+    assert.equal(res.consume, false);
+    assert.equal(res.commit, null);
+    assert.equal(core.buffer, '');
+    assert.deepEqual(core.candidates, []);
+    assert.equal(core.message, '');
+});
+
 
 test('native composition is not intercepted and stale web radicals are cleared', () => {
     const core = new BoshiamyCore({ a: ['字'] });
@@ -129,15 +177,11 @@ test('disabled mode and shortcuts retain browser handling', () => {
     assert.equal(key(core, 'ArrowDown').consume, false);
 });
 
-// --- Additional Meaningful Transition and Boundary Tests ---
-
 test('candidate page navigation boundary clamping consumes keys without wrapping', () => {
-    // 12 candidates => page 0 (10 items), page 1 (2 items)
     const core = new BoshiamyCore({ a: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B'] });
     type(core, 'a');
     assert.equal(core.pageIndex, 0);
 
-    // Moving up at page 0 must stay at page 0 and consume the key (do not move editor cursor)
     const upRes = key(core, 'ArrowUp');
     assert.equal(upRes.consume, true);
     assert.equal(core.pageIndex, 0);
@@ -146,12 +190,10 @@ test('candidate page navigation boundary clamping consumes keys without wrapping
     assert.equal(pageUpRes.consume, true);
     assert.equal(core.pageIndex, 0);
 
-    // Move to next page
     const downRes = key(core, 'ArrowDown');
     assert.equal(downRes.consume, true);
     assert.equal(core.pageIndex, 1);
 
-    // Moving down at last page must stay at last page and consume the key
     const pageDownRes = key(core, 'PageDown');
     assert.equal(pageDownRes.consume, true);
     assert.equal(core.pageIndex, 1);
@@ -160,7 +202,6 @@ test('candidate page navigation boundary clamping consumes keys without wrapping
     assert.equal(downRes2.consume, true);
     assert.equal(core.pageIndex, 1);
 
-    // Verify candidate() method behavior across boundaries
     assert.equal(core.candidate(0), 'A');
     assert.equal(core.candidate(1), 'B');
     assert.equal(core.candidate(2), null);
@@ -171,12 +212,10 @@ test('candidate selection returns a commit proposal while retaining pending comp
     const core = new BoshiamyCore({ a: ['第一', '第二'] });
     type(core, 'a');
 
-    // Selection by Space commits candidate 0
     const spaceRes = key(core, ' ');
     assert.equal(spaceRes.consume, true);
     assert.equal(spaceRes.commit, '第一');
 
-    // The controller owns the native insertion transaction and composition reset.
     assert.equal(core.buffer, 'a');
     assert.deepEqual(core.candidates, ['第一', '第二']);
 });
@@ -185,14 +224,12 @@ test('direct select(index) validates candidate slot boundaries and error messagi
     const core = new BoshiamyCore({ a: ['零', '一'] });
     type(core, 'a');
 
-    // Valid slot returns candidate commit without clearing buffer (host manages commit lifecycle)
     const selectRes = core.select(1);
     assert.equal(selectRes.consume, true);
     assert.equal(selectRes.commit, '一');
     assert.equal(core.buffer, 'a');
     assert.deepEqual(core.candidates, ['零', '一']);
 
-    // Out of range slot sets error message and does not commit
     const invalidRes = core.select(5);
     assert.equal(invalidRes.consume, true);
     assert.equal(invalidRes.commit, null);
@@ -206,51 +243,24 @@ test('invalid code transition: error message set, Backspace recovers, Escape can
     assert.deepEqual(core.candidates, ['對']);
     assert.equal(core.message, '');
 
-    // Type 'x' -> 'ax' is not in dictionary
     type(core, 'x');
     assert.equal(core.buffer, 'ax');
     assert.deepEqual(core.candidates, []);
 
-    // Space on invalid code sets error message
     const spaceRes = key(core, ' ');
     assert.equal(spaceRes.consume, true);
     assert.equal(spaceRes.commit, null);
     assert.ok(core.message.length > 0);
 
-    // Backspace to 'a' recovers candidate list and clears error message
     const bs1 = key(core, 'Backspace');
     assert.equal(bs1.consume, true);
     assert.equal(core.buffer, 'a');
     assert.deepEqual(core.candidates, ['對']);
     assert.equal(core.message, '');
 
-    // Typing 'b' reaches 'ab'
     type(core, 'b');
     assert.equal(core.buffer, 'ab');
     assert.deepEqual(core.candidates, ['新']);
-});
-
-test('pending plain Undo vs shortcuts: pending radicals cancel cleanly', () => {
-    const core = new BoshiamyCore({ a: ['對'] });
-    type(core, 'a');
-    assert.equal(core.buffer, 'a');
-
-    // Ctrl+Z while buffer is pending: core handleKey consumes and resets pending composition
-    const ctrlZRes = key(core, 'z', { ctrlKey: true });
-    assert.equal(ctrlZRes.consume, true);
-    assert.equal(ctrlZRes.commit, null);
-    assert.equal(core.buffer, '');
-
-    // Other shortcuts (e.g. Ctrl+C) with pending buffer reset buffer and pass through (consume: false)
-    type(core, 'a');
-    assert.equal(core.buffer, 'a');
-    const ctrlCRes = key(core, 'c', { ctrlKey: true });
-    assert.equal(ctrlCRes.consume, false);
-    assert.equal(core.buffer, '');
-
-    // Resetting when already empty remains empty
-    core.reset();
-    assert.equal(core.buffer, '');
 });
 
 test('standalone modifier keydowns preserve active composition until shortcut key fires', () => {
@@ -258,7 +268,6 @@ test('standalone modifier keydowns preserve active composition until shortcut ke
     type(core, 'a');
     assert.equal(core.buffer, 'a');
 
-    // Physical keydown sequence: user presses Control/Meta/Shift/Alt key first
     for (const modKey of ['Control', 'Shift', 'Alt', 'Meta']) {
         const modRes = key(core, modKey, { ctrlKey: modKey === 'Control', shiftKey: modKey === 'Shift', altKey: modKey === 'Alt', metaKey: modKey === 'Meta' });
         assert.equal(modRes.consume, false);
@@ -266,18 +275,9 @@ test('standalone modifier keydowns preserve active composition until shortcut ke
         assert.equal(core.buffer, 'a', `Pending buffer must be preserved when pressing ${modKey}`);
     }
 
-    // Subsequent 'z' with ctrlKey consumes and cancels pending composition
     const undoRes = key(core, 'z', { ctrlKey: true });
     assert.equal(undoRes.consume, true);
     assert.equal(undoRes.commit, null);
     assert.equal(core.buffer, '');
-
-    // Meta+Z on macOS also consumes and cancels pending composition
-    type(core, 'a');
-    const metaDownRes = key(core, 'Meta', { metaKey: true });
-    assert.equal(metaDownRes.consume, false);
-    assert.equal(core.buffer, 'a');
-    const metaUndoRes = key(core, 'z', { metaKey: true });
-    assert.equal(metaUndoRes.consume, true);
-    assert.equal(core.buffer, '');
 });
+

@@ -26,24 +26,58 @@ $(document).ready(function () {
 	// The lifecycle module owns loading and input state; this adapter only binds app controls.
 	const initialBoshiamyState = state.userChosenBoshiamy === 'Yes';
 	let rememberedBoshiamyState = initialBoshiamyState;
-	function updateBoshiamyUI({ phase, desiredEnabled }) {
+	let requestedBoshiamyState = initialBoshiamyState;
+	let boshiamyFailed = false;
+	let boshiamyInputMode = 'chinese';
+	const originalAutocorrect = notepad.note[0].getAttribute('autocorrect');
+	const originalInputLanguage = notepad.note[0].getAttribute('lang');
+	let preferredSpellCheck = state.userChosenSpellCheck
+		? state.userChosenSpellCheck === 'Yes' : editorConfig.defaultSpellCheck;
+
+	function syncSpellCheck() {
+		const active = requestedBoshiamyState && !boshiamyFailed;
+		const suspended = active && boshiamyInputMode === 'chinese';
+		const enabled = preferredSpellCheck && !suspended;
+		notepad.note.attr('spellcheck', enabled);
+		const autocorrect = active ? (suspended ? 'off' : 'on') : originalAutocorrect;
+		const language = active && !suspended ? 'en' : originalInputLanguage;
+		if (autocorrect === null) notepad.note.removeAttr('autocorrect');
+		else notepad.note.attr('autocorrect', autocorrect);
+		if (language === null) notepad.note.removeAttr('lang');
+		else notepad.note.attr('lang', language);
+		notepad.spellCheck.prop('checked', enabled).prop('disabled', suspended);
+		$('#spellCheckImeNotice').toggleClass('hidden', !suspended);
+	}
+	syncSpellCheck();
+
+	function updateBoshiamyUI({ phase, desiredEnabled, inputMode = 'chinese' }) {
+		const modeChanged = inputMode !== boshiamyInputMode;
+		boshiamyInputMode = inputMode;
+		requestedBoshiamyState = desiredEnabled;
+		boshiamyFailed = phase === 'failed';
+		syncSpellCheck();
 		const enabled = phase === 'enabled';
 		const loading = phase === 'loading';
+		const modeLabel = inputMode === 'chinese' ? '中文輸入' : '英文直輸';
 		const title = phase === 'failed' ? '嘸蝦米載入失敗，點擊重試'
-			: loading ? '嘸蝦米字典載入中，點擊可取消啟用'
-			: `嘸蝦米輸入法已${enabled ? '開啟' : '關閉'} [點擊或 Ctrl/Cmd + B 切換]`;
+			: loading ? `嘸蝦米字典載入中（${modeLabel}），點擊可取消啟用`
+			: enabled ? `嘸蝦米：${modeLabel} [Ctrl+Alt／Control+Option 切換中英；點擊或 Ctrl/Cmd+B 關閉]`
+			: '嘸蝦米輸入法已關閉 [點擊或 Ctrl/Cmd+B 開啟]';
 		$('#boshiamyToggle').toggleClass('active', enabled).toggleClass('loading', loading)
-			.attr('title', title).attr('aria-pressed', String(enabled))
+			.attr('title', title).attr('aria-label', title).attr('aria-pressed', String(enabled))
 			.attr('aria-busy', String(loading));
 		$('#boshiamyImePref').prop('checked', desiredEnabled).prop('disabled', false);
+		if (modeChanged && desiredEnabled && !boshiamyFailed) showToast(modeLabel, notepad.note[0].ownerDocument);
 	}
-	const boshiamyReady = import('./ime/v76/boshiamy.js').then(({ createBoshiamy }) => {
+	const boshiamyReady = import('./ime/v87/boshiamy.js').then(({ createBoshiamy }) => {
 		let initialized = false;
 		const ime = createBoshiamy({
 			textarea: notepad.note[0],
 			onStateChange(snapshot) {
+				// The lifecycle publishes an unloaded snapshot before the app applies its intent.
+				if (!initialized) return;
 				updateBoshiamyUI(snapshot);
-				if (initialized && snapshot.desiredEnabled !== rememberedBoshiamyState) {
+				if (snapshot.desiredEnabled !== rememberedBoshiamyState) {
 					rememberedBoshiamyState = snapshot.desiredEnabled;
 					try { setState('userChosenBoshiamy', snapshot.desiredEnabled ? 'Yes' : 'No'); }
 					catch { showToast('無法儲存嘸蝦米偏好設定'); }
@@ -58,7 +92,7 @@ $(document).ready(function () {
 			}
 		});
 		initialized = true;
-		void ime.setEnabled(initialBoshiamyState);
+		void ime.setEnabled(requestedBoshiamyState);
 		window.addEventListener('pagehide', event => {
 			if (event.persisted) ime.cancel();
 			else ime.destroy();
@@ -70,11 +104,18 @@ $(document).ready(function () {
 		return null;
 	});
 	function setBoshiamyState(enabled, persist = true) {
+		if (enabled && (!requestedBoshiamyState || boshiamyFailed)) boshiamyInputMode = 'chinese';
+		requestedBoshiamyState = enabled;
+		boshiamyFailed = false;
+		syncSpellCheck();
 		if (!persist) rememberedBoshiamyState = enabled;
-		void boshiamyReady.then(ime => ime?.setEnabled(enabled));
+		void boshiamyReady.then(ime => {
+			if (ime) return ime.setEnabled(requestedBoshiamyState);
+			updateBoshiamyUI({ phase: 'failed', desiredEnabled: false });
+		});
 	}
 	function toggleBoshiamy() {
-		void boshiamyReady.then(ime => ime?.toggle());
+		setBoshiamyState(boshiamyFailed || !requestedBoshiamyState);
 	}
 	function refreshBoshiamyDocument() {
 		void boshiamyReady.then(ime => ime?.refreshDocument());
@@ -509,17 +550,6 @@ $(document).ready(function () {
 		notepad.optimalLineLength.prop('checked', false);
 	}
 
-	if (state.userChosenSpellCheck) {
-		if (state.userChosenSpellCheck === 'Yes') {
-			notepad.note.attr('spellcheck', true);
-		} else {
-			notepad.note.attr('spellcheck', false);
-		}
-
-		notepad.spellCheck.prop('checked', state.userChosenSpellCheck === 'Yes');
-	} else {
-		notepad.spellCheck.prop('checked', true);
-	}
 
 	if (state.userChosenTabIndentation) {
 		notepad.tabIndentation.prop('checked', state.userChosenTabIndentation === 'Yes');
@@ -704,15 +734,15 @@ $(document).ready(function () {
 		}
 	})
 
-	notepad.spellCheck.on('change', function (e) {
-		if ($(this).is(':checked')) {
-			notepad.note.attr('spellcheck', true);
-			setState('userChosenSpellCheck', 'Yes');
-		} else {
-			notepad.note.attr('spellcheck', false);
-			setState('userChosenSpellCheck', 'No');
+	notepad.spellCheck.on('change', function () {
+		if (requestedBoshiamyState && !boshiamyFailed && boshiamyInputMode === 'chinese') {
+			syncSpellCheck();
+			return;
 		}
-	})
+		preferredSpellCheck = $(this).is(':checked');
+		setState('userChosenSpellCheck', preferredSpellCheck ? 'Yes' : 'No');
+		syncSpellCheck();
+	});
 
 	notepad.tabIndentation.on('change', function (e) {
 		if ($(this).is(':checked')) {
@@ -763,11 +793,9 @@ $(document).ready(function () {
 			resetFont(editorConfig.defaultFont);
 		}
 
-		if (selector().state.userChosenSpellCheck) {
-			removeState('userChosenSpellCheck');
-			notepad.note.attr('spellcheck', false);
-			notepad.spellCheck.prop('checked', editorConfig.defaultSpellCheck);
-		}
+		removeState('userChosenSpellCheck');
+		preferredSpellCheck = editorConfig.defaultSpellCheck;
+		syncSpellCheck();
 
 		if (selector().state.userChosenTabIndentation) {
 			removeState('userChosenTabIndentation');
@@ -775,10 +803,8 @@ $(document).ready(function () {
 		}
 
 
-		if (selector().state.userChosenBoshiamy) {
-			removeState('userChosenBoshiamy');
-			setBoshiamyState(editorConfig.defaultBoshiamy, false);
-		}
+		removeState('userChosenBoshiamy');
+		setBoshiamyState(editorConfig.defaultBoshiamy, false);
 
 		if (selector().state.userChosenVoiceLang) {
 			removeState('userChosenVoiceLang');

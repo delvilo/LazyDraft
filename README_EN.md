@@ -19,9 +19,11 @@ Forked from [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notep
 
 ### Boshiamy & Dictation
 
-- Click **蝦** or press `Ctrl/Cmd+B` for Boshiamy Chinese input without installing an OS IME. Codes have up to 4 characters. Space/Enter commits the page's first candidate; `0–9` selects candidates (0 is first); Up/Down or PageUp/PageDown changes pages; Backspace corrects and Esc cancels.
+- Click **蝦** or press `Ctrl/Cmd+B` to toggle Boshiamy. Letter radicals are lowercase only; `, . ' [ ]` remain radicals. Uppercase passes through, cancelling pending code without changing mode. Codes have up to 4 characters. Space/Enter commits the page's first candidate; `0–9` selects candidates (0 is first); Up/Down or PageUp/PageDown changes pages; Backspace corrects and Esc cancels.
 - Invalid codes or selections retain composition with a notice. Pending radicals never enter the document or autosave. With pending code, the first `Ctrl/Cmd+Z` only cancels composition; other undo/redo grouping is browser-defined, not necessarily one step per candidate.
 - The dictionary is parsed on first activation; failed loads can be retried. First activation works offline after the main cache is installed. Acceptance covers **desktop Chrome/Edge with physical keyboards**, not mobile software keyboards or other browsers.
+- Each activation starts in Chinese; language mode is not saved. With the textarea focused, a pure `Ctrl+Alt` chord (macOS `Control+Option`) toggles once on the first release. A third key, AltGr, or focus loss cancels the chord. English mode cancels pending code and uses native input. Mode notices also work in floating windows. System shortcuts such as VoiceOver may intercept the chord.
+- Chinese mode suspends native spellcheck and autocorrect, including loading and saved activation on startup; Spellcheck is off and locked with an explanation. English mode restores the editable spelling preference, sets an English language hint and `autocorrect=on`. Disabling, cancellation, or loading failure restores original settings. Mode changes do not rewrite spelling preferences; actual assistance depends on the browser/OS. Reset restores defaults.
 - The microphone or `Ctrl/Cmd+M` toggles Web Speech API dictation at the cursor. Language follows the browser or Preferences. Availability depends on the browser and speech service; offline operation is not guaranteed.
 - Page load only constructs a recognition object, without starting recording or requesting permission. Missing APIs or construction failures hide the microphone, language setting, and speech shortcut help, leaving `Ctrl/Cmd+M` native. Successful construction does not guarantee service availability; permission/service errors during use show a notice and keep the entry available for retry.
 
@@ -108,7 +110,7 @@ npm run release
 ## Deployment & Maintenance
 
 - Deploy the complete static directory over HTTP/HTTPS. Offline support requires HTTPS or localhost and a completed initial cache. Google sync additionally needs PHP/Redis. With Nginx/Tengine HTTP/2, keep `keepalive_timeout 60s;`, never `0`.
-- Root `sw.js` uses cache `v85`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v76/` without mixing module versions. AI-RegExr has its own Service Worker, bypassed by the root worker. Run `npm run release` after tool asset changes, then reload old pages.
+- Root `sw.js` uses cache `v87`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v87/` without mixing module versions. AI-RegExr has its own Service Worker, bypassed by the root worker. Run `npm run release` after tool asset changes, then reload old pages.
 - PCRE2 source pins and hashes are in `vendor-manifest.json`; see [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md). Rebuild through tooling rather than hand-editing generated glue.
 - Icon source: `img/lazydraft-icon.svg`. With developer tools and Chrome installed, run `node scripts/build-icons.mjs`; shared icon changes also require `npm run release`.
 - Preserve the existing PWA identity, storage keys, and database names. Installation entry points and prompts are browser-managed; the page has no custom install button. Updates do not require uninstalling or clearing site data; shortcut name/icon refresh is browser/OS-managed.

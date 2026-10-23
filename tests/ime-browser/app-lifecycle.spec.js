@@ -91,7 +91,7 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
       fulfillDict = resolve;
     });
 
-    await page.route('**/js/ime/v87/boshiamy-dict.json', async (route) => {
+    await page.route('**/js/ime/v89/boshiamy-dict.json', async (route) => {
       await dictPromise;
       await route.continue();
     });
@@ -134,7 +134,7 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
   test('load error then explicit retry: recovers on retry', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('userChosenSpellCheck', 'Yes'));
     let shouldFail = true;
-    await page.route('**/js/ime/v87/boshiamy-dict.json', async (route) => {
+    await page.route('**/js/ime/v89/boshiamy-dict.json', async (route) => {
       if (shouldFail) {
         await route.abort('failed');
       } else {
@@ -187,7 +187,7 @@ test.describe('Boshiamy IME Application Lifecycle', () => {
     page.on('request', request => {
       if (request.url().includes('boshiamy-dict.json')) dictionaryFetched = true;
     });
-    await page.route('**/js/ime/v87/boshiamy.js', async route => {
+    await page.route('**/js/ime/v89/boshiamy.js', async route => {
       await moduleReady;
       await route.continue();
     });

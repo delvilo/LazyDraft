@@ -176,7 +176,7 @@ test.describe('Boshiamy IME Composition and Commit', () => {
     await page.waitForLoadState('domcontentloaded');
 
     await page.evaluate(async () => {
-      const { TextareaController } = await import('../../js/ime/v87/textarea-controller.js');
+      const { TextareaController } = await import('../../js/ime/v89/textarea-controller.js');
       const textarea = document.getElementById('fixture-note');
       const testDict = { a: ['測試'] };
       window._testController = new TextareaController(textarea, testDict);

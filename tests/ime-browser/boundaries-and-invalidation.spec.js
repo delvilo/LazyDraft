@@ -19,7 +19,7 @@ test.describe('Boshiamy IME Input Boundaries and Invalidation', () => {
   test('candidate paging consumes boundaries; horizontal movement cancels and edits normally', async ({ page }) => {
     await page.goto('/tests/ime-browser/fixture.html');
     await page.evaluate(async () => {
-      const { TextareaController } = await import('../../js/ime/v87/textarea-controller.js');
+      const { TextareaController } = await import('../../js/ime/v89/textarea-controller.js');
       const note = document.getElementById('fixture-note');
       const controller = new TextareaController(note, { a: Array.from('甲乙丙丁戊己庚辛壬癸子丑') });
       controller.setEnabled(true);

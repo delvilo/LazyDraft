@@ -8,6 +8,7 @@
     "typecheck:worker": "tsc -p jsconfig.worker.json",
     "typecheck": "npm run typecheck:dom && npm run typecheck:worker",
     "test:ime:browser": "playwright test -c playwright.ime.config.mjs",
+    "bench:ime": "node scripts/bench-ime.mjs",
     "release": "node scripts/release-regexr.mjs",
     "vendor": "node scripts/vendor-regexr.mjs"
   },

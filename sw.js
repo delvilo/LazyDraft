@@ -2,7 +2,7 @@ importScripts('js/libraries/cache-polyfill.js');
 
 // Keep the existing namespace so renamed releases still remove obsolete caches.
 const CACHE_PREFIX = 'notepad:' + self.registration.scope + ':';
-const CACHE_VERSION = CACHE_PREFIX + 'v88';
+const CACHE_VERSION = CACHE_PREFIX + 'v90';
 let CACHE_FILES = [
     './',
     'index.html',
@@ -12,6 +12,7 @@ let CACHE_FILES = [
     'js/libraries/marked-18.1.1.umd.js',
     'js/libraries/purify-3.4.17.min.js',
     'js/libraries/prism-bundle.js',
+    'js/libraries/qrcodegen-1.8.0.js',
     'js/syntax-worker.js',
     'js/syntax-highlighter.js?v=82',
     'css/syntax-highlight.css?v=80',
@@ -19,17 +20,20 @@ let CACHE_FILES = [
     'css/markdown-preview.css?v=79',
     'js/html-preview.js?v=78',
     'css/html-preview.css?v=80',
+    'js/text-qr.js?v=90',
     'js/tabbypad-bridge.js?v=85',
-    'js/ime/v87/boshiamy.js',
-    'js/ime/v87/core.js',
-    'js/ime/v87/textarea-controller.js',
-    'js/ime/v87/candidate-view.js',
-    'js/ime/v87/boshiamy-dict.json',
-    'js/app.js?v=88',
+    'js/ime/v89/boshiamy.js',
+    'js/ime/v89/dictionary-cache.js',
+    'js/ime/v89/dictionary-table.js',
+    'js/ime/v89/core.js',
+    'js/ime/v89/textarea-controller.js',
+    'js/ime/v89/candidate-view.js',
+    'js/ime/v89/boshiamy-dict.json',
+    'js/app.js?v=90',
     'js/utils.js?v=87',
     'js/selector.js?v=78',
     'css/bootstrap.min.css?v=78',
-    'css/style.css?v=84',
+    'css/style.css?v=85',
     'css/boshiamy.css?v=80',
     'css/tabbypad-integration.css?v=78',
     'favicon.ico',

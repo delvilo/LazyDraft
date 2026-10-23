@@ -6,6 +6,13 @@
 /**
  * @typedef {Readonly<Record<string, readonly string[]>>} BoshiamyDictionary
  */
+/** @typedef {import('./dictionary-table.js').IndexedDictionary} IndexedDictionary */
+/** @typedef {BoshiamyDictionary | IndexedDictionary} DictionarySource */
+
+/** @param {DictionarySource} dictionary @returns {dictionary is IndexedDictionary} */
+function isIndexedDictionary(dictionary) {
+  return typeof dictionary.lookup === 'function' && typeof dictionary.maxCodeLength === 'number';
+}
 
 /**
  * @typedef {Object} KeyStroke
@@ -33,10 +40,10 @@ const EMPTY_CANDIDATES = Object.freeze([]);
  */
 export class BoshiamyCore {
   /**
-   * @param {BoshiamyDictionary} [dictionary]
+   * @param {DictionarySource} [dictionary]
    */
   constructor(dictionary = {}) {
-    /** @type {BoshiamyDictionary} */
+    /** @type {DictionarySource} */
     this.dictionary = Object.freeze({});
     /** @type {number} */
     this.maxCodeLength = 0;
@@ -55,21 +62,28 @@ export class BoshiamyCore {
   }
 
   /**
-   * Sets or replaces the active dictionary, recalculating maxCodeLength and resetting state.
+   * Sets the active dictionary, using its cached bound or recalculating it.
    * Preserves dictionary reference without copying.
-   * @param {BoshiamyDictionary} [dictionary]
+   * @param {DictionarySource} [dictionary]
    * @returns {void}
    */
   setDictionary(dictionary) {
     this.dictionary = dictionary || Object.freeze({});
     let max = 0;
-    for (const key of Object.keys(this.dictionary)) {
-      if (key.length > max) {
-        max = key.length;
+    if (isIndexedDictionary(this.dictionary)) max = this.dictionary.maxCodeLength;
+    else {
+      for (const key of Object.keys(this.dictionary)) {
+        if (key.length > max) max = key.length;
       }
     }
     this.maxCodeLength = max;
     this.reset();
+  }
+
+  /** @private @param {string} code @returns {readonly string[]} */
+  lookupCandidates(code) {
+    if (isIndexedDictionary(this.dictionary)) return this.dictionary.lookup(code);
+    return this.dictionary[code] || EMPTY_CANDIDATES;
   }
 
   /**
@@ -171,7 +185,7 @@ export class BoshiamyCore {
         this.buffer = this.buffer.slice(0, -1);
         this.pageIndex = 0;
         this.message = '';
-        this.candidates = this.buffer ? (this.dictionary[this.buffer] || EMPTY_CANDIDATES) : EMPTY_CANDIDATES;
+        this.candidates = this.buffer ? this.lookupCandidates(this.buffer) : EMPTY_CANDIDATES;
         return { consume: true, commit: null };
       }
       return { consume: false, commit: null };
@@ -237,7 +251,7 @@ export class BoshiamyCore {
     if (/^[a-z,.'\[\]]$/.test(key)) {
       if (this.buffer.length < this.maxCodeLength) {
         this.buffer += key;
-        this.candidates = this.dictionary[this.buffer] || EMPTY_CANDIDATES;
+        this.candidates = this.lookupCandidates(this.buffer);
         this.pageIndex = 0;
         this.message = '';
       } else {

@@ -69,7 +69,7 @@ $(document).ready(function () {
 		$('#boshiamyImePref').prop('checked', desiredEnabled).prop('disabled', false);
 		if (modeChanged && desiredEnabled && !boshiamyFailed) showToast(modeLabel, notepad.note[0].ownerDocument);
 	}
-	const boshiamyReady = import('./ime/v87/boshiamy.js').then(({ createBoshiamy }) => {
+	const boshiamyReady = import('./ime/v89/boshiamy.js').then(({ createBoshiamy }) => {
 		let initialized = false;
 		const ime = createBoshiamy({
 			textarea: notepad.note[0],
@@ -645,6 +645,8 @@ $(document).ready(function () {
 	notepad.copyToClipboard.click(function () {
 		copyNotesToClipboard(notepad.note.val());
 	})
+
+	window.initTextQr(notepad.note[0]);
 
 	notepad.downloadNotes.click(function () {
 		saveTextAsFile(note.value, getFileName(note.value));

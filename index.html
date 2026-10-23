@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-title" content="LazyDraft">
   <meta name="mobile-web-app-capable" content="yes">
   <link href="css/bootstrap.min.css?v=78" rel="stylesheet">
-  <link href="css/style.css?v=84" rel="stylesheet">
+  <link href="css/style.css?v=85" rel="stylesheet">
   <link href="css/boshiamy.css?v=80" rel="stylesheet">
   <link href="css/tabbypad-integration.css?v=78" rel="stylesheet">
   <link href="css/markdown-preview.css?v=79" rel="stylesheet">
@@ -120,6 +120,13 @@
             <a href="javascript:void(0);" id="copyToClipboard" class="" title="Copy notes to clipboard [alt/option + C]">
               <img src="img/navbar/copy.svg" alt="Copy Icon" />
             </a>
+          </span>
+          <span>
+            <button type="button" id="textQrToggle" class="text-qr-toggle" title="顯示文字 QR（優先選取內容）" aria-label="顯示文字 QR" aria-haspopup="dialog" aria-controls="textQrModal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h3v3h3v3h-6zM12 3v9H3M15 12h6M12 15v6"/>
+              </svg>
+            </button>
           </span>
           <span class="voice-dictation-control hidden" hidden title="語音轉文字 [Ctrl/Cmd + M]">
             <button type="button" id="voiceDictationToggle" class="voice-dictation-btn" aria-label="語音自動轉文字">
@@ -252,6 +259,29 @@
     <span id="tabbypadPillTitle" class="tabbypad-pill-title"></span>
     <button type="button" id="tabbypadPillUpdateBtn" class="tabbypad-pill-btn" title="手動更新回 Tabbypad">更新原項目</button>
     <button type="button" id="tabbypadPillUnlinkBtn" class="tabbypad-pill-unlink" title="取消連結（僅保留編輯器內草稿）">&times;</button>
+  </div>
+
+  <div id="textQrModal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="textQrTitle" aria-describedby="textQrInstructions">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="關閉文字 QR">&times;</button>
+          <h4 class="modal-title" id="textQrTitle">顯示文字 QR</h4>
+        </div>
+        <div class="modal-body">
+          <p id="textQrInstructions">使用另一台裝置的相機或掃碼工具讀取，再自行複製貼上；這不是同步，也不會清空草稿。</p>
+          <p><strong id="textQrSource"></strong> · <span id="textQrByteCount"></span></p>
+          <p id="textQrStatus" class="alert alert-warning" role="alert" hidden></p>
+          <div id="textQrCode" aria-label="文字 QR 圖碼"></div>
+          <p class="text-qr-warning">QR 是明文，任何看見圖碼的人都能讀取。上限 2,048 UTF-8 bytes；長文圖碼較密，部分相機可能無法辨識或完整複製。</p>
+          <label for="textQrPreview">本次內容（唯讀快照，保留空白與換行）</label>
+          <textarea id="textQrPreview" class="form-control" readonly rows="4" spellcheck="false" autocorrect="off" autocomplete="off"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">關閉並清除 QR</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Tabbypad Modal -->
@@ -669,7 +699,8 @@
   <script src="js/utils.js?v=87"></script>
   <script src="js/tabbypad-bridge.js?v=85"></script>
   <script src="js/selector.js?v=78"></script>
-  <script src="js/app.js?v=88"></script>
+  <script src="js/text-qr.js?v=90"></script>
+  <script src="js/app.js?v=90"></script>
   <script src="js/syntax-highlighter.js?v=82"></script>
 
 

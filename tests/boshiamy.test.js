@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BoshiamyCore } from '../js/ime/v87/core.js';
+import { BoshiamyCore } from '../js/ime/v89/core.js';
 
 function key(core, value, options = {}) {
     const event = typeof value === 'string'

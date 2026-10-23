@@ -1,29 +1,11 @@
-/** Lightweight IME lifecycle; the dictionary is fetched and parsed only on enable. */
+/** Lightweight IME lifecycle; the dictionary is loaded only on enable. */
 import { TextareaController } from './textarea-controller.js';
+import { loadDictionary } from './dictionary-cache.js';
 
-/** @typedef {import('./core.js').BoshiamyDictionary} Dictionary */
 /** @typedef {'unloaded' | 'loading' | 'disabled' | 'enabled' | 'failed'} Phase */
 /** @typedef {'chinese' | 'english'} InputMode */
 /** @typedef {{phase: Phase, desiredEnabled: boolean, inputMode: InputMode}} ImeState */
 /** @typedef {{textarea: HTMLTextAreaElement, onStateChange?: (state: ImeState) => void, onError?: (error: Error) => void}} Options */
-
-/** @type {Promise<Dictionary> | null} */
-let dictionaryPromise = null;
-
-/** Failed fetches are retryable; unlike rejected module imports, they do not poison the module map. */
-function loadDictionary() {
-    if (!dictionaryPromise) {
-        dictionaryPromise = fetch(new URL('./boshiamy-dict.json', import.meta.url))
-            .then(async response => {
-                if (!response.ok) throw new Error(`嘸蝦米字典載入失敗（HTTP ${response.status}）`);
-                return /** @type {Dictionary} */ (await response.json());
-            }).catch(error => {
-                dictionaryPromise = null;
-                throw error;
-            });
-    }
-    return dictionaryPromise;
-}
 
 /** @param {Options} options */
 export function createBoshiamy({ textarea, onStateChange, onError }) {

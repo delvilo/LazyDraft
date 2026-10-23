@@ -8,7 +8,7 @@ import { BoshiamyCore } from './core.js';
 import { CandidateView } from './candidate-view.js';
 
 /**
- * @typedef {import('./core.js').BoshiamyDictionary} BoshiamyDictionary
+ * @typedef {import('./core.js').DictionarySource} BoshiamyDictionary
  */
 
 export class TextareaController {

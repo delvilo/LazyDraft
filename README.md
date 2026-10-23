@@ -16,12 +16,14 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 - **字數摘要**：右下角顯示總字元、中文字數與英文詞數，可隱藏。總字元按 Unicode code point 計算（含空白與換行），中文逐漢字、英文按字母詞段計數；組合 emoji 不一定只計一字。
 - **懸浮視窗**：需桌面瀏覽器支援 Document Picture-in-Picture；以原生外框關閉／返回主頁。另提供專注與全螢幕模式。
 - **獨立工具**：工具列可開啟 Rich Text Notes、Markdown Editor、Tabbypad 與 AI-RegExr，不取代目前草稿。
+- **文字 QR**：工具列開啟唯讀快照，優先使用選取文字，否則使用草稿全文。上限 **2,048 UTF-8 bytes**（含），保留空白、換行、中文與 emoji；無內容或超限不產生、不截斷、不分割。任何看見圖碼的人都能讀取明文；不提供下載或接收確認。關閉即清除預覽與圖碼，不新增傳送紀錄，不更動草稿或 Tabbypad。
+- **掃描與離線**：由外部手機相機或掃描工具讀取後自行複製貼上，非即時同步亦不自動清空草稿；高密度圖碼不保證所有相機皆能辨識或完整複製。完成首次連線快取後可離線產生；編碼器僅於首次開啟 QR 時執行，無須 CDN、伺服器或 WebRTC。
 
 ### 嘸蝦米與語音
 
 - 按「蝦」或 `Ctrl/Cmd+B` 開關嘸蝦米。字母字根僅限小寫，保留 `, . ' [ ]`；大寫直接輸出並取消待選字根，不切換模式。最多 4 碼；空白或 Enter 送出當頁第一字，`0–9` 選字（0 為第一字），上／下或 PageUp／PageDown 翻頁，Backspace 修正、Esc 取消。
 - 無候選或輸入錯誤時保留組字並提示；待提交字根不進入正文或自動儲存。有字根時第一次 `Ctrl/Cmd+Z` 僅取消組字，其餘復原／重做由瀏覽器處理，不保證每次選字獨立一步。
-- 字典首次啟用時解析，載入失敗可重試。完成主頁離線快取後，首次啟用亦可離線使用。驗收範圍為**桌面 Chrome／Edge＋實體鍵盤**，不保證手機軟鍵盤或其他瀏覽器相容。
+- 字典資料僅在啟用時讀取；啟動先準備獨立 IndexedDB `lazydraft-ime-cache` 連線，快取平坦字根／候選文字、位移表與最大碼長，依完整版本化 URL 區分，不改動草稿或 Tabbypad 資料。暖載入不解析完整 JSON，按輸入字根查找候選；未命中或儲存不可用時由 JSON 檔重建。載入失敗可重試，完成主頁快取後亦可離線啟用。驗收範圍為**桌面 Chrome／Edge＋實體鍵盤**，不保證手機或其他瀏覽器相容。
 - 啟用後每次從中文模式開始，不記憶中英模式。textarea 有焦點時，純 `Ctrl+Alt`（macOS `Control+Option`）放開一鍵切換一次；第三鍵、AltGr 或失去焦點則取消。切英文會取消待選字根，所有輸入走原生；切換時提示模式，懸浮視窗亦適用。系統可能攔截快捷鍵，例如 VoiceOver。
 - 中文模式（含載入與開頁還原）關閉原生拼字檢查與自動校正，Spellcheck 鎖定並附原因。英文模式恢復拼字偏好及可調整開關，設定英文語言提示與 `autocorrect=on`；停用、取消或載入失敗恢復原設定。模式切換不改寫拼字偏好，實際檢查與校正依瀏覽器／系統能力；重設偏好恢復預設值。
 - 麥克風或 `Ctrl/Cmd+M` 切換語音轉文字，文字插入游標處。使用 Web Speech API；語言可跟隨瀏覽器或於偏好設定選擇。可用性依瀏覽器與語音服務而定，不保證離線。
@@ -90,12 +92,15 @@ npm ci --ignore-scripts
 npm test                        # 單元測試
 npm run typecheck               # DOM／Worker 嚴格型別檢查
 npx playwright install chrome msedge
-npm run test:ime:browser         # 真實 Chrome／Edge IME 驗收
+npm run test:ime:browser         # 真實 Chrome／Edge IME／QR 驗收
+npm run bench:ime                # 20 次暖快取重新載入，每次啟用皆須 <50ms
 npm run vendor                  # 驗證 PCRE2 產物與來源雜湊
 npm run release                 # 重建 AI-RegExr manifest／Service Worker
 ```
 
 瀏覽器測試可加 `-- --project=chrome` 或 `-- --project=msedge`，或以 `IME_CHROME_PATH`／`IME_EDGE_PATH` 指定執行檔；缺少瀏覽器會失敗。
+
+效能驗收使用隔離的無頭桌面 Chrome，先冷啟用寫入 IndexedDB，再重開頁面 20 次；禁用 Service Worker 與 JSON 回退，每次須命中 IndexedDB 且低於 50ms，否則指令失敗，不平均或捨棄樣本。頁內計時從真實工具列點擊開始，派送 `a` 給原控制器，至「對」候選 DOM 可見並完成布局為止，不含 Playwright 往返或下一幀合成。門檻限定本機暖快取驗收，非冷載入或所有設備保證。
 
 僅在修改原生介面或升級引擎時重建 PCRE2，需 Git、CMake、Emscripten **6.0.13**（`emcc` 可放 PATH）：
 
@@ -108,11 +113,12 @@ npm run release
 ## 部署與維護
 
 - 完整部署靜態目錄至 HTTP／HTTPS，不需 PHP／Redis；離線功能須 HTTPS 或 localhost 並完成首次快取。升級時同步刪除已移除的舊檔（含雲端同步後端），勿只覆蓋新檔。Nginx／Tengine 使用 HTTP/2 時保留 `keepalive_timeout 60s;`，勿設為 `0`。
-- 主頁 `sw.js` 快取為 `v88`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v87/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
+- 主頁 `sw.js` 快取為 `v90`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v89/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
 - PCRE2 固定來源與雜湊見 `vendor-manifest.json`，授權見 [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md)；請透過建置流程重建，不手改產生的膠水程式。
 - 圖示來源為 `img/lazydraft-icon.svg`；安裝開發工具與 Chrome 後執行 `node scripts/build-icons.mjs`。變更共用圖示後也須執行 `npm run release`。
 - 保留既有 PWA 身分、儲存鍵與資料庫名稱。安裝入口與提示由瀏覽器管理，頁面不提供自訂安裝按鈕。更新不需卸載或清除網站資料；桌面捷徑名稱／圖示更新由瀏覽器與系統管理。
 
 ## 授權
 
-[MIT License](LICENSE.txt)
+- [MIT License](LICENSE.txt)
+- QR Code 生成庫採用 [Nayuki QR Code generator v1.8.0](https://github.com/nayuki/QR-Code-generator/releases/tag/v1.8.0)（[MIT License](js/libraries/qrcodegen-1.8.0.LICENSE)）。

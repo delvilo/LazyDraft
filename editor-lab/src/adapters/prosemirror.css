@@ -1,0 +1,150 @@
+
+
+/* --- Milkdown local font and theme overrides (zero external CDN / fonts) --- */
+.milkdown {
+  --crepe-font-title: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --crepe-font-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --crepe-font-code: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+[data-theme='dark'] .milkdown {
+  --crepe-color-background: #1f1b16;
+  --crepe-color-on-background: #fffdfb;
+  --crepe-color-surface: #2b261f;
+  --crepe-color-surface-low: #362f27;
+  --crepe-color-on-surface: #fcefe2;
+  --crepe-color-outline: #9c8e80;
+  --crepe-color-hover: #3b332b;
+  --crepe-color-selected: #4a4036;
+}
+
+
+.tiptap.ProseMirror {
+  outline: none;
+  min-height: 240px;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: inherit;
+}
+
+.tiptap.ProseMirror p {
+  margin: 0.5em 0;
+}
+
+.tiptap.ProseMirror h1 {
+  font-size: 1.8rem;
+  margin: 1rem 0 0.5rem;
+  font-weight: 700;
+}
+
+.tiptap.ProseMirror h2 {
+  font-size: 1.5rem;
+  margin: 0.85rem 0 0.4rem;
+  font-weight: 600;
+}
+
+.tiptap.ProseMirror h3 {
+  font-size: 1.25rem;
+  margin: 0.75rem 0 0.35rem;
+  font-weight: 600;
+}
+
+.tiptap.ProseMirror ul,
+.tiptap.ProseMirror ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.tiptap.ProseMirror li {
+  margin: 0.25rem 0;
+}
+
+.tiptap.ProseMirror blockquote {
+  border-left: 4px solid #d1d5db;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #4b5563;
+  font-style: italic;
+}
+
+[data-theme='dark'] .tiptap.ProseMirror blockquote {
+  border-left-color: #4b5563;
+  color: #9ca3af;
+}
+
+.tiptap.ProseMirror pre {
+  background: #f3f4f6;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  margin: 0.75rem 0;
+}
+
+[data-theme='dark'] .tiptap.ProseMirror pre {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.tiptap.ProseMirror code {
+  background: #f3f4f6;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+[data-theme='dark'] .tiptap.ProseMirror code {
+  background: #374151;
+  color: #f3f4f6;
+}
+
+.tiptap.ProseMirror a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+[data-theme='dark'] .tiptap.ProseMirror a {
+  color: #60a5fa;
+}
+
+.tiptap.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.75rem 0;
+  border-radius: 4px;
+}
+
+
+.tiptap.ProseMirror video[data-lab-media],
+.tiptap.ProseMirror audio[data-lab-media],
+.tiptap.ProseMirror iframe[data-lab-media],
+.milkdown video[data-lab-media],
+.milkdown audio[data-lab-media],
+.milkdown iframe[data-lab-media] {
+  display: block;
+  max-width: 100%;
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+.tiptap.ProseMirror iframe[data-lab-media],
+.milkdown iframe[data-lab-media] {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.tiptap.ProseMirror video[data-lab-media],
+.milkdown video[data-lab-media] {
+  width: 100%;
+  max-height: 480px;
+  background: #000;
+}
+
+.tiptap.ProseMirror audio[data-lab-media],
+.milkdown audio[data-lab-media] {
+  width: 100%;
+}

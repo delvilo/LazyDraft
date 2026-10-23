@@ -64,6 +64,17 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 - 主頁已有草稿時可覆蓋、附加或先備份；取消、備份／儲存失敗或確認期間草稿改變均不覆蓋。未開主頁時，確認後開頁並複製，需自行貼上；匯入主頁後才依草稿機制保存。
 - **獨立離線快取**：須先開啟本工具，等待「離線可用」後再斷網；安裝主記事本不會預載它。更新經 SHA-256 驗證，失敗保留舊版，不強制接管既有分頁。
 
+## 編輯器比較實驗室
+
+[比較入口](editor-lab/dist/)提供 Pell、Squire、Jodit、SunEditor、Quill、Trix、Tiptap、Milkdown、Lexical 與 Editor.js。不替換既有 Rich Text Notes，也不預選勝出者。
+
+- 各頁保留原生文件格式與介面。Squire、Tiptap、Lexical 使用標示為自製的工具列。共用契約見 [`src/contracts.ts`](editor-lab/src/contracts.ts)。
+- 草稿按編輯器分開存入 LocalStorage。本機 PNG、JPEG、WebP、GIF 原始檔存入獨立 IndexedDB，每檔上限 **5 MiB**，不把 Base64 圖片寫進草稿。
+- HTML 匯出內嵌本機圖片。PDF 使用瀏覽器列印，僅列印文件與影音來源連結，不包含工具列。
+- 實驗室需要 HTTPS 或 localhost。Service Worker 不可用時會停止初始化並提示，不清除既有草稿。
+- 等待「離線可用」後，十款編輯器與本機圖片可離線使用。網址圖片、YouTube、Vimeo 與遠端影音仍需連線，不下載影片。
+- 比較頁顯示建置資源圖與 Chrome 實測。載入、儲存時間包含測試工具往返，僅代表該次環境，不是跨設備效能保證。
+
 ## 快捷鍵
 
 | 功能 | Windows／Linux | macOS |
@@ -102,6 +113,25 @@ npm run release                 # 重建 AI-RegExr manifest／Service Worker
 
 效能驗收使用隔離的無頭桌面 Chrome，先冷啟用寫入 IndexedDB，再重開頁面 20 次；禁用 Service Worker 與 JSON 回退，每次須命中 IndexedDB 且低於 50ms，否則指令失敗，不平均或捨棄樣本。頁內計時從真實工具列點擊開始，派送 `a` 給原控制器，至「對」候選 DOM 可見並完成布局為止，不含 Playwright 往返或下一幀合成。門檻限定本機暖快取驗收，非冷載入或所有設備保證。
 
+### 編輯器實驗室的建置與測試
+
+使用 Node.js 26。原始碼與鎖定版本位於 `editor-lab/`，可直接部署的產物位於 `editor-lab/dist/`。
+
+```sh
+npm --prefix editor-lab ci --ignore-scripts
+npm --prefix editor-lab exec -- playwright install chrome msedge firefox
+npm --prefix editor-lab run build
+npm --prefix editor-lab test
+npm --prefix editor-lab run verify:release
+LAB_BASE_URL=http://localhost:8000/editor-lab/dist/ npm --prefix editor-lab run measure
+```
+
+量測指令使用上方已啟動的本機網站。`measurements.json` 保存瀏覽器、日期與實測結果，不納入版本雜湊。`dist/release.json` 記錄檔案 SHA-256、各頁完整資源與套件授權，完整聲明見 `dist/THIRD_PARTY_NOTICES.txt`。
+
+`npm --prefix editor-lab run dev` 先建置，再啟動實驗室預覽。修改原始碼後須重新執行。瀏覽器測試涵蓋合成組字事件，不等同實體鍵盤、系統輸入法或手機驗證。
+
+### PCRE2 引擎重建
+
 僅在修改原生介面或升級引擎時重建 PCRE2，需 Git、CMake、Emscripten **6.0.13**（`emcc` 可放 PATH）：
 
 ```sh
@@ -113,7 +143,7 @@ npm run release
 ## 部署與維護
 
 - 完整部署靜態目錄至 HTTP／HTTPS，不需 PHP／Redis；離線功能須 HTTPS 或 localhost 並完成首次快取。升級時同步刪除已移除的舊檔（含雲端同步後端），勿只覆蓋新檔。Nginx／Tengine 使用 HTTP/2 時保留 `keepalive_timeout 60s;`，勿設為 `0`。
-- 主頁 `sw.js` 快取為 `v90`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v89/`，不要混用模組版本。AI-RegExr 有獨立 Service Worker，主頁不攔截其請求；資源變更後執行 `npm run release`，重新載入舊頁面。
+- 主頁 `sw.js` 快取為 `v91`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v89/`，不要混用模組版本。AI-RegExr 與 Editor Lab 有獨立 Service Worker，主頁不攔截其請求；各工具的資源須由各自建置流程更新。
 - PCRE2 固定來源與雜湊見 `vendor-manifest.json`，授權見 [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md)；請透過建置流程重建，不手改產生的膠水程式。
 - 圖示來源為 `img/lazydraft-icon.svg`；安裝開發工具與 Chrome 後執行 `node scripts/build-icons.mjs`。變更共用圖示後也須執行 `npm run release`。
 - 保留既有 PWA 身分、儲存鍵與資料庫名稱。安裝入口與提示由瀏覽器管理，頁面不提供自訂安裝按鈕。更新不需卸載或清除網站資料；桌面捷徑名稱／圖示更新由瀏覽器與系統管理。

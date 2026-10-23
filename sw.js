@@ -2,7 +2,7 @@ importScripts('js/libraries/cache-polyfill.js');
 
 // Keep the existing namespace so renamed releases still remove obsolete caches.
 const CACHE_PREFIX = 'notepad:' + self.registration.scope + ':';
-const CACHE_VERSION = CACHE_PREFIX + 'v90';
+const CACHE_VERSION = CACHE_PREFIX + 'v91';
 let CACHE_FILES = [
     './',
     'index.html',
@@ -85,7 +85,7 @@ self.addEventListener('fetch', function (event) {
     const scope = new URL(self.registration.scope);
     if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname)) return;
     const relativePath = url.pathname.slice(scope.pathname.length);
-    if (relativePath.startsWith('ai-regexr/')) return;
+    if (relativePath.startsWith('ai-regexr/') || relativePath.startsWith('editor-lab/')) return;
 
     const isEntryPage = event.request.mode === 'navigate'
         && (url.pathname === scope.pathname || url.pathname === scope.pathname + 'index.html');

@@ -1,0 +1,9 @@
+{
+  "database": "lazydraft-editor-lab-assets",
+  "databaseVersion": 1,
+  "imageStore": "images",
+  "draftPrefix": "lazydraft-editor-lab:v1:draft:",
+  "themeKey": "lazydraft-editor-lab:v1:theme",
+  "assetPath": "__images/",
+  "cachePrefix": "lazydraft-editor-lab:"
+}

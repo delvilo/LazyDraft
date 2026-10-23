@@ -64,6 +64,19 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 - 主页已有草稿时可覆盖、追加或先备份；取消、备份／保存失败或确认期间草稿改变均不覆盖。未开主页时，确认后开页并复制，需自行粘贴；导入主页后才依草稿机制保存。
 - **独立离线缓存**：须先打开本工具，等待“离线可用”后再断网；安装主记事本不会预载它。更新经 SHA-256 验证，失败保留旧版，不强制接管既有标签页。
 
+## 编辑器比较实验室
+
+[比较入口](editor-lab/dist/)提供 Pell、Squire、Jodit、SunEditor、Quill、Trix、Tiptap、Milkdown、Lexical 与 Editor.js。不替换 Rich Text Notes，也不预选胜出者。
+
+- 各页保留原生文件格式。Squire、Tiptap、Lexical 使用标示为自制的工具栏。共用契约见 [`src/contracts.ts`](editor-lab/src/contracts.ts)。
+- 草稿按编辑器分别存入 LocalStorage。本地 PNG、JPEG、WebP、GIF 原始文件存入独立 IndexedDB，每文件上限 **5 MiB**。
+- HTML 导出内嵌本地图片。PDF 使用浏览器打印，仅包含文档与影音来源链接，不包含工具栏。
+- 实验室需要 HTTPS 或 localhost。Service Worker 不可用时停止初始化并提示，不清除原有草稿。
+- 等待“离线可用”后再断网。网址图片与远程影音仍需联网，不下载影片。
+- 比较页显示构建资源图与 Chrome 实测。时间包含测试工具往返，仅代表该次环境。
+
+构建与验证指令见[实验室开发说明](README.md#編輯器實驗室的建置與測試)。测试中的合成组字事件不等同实体键盘、系统输入法或手机验证。
+
 ## 快捷键
 
 | 功能 | Windows／Linux | macOS |
@@ -113,7 +126,7 @@ npm run release
 ## 部署与维护
 
 - 完整部署静态目录至 HTTP／HTTPS，不需 PHP／Redis；离线功能须 HTTPS 或 localhost 并完成首次缓存。升级时同步删除已移除的旧文件（含云端同步后端），勿只覆盖新文件。Nginx／Tengine 使用 HTTP/2 时保留 `keepalive_timeout 60s;`，勿设为 `0`。
-- 主页 `sw.js` 缓存为 `v90`；变更资源时同步更新对应 URL 与缓存清单。完整部署 `js/ime/v89/`，不要混用模块版本。AI-RegExr 有独立 Service Worker，主页不拦截其请求；资源变更后执行 `npm run release`，重新载入旧页面。
+- 主页 `sw.js` 缓存为 `v91`；变更资源时同步更新对应 URL 与缓存清单。完整部署 `js/ime/v89/`，不要混用模块版本。AI-RegExr 与 Editor Lab 有独立 Service Worker，主页不拦截其请求；各工具的资源须由各自构建流程更新。
 - PCRE2 固定源码与哈希见 `vendor-manifest.json`，授权见 [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md)；请通过构建流程重建，不手改生成的胶水代码。
 - 图标源码为 `img/lazydraft-icon.svg`；安装开发工具与 Chrome 后执行 `node scripts/build-icons.mjs`。变更共享图标后也须执行 `npm run release`。
 - 保留既有 PWA 身份、存储键与数据库名称。安装入口与提示由浏览器管理，页面不提供自定义安装按钮。更新不需卸载或清除网站数据；桌面快捷方式名称／图标更新由浏览器与系统管理。

@@ -64,6 +64,19 @@ Open [AI-RegExr](ai-regexr/) to test JavaScript RegExp or **PCRE2 10.49 (WASM)**
 - Existing main-page drafts offer overwrite, append, or backup. Cancellation, backup/storage failure, or draft changes during confirmation prevent replacement. Without an open main page, confirmation opens one and copies matches for manual pasting. Imported text then persists as a main-page draft.
 - **Separate offline cache**: Visit the tool and wait for **離線可用 (Offline ready)** before disconnecting; installing the main notepad does not preload it. Updates are SHA-256 verified, retain the old version on failure, and do not force takeover of active tabs.
 
+## Editor comparison lab
+
+The [comparison lab](editor-lab/dist/) runs Pell, Squire, Jodit, SunEditor, Quill, Trix, Tiptap, Milkdown, Lexical, and Editor.js without replacing Rich Text Notes or choosing a winner.
+
+- Each editor keeps its native document format. Squire, Tiptap, and Lexical use labeled custom controls. See [`src/contracts.ts`](editor-lab/src/contracts.ts).
+- Drafts use separate LocalStorage keys. Original PNG, JPEG, WebP, and GIF files use a separate IndexedDB database, with a **5 MiB** limit per file.
+- HTML embeds local images. Native printing saves documents as PDF without editor controls and replaces media players with source links.
+- The lab requires HTTPS or localhost. If Service Worker setup fails, initialization stops with an error and existing drafts remain untouched.
+- Wait for offline readiness before disconnecting. Remote images and media still require a network connection. The lab does not download videos.
+- Resource sizes come from the build graph. Chrome timings include automation overhead and describe one measured environment.
+
+Build and verification commands are in the [lab development section](README.md#編輯器實驗室的建置與測試). Tests simulate composition events. They do not verify physical keyboards, OS input methods, or mobile devices.
+
 ## Shortcuts
 
 | Action | Windows / Linux | macOS |
@@ -113,7 +126,7 @@ npm run release
 ## Deployment & Maintenance
 
 - Deploy the complete static directory over HTTP/HTTPS; PHP/Redis are not required. Offline support requires HTTPS or localhost and a completed initial cache. Upgrades must also delete obsolete files, including the retired cloud-sync backend, rather than only overlay new files. With Nginx/Tengine HTTP/2, keep `keepalive_timeout 60s;`, never `0`.
-- Root `sw.js` uses cache `v90`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v89/` without mixing module versions. AI-RegExr has its own Service Worker, bypassed by the root worker. Run `npm run release` after tool asset changes, then reload old pages.
+- Root `sw.js` uses cache `v91`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v89/` without mixing module versions. AI-RegExr and Editor Lab have separate Service Workers, bypassed by the root worker. Update each tool through its own build process.
 - PCRE2 source pins and hashes are in `vendor-manifest.json`; see [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md). Rebuild through tooling rather than hand-editing generated glue.
 - Icon source: `img/lazydraft-icon.svg`. With developer tools and Chrome installed, run `node scripts/build-icons.mjs`; shared icon changes also require `npm run release`.
 - Preserve the existing PWA identity, storage keys, and database names. Installation entry points and prompts are browser-managed; the page has no custom install button. Updates do not require uninstalling or clearing site data; shortcut name/icon refresh is browser/OS-managed.

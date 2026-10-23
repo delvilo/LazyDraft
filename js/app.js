@@ -1786,10 +1786,6 @@ $(document).ready(function () {
 		}
 	});
 
-	// ==================== Google Cloud Sync Initialization ====================
-	if (typeof window.GoogleCloudSync !== 'undefined') {
-		window.GoogleCloudSync.init();
-	}
 	// ==================== Cross-Window Match Receiver (AI-RegExr) ====================
 	async function handleImportedMatches(matchesText) {
 		// Preserve whitespace drafts and detect edits or relinking while confirmation is open.

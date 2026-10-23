@@ -27,13 +27,11 @@ Forked from [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notep
 - The microphone or `Ctrl/Cmd+M` toggles Web Speech API dictation at the cursor. Language follows the browser or Preferences. Availability depends on the browser and speech service; offline operation is not guaranteed.
 - Page load only constructs a recognition object, without starting recording or requesting permission. Missing APIs or construction failures hide the microphone, language setting, and speech shortcut help, leaving `Ctrl/Cmd+M` native. Successful construction does not guarantee service availability; permission/service errors during use show a notice and keep the entry available for retry.
 
-### Tabbypad & Google Sync
+### Tabbypad
 
 - **Tabbypad**: Load existing items to edit or save a new item. Successful creation or manual **更新原項目 (Update Original)**, including the bottom-right button, clears and unlinks an unchanged draft, closes the manager, and focuses the plain-text editor. Reloading keeps it blank.
 - **Save protection**: Failed/cancelled saves, unresolved conflicts, or draft/link changes while waiting never clear current content. If Tabbypad commits but persisting the empty local draft fails, a “saved, but not cleared” notice preserves the content and link for recovery.
 - **Backup and load**: Loading another item offers backup or discard; a successful backup proceeds to the target rather than an empty editor, while failure retains the draft. Updates still detect other-tab changes/deletions. Unarchived local drafts survive reopening, but their item link is removed.
-- **Optional Google sync**: Sign in to Push/Pull across devices. The backend identifies accounts by Google `sub`; Redis retains text for **48 hours**. Push uploads the current draft; an empty draft clears cloud text only after confirmation. Pull offers overwrite, append, or backup to Tabbypad when local content differs.
-- **Privacy**: Normal editing and local imports do not automatically upload text. Manual Push uploads the entire draft, including any credentials it contains. Sync requires a PHP/Redis backend, unlike the static editor.
 
 ## Preview & Highlighting
 
@@ -109,8 +107,8 @@ npm run release
 
 ## Deployment & Maintenance
 
-- Deploy the complete static directory over HTTP/HTTPS. Offline support requires HTTPS or localhost and a completed initial cache. Google sync additionally needs PHP/Redis. With Nginx/Tengine HTTP/2, keep `keepalive_timeout 60s;`, never `0`.
-- Root `sw.js` uses cache `v87`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v87/` without mixing module versions. AI-RegExr has its own Service Worker, bypassed by the root worker. Run `npm run release` after tool asset changes, then reload old pages.
+- Deploy the complete static directory over HTTP/HTTPS; PHP/Redis are not required. Offline support requires HTTPS or localhost and a completed initial cache. Upgrades must also delete obsolete files, including the retired cloud-sync backend, rather than only overlay new files. With Nginx/Tengine HTTP/2, keep `keepalive_timeout 60s;`, never `0`.
+- Root `sw.js` uses cache `v88`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v87/` without mixing module versions. AI-RegExr has its own Service Worker, bypassed by the root worker. Run `npm run release` after tool asset changes, then reload old pages.
 - PCRE2 source pins and hashes are in `vendor-manifest.json`; see [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md). Rebuild through tooling rather than hand-editing generated glue.
 - Icon source: `img/lazydraft-icon.svg`. With developer tools and Chrome installed, run `node scripts/build-icons.mjs`; shared icon changes also require `npm run release`.
 - Preserve the existing PWA identity, storage keys, and database names. Installation entry points and prompts are browser-managed; the page has no custom install button. Updates do not require uninstalling or clearing site data; shortcut name/icon refresh is browser/OS-managed.

@@ -113,7 +113,7 @@ test.describe('Stress Testing, IME Composition Flow & Fault Injection', () => {
   test('handles IndexedDB write failure gracefully with visible alert and preserves editor text', async ({
     page,
   }) => {
-    const editorId = 'quill';
+    const editorId = 'trumbowyg';
     await page.goto(`${editorId}/`);
     await waitForEditorReady(page, editorId);
 
@@ -162,7 +162,7 @@ test.describe('Stress Testing, IME Composition Flow & Fault Injection', () => {
   test('handles localStorage quota exceeded error gracefully and preserves on-screen draft', async ({
     page,
   }) => {
-    const editorId = 'pell';
+    const editorId = 'trumbowyg';
     await page.goto(`${editorId}/`);
     await waitForEditorReady(page, editorId);
 
@@ -198,7 +198,7 @@ test.describe('Stress Testing, IME Composition Flow & Fault Injection', () => {
   });
 });
 
-for (const editorId of ['quill', 'trix', 'tiptap', 'lexical', 'editorjs'] as const) {
+for (const editorId of ['trix', 'tiptap', 'lexical', 'editorjs'] as const) {
   for (const snapshot of ['', '{}']) {
     test(`${editorId} preserves an invalid native snapshot ${JSON.stringify(snapshot)}`, async ({ page }) => {
       await page.goto('./');

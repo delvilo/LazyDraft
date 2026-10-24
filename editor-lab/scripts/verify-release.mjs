@@ -37,7 +37,9 @@ async function verifyCoverage(directory) {
   }
 }
 await verifyCoverage(dist);
-assert.equal([...files.keys()].filter((path) => path.endsWith('.html')).length, 11, 'Hub plus ten editor documents');
+const editorCount = Object.keys(release.editors).length;
+assert.equal(editorCount, Object.keys(catalogue).length, 'Release editor count matches catalogue');
+assert.equal([...files.keys()].filter((path) => path.endsWith('.html')).length, editorCount + 1, `Hub plus ${editorCount} editor documents`);
 for (const [id, description] of Object.entries(catalogue)) {
   const editor = release.editors[id];
   assert.equal(editor.entry, `${id}/index.html`);
@@ -49,4 +51,4 @@ for (const [id, description] of Object.entries(catalogue)) {
 }
 const permissive = new Set(['MIT', 'ISC', 'BSD-2-Clause', 'BSD-3-Clause', 'Apache-2.0', '0BSD', 'Unlicense', 'CC0-1.0', 'Zlib']);
 for (const license of release.licenses) if (!license.development) assert.ok(permissive.has(license.chosenLicense), `${license.name}: runtime license`);
-console.log(`Verified release ${release.version}: 11 pages, ${files.size} integrity-checked files, all ten complete editor graphs and permissive runtime license declarations.`);
+console.log(`Verified release ${release.version}: ${editorCount + 1} pages, ${files.size} integrity-checked files, all ${editorCount} complete editor graphs and permissive runtime license declarations.`);

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
+import { EDITOR_IDS } from '../src/contracts.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,30 +10,15 @@ const __dirname = path.dirname(__filename);
 const BASE_URL = process.env.LAB_BASE_URL || 'http://127.0.0.1:8842/editor-lab/dist/';
 const BENCHMARK_FIXTURE = '基準測量筆記 Benchmark Entry 🚀 12345';
 
-const ALL_EDITORS = [
-  'pell',
-  'squire',
-  'jodit',
-  'suneditor',
-  'quill',
-  'trix',
-  'tiptap',
-  'milkdown',
-  'lexical',
-  'editorjs',
-];
+const ALL_EDITORS = EDITOR_IDS;
 
 const EDITABLE_SELECTORS = {
-  pell: '#editor-host .pell-content',
   squire: '#editor-host [contenteditable="true"]',
-  jodit: '#editor-host .jodit-wysiwyg, #editor-host [contenteditable="true"]',
-  suneditor: '#editor-host .sun-editor-editable, #editor-host [contenteditable="true"]',
-  quill: '#editor-host .ql-editor',
   trix: '#editor-host trix-editor',
   tiptap: '#editor-host .ProseMirror',
-  milkdown: '#editor-host .ProseMirror',
   lexical: '#editor-host [data-lexical-editor="true"], #editor-host [contenteditable="true"]',
   editorjs: '#editor-host .ce-paragraph, #editor-host .ce-block__content, #editor-host [contenteditable="true"]',
+  trumbowyg: '#editor-host .trumbowyg-editor, #editor-host [contenteditable="true"]',
 };
 
 function resolvePaths(startDir) {
@@ -120,7 +106,7 @@ async function measureEditor(browser, editorId, baseUrl, releaseData) {
     const selector = EDITABLE_SELECTORS[editorId];
     let editable = page.locator(selector).first();
     if ((await editable.count()) === 0) {
-      editable = page.locator('#editor-host [contenteditable="true"], #editor-host trix-editor, #editor-host .ce-paragraph').first();
+      editable = page.locator('#editor-host [contenteditable="true"], #editor-host trix-editor, #editor-host .ce-paragraph, #editor-host .trumbowyg-editor').first();
     }
 
     await editable.click({ timeout: 5000 });

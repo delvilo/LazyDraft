@@ -16,7 +16,7 @@ import {
 const imagePath = fileURLToPath(new URL('./fixtures/sample.png', import.meta.url));
 const imageBase64 = readFileSync(imagePath).toString('base64');
 
-test('all ten editors restore original local images, export HTML and prepare print while offline', async ({
+test('all six editors restore original local images, export HTML and prepare print while offline', async ({
   page,
   context,
 }) => {

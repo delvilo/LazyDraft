@@ -1,12 +1,13 @@
 import { createHash } from 'node:crypto';
 import { gzipSync } from 'node:zlib';
-import { readFile, writeFile, readdir, stat } from 'node:fs/promises';
+import { readFile, writeFile, readdir, stat, rename } from 'node:fs/promises';
 import { resolve, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { catalogue } from '../src/catalogue.ts';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const dist = resolve(root, 'dist');
+await rename(resolve(dist, 'hub.html'), resolve(dist, 'index.html'));
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const readJSON = async (path) => JSON.parse(await readFile(path, 'utf8'));
 const lock = await readJSON(resolve(root, 'package-lock.json'));

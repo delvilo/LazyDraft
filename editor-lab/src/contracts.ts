@@ -1,4 +1,5 @@
-export type EditorId = 'pell' | 'squire' | 'jodit' | 'suneditor' | 'quill' | 'trix' | 'tiptap' | 'milkdown' | 'lexical' | 'editorjs';
+export const EDITOR_IDS = ['squire', 'trix', 'tiptap', 'lexical', 'editorjs', 'trumbowyg'] as const;
+export type EditorId = typeof EDITOR_IDS[number];
 
 export type FormatCommand =
   | { kind: 'bold' | 'italic' | 'heading' | 'bulletList' | 'orderedList' | 'quote' | 'codeBlock' | 'undo' | 'redo' }

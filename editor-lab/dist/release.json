@@ -1,1115 +1,59 @@
 {
-  "version": "1fc0c0e45099ee82f931",
+  "version": "e5bbbec4f87baa53f505",
   "files": [
     {
       "path": "THIRD_PARTY_NOTICES.txt",
-      "bytes": 661399,
-      "gzipBytes": 69956,
-      "sha256": "d143a3fc673123961a18effdecda254c4e8782a940625a70803057ad9ccb6874"
+      "bytes": 421994,
+      "gzipBytes": 58364,
+      "sha256": "3ba09c465be12e420329e73998854616d04c1ceb8bdd4bd88c3e619894781334"
     },
     {
-      "path": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
-      "bytes": 28076,
-      "gzipBytes": 28104,
-      "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308"
+      "path": "assets/app-C4hp0y_2.css",
+      "bytes": 11153,
+      "gzipBytes": 2644,
+      "sha256": "5c9f5d3f26aaa5a28232440f19c0c545deec5298b32a8de67ee4f82ec82cad3b"
     },
     {
-      "path": "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
-      "bytes": 33516,
-      "gzipBytes": 33536,
-      "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251"
+      "path": "assets/app-DSlhIy1G.js",
+      "bytes": 79309,
+      "gzipBytes": 27898,
+      "sha256": "0d53f7bb1e1c0e5b4807e2c322347d3de3e343c122df2efe1e0ebe7631f4ba3d"
     },
     {
-      "path": "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
-      "bytes": 63632,
-      "gzipBytes": 34709,
-      "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13"
-    },
-    {
-      "path": "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
-      "bytes": 12368,
-      "gzipBytes": 7854,
-      "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268"
-    },
-    {
-      "path": "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
-      "bytes": 7716,
-      "gzipBytes": 7677,
-      "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed"
-    },
-    {
-      "path": "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
-      "bytes": 6912,
-      "gzipBytes": 6935,
-      "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c"
-    },
-    {
-      "path": "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
-      "bytes": 7656,
-      "gzipBytes": 7621,
-      "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c"
-    },
-    {
-      "path": "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
-      "bytes": 6908,
-      "gzipBytes": 6931,
-      "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b"
-    },
-    {
-      "path": "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
-      "bytes": 12344,
-      "gzipBytes": 7795,
-      "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7"
-    },
-    {
-      "path": "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
-      "bytes": 19584,
-      "gzipBytes": 13494,
-      "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1"
-    },
-    {
-      "path": "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
-      "bytes": 13296,
-      "gzipBytes": 13279,
-      "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb"
-    },
-    {
-      "path": "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
-      "bytes": 11348,
-      "gzipBytes": 11371,
-      "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f"
-    },
-    {
-      "path": "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
-      "bytes": 19572,
-      "gzipBytes": 13431,
-      "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3"
-    },
-    {
-      "path": "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
-      "bytes": 11316,
-      "gzipBytes": 11339,
-      "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc"
-    },
-    {
-      "path": "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
-      "bytes": 13208,
-      "gzipBytes": 13192,
-      "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463"
-    },
-    {
-      "path": "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
-      "bytes": 25324,
-      "gzipBytes": 25352,
-      "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021"
-    },
-    {
-      "path": "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
-      "bytes": 29912,
-      "gzipBytes": 29940,
-      "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822"
-    },
-    {
-      "path": "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
-      "bytes": 51336,
-      "gzipBytes": 30802,
-      "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8"
-    },
-    {
-      "path": "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
-      "bytes": 16780,
-      "gzipBytes": 16808,
-      "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b"
-    },
-    {
-      "path": "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
-      "bytes": 32968,
-      "gzipBytes": 19673,
-      "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f"
-    },
-    {
-      "path": "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
-      "bytes": 19412,
-      "gzipBytes": 19405,
-      "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c"
-    },
-    {
-      "path": "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
-      "bytes": 33580,
-      "gzipBytes": 19924,
-      "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a"
-    },
-    {
-      "path": "assets/KaTeX_Main-Italic-BMLOBm91.woff",
-      "bytes": 19676,
-      "gzipBytes": 19665,
-      "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf"
-    },
-    {
-      "path": "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
-      "bytes": 16988,
-      "gzipBytes": 17016,
-      "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267"
-    },
-    {
-      "path": "assets/KaTeX_Main-Regular-B22Nviop.woff2",
-      "bytes": 26272,
-      "gzipBytes": 26300,
-      "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866"
-    },
-    {
-      "path": "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
-      "bytes": 30772,
-      "gzipBytes": 30795,
-      "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc"
-    },
-    {
-      "path": "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
-      "bytes": 53580,
-      "gzipBytes": 31719,
-      "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830"
-    },
-    {
-      "path": "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
-      "bytes": 31196,
-      "gzipBytes": 19003,
-      "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5"
-    },
-    {
-      "path": "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
-      "bytes": 16400,
-      "gzipBytes": 16423,
-      "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1"
-    },
-    {
-      "path": "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
-      "bytes": 18668,
-      "gzipBytes": 18647,
-      "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e"
-    },
-    {
-      "path": "assets/KaTeX_Math-Italic-DA0__PXp.woff",
-      "bytes": 18748,
-      "gzipBytes": 18738,
-      "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571"
-    },
-    {
-      "path": "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
-      "bytes": 31308,
-      "gzipBytes": 19077,
-      "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a"
-    },
-    {
-      "path": "assets/KaTeX_Math-Italic-t53AETM-.woff2",
-      "bytes": 16440,
-      "gzipBytes": 16468,
-      "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
-      "bytes": 24504,
-      "gzipBytes": 14775,
-      "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
-      "bytes": 12216,
-      "gzipBytes": 12239,
-      "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
-      "bytes": 14408,
-      "gzipBytes": 14398,
-      "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
-      "bytes": 12028,
-      "gzipBytes": 12051,
-      "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
-      "bytes": 14112,
-      "gzipBytes": 14087,
-      "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
-      "bytes": 22364,
-      "gzipBytes": 14433,
-      "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
-      "bytes": 19436,
-      "gzipBytes": 12546,
-      "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
-      "bytes": 12316,
-      "gzipBytes": 12298,
-      "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605"
-    },
-    {
-      "path": "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
-      "bytes": 10344,
-      "gzipBytes": 10367,
-      "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342"
-    },
-    {
-      "path": "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
-      "bytes": 16648,
-      "gzipBytes": 10808,
-      "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67"
-    },
-    {
-      "path": "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
-      "bytes": 9644,
-      "gzipBytes": 9667,
-      "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b"
-    },
-    {
-      "path": "assets/KaTeX_Script-Regular-D5yQViql.woff",
-      "bytes": 10588,
-      "gzipBytes": 10550,
-      "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a"
-    },
-    {
-      "path": "assets/KaTeX_Size1-Regular-C195tn64.woff",
-      "bytes": 6496,
-      "gzipBytes": 6465,
-      "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9"
-    },
-    {
-      "path": "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
-      "bytes": 12228,
-      "gzipBytes": 6540,
-      "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b"
-    },
-    {
-      "path": "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
-      "bytes": 5468,
-      "gzipBytes": 5491,
-      "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe"
-    },
-    {
-      "path": "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
-      "bytes": 11508,
-      "gzipBytes": 6241,
-      "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b"
-    },
-    {
-      "path": "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
-      "bytes": 5208,
-      "gzipBytes": 5231,
-      "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd"
-    },
-    {
-      "path": "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
-      "bytes": 6188,
-      "gzipBytes": 6161,
-      "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d"
-    },
-    {
-      "path": "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
-      "bytes": 4420,
-      "gzipBytes": 4380,
-      "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949"
-    },
-    {
-      "path": "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
-      "bytes": 7588,
-      "gzipBytes": 4389,
-      "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082"
-    },
-    {
-      "path": "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
-      "bytes": 5980,
-      "gzipBytes": 5944,
-      "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58"
-    },
-    {
-      "path": "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
-      "bytes": 10364,
-      "gzipBytes": 6061,
-      "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877"
-    },
-    {
-      "path": "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
-      "bytes": 4928,
-      "gzipBytes": 4951,
-      "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0"
-    },
-    {
-      "path": "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
-      "bytes": 16028,
-      "gzipBytes": 16010,
-      "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7"
-    },
-    {
-      "path": "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
-      "bytes": 13568,
-      "gzipBytes": 13591,
-      "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b"
-    },
-    {
-      "path": "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
-      "bytes": 27556,
-      "gzipBytes": 16479,
-      "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa"
-    },
-    {
-      "path": "assets/_baseMerge-VtkfrMWh.js",
-      "bytes": 11097,
-      "gzipBytes": 4124,
-      "sha256": "c80c43dce54da893b4a53a70775e6b4cea60d68e8b660ba4546e8f6e28dfb814"
-    },
-    {
-      "path": "assets/apl-gfMMiTNf.js",
-      "bytes": 2290,
-      "gzipBytes": 1221,
-      "sha256": "9619f3fb6609168d82b468b6f950530bd23fafbc261f7b56696b10c483522d93"
-    },
-    {
-      "path": "assets/app-BdUwefRJ.js",
-      "bytes": 82075,
-      "gzipBytes": 28988,
-      "sha256": "d225237daad85b7d0f879b674b67e7d7973d98cb1e2d05b69150ecb37c21c681"
-    },
-    {
-      "path": "assets/app-DrhQW88Y.css",
-      "bytes": 11556,
-      "gzipBytes": 2718,
-      "sha256": "03827b7756295cdc3bf90525bff7523c74a29a42909a618e77d45e9cc4bb9f0b"
-    },
-    {
-      "path": "assets/asciiarmor-C_eisQCp.js",
-      "bytes": 777,
-      "gzipBytes": 403,
-      "sha256": "d0d548398b732306f912bbd8cd04486543520e3882a05e98b20a86bfa2b70089"
-    },
-    {
-      "path": "assets/asn1-DCl_8MCW.js",
-      "bytes": 3974,
-      "gzipBytes": 1954,
-      "sha256": "ecd2d25e2e3152f480db9d3e698b2ac94f01fc3dc90d7f51d53d71f5c2a0db33"
-    },
-    {
-      "path": "assets/asterisk-BEn0Cwpx.js",
-      "bytes": 4059,
-      "gzipBytes": 1734,
-      "sha256": "2a2f286533f7527943a00fba13a31187ca2ddfdd1d8dac717175eb734f0dd14e"
-    },
-    {
-      "path": "assets/brainfuck-D5EjA2JK.js",
-      "bytes": 599,
-      "gzipBytes": 319,
-      "sha256": "5475a1a35d2dd641d8cd989a938161509774ccd2b76150b09c4058185476df6e"
-    },
-    {
-      "path": "assets/clike-xvONpD0Z.js",
-      "bytes": 22040,
-      "gzipBytes": 7719,
-      "sha256": "bd8b29f1100faa6548bf4e1fd9270feccb476af74862a06cb0ed267c067683b9"
-    },
-    {
-      "path": "assets/clojure-BflJGmDX.js",
-      "bytes": 9406,
-      "gzipBytes": 4006,
-      "sha256": "3ccea67a7d55baa7ada3701e3382834b1c4b98caad17385635495df8ecf1b075"
-    },
-    {
-      "path": "assets/cmake-84nbDH0I.js",
-      "bytes": 757,
-      "gzipBytes": 456,
-      "sha256": "b04b2d247760958ea0055bc5f2e6b71768ce16eb6c4c9ef107f9756832a49fbf"
-    },
-    {
-      "path": "assets/cobol-DHLQUbN7.js",
-      "bytes": 6195,
-      "gzipBytes": 2975,
-      "sha256": "dbabfa9a971f5684d1ec67be806185042bec8f381ddc8d72f29671d403741e3d"
-    },
-    {
-      "path": "assets/coffeescript-De_zI4J0.js",
-      "bytes": 3847,
-      "gzipBytes": 1686,
-      "sha256": "036cefc2b4652f1513a94c360f9131b00d05c2b91f8d1e1de998075eb2bb802c"
-    },
-    {
-      "path": "assets/commonlisp-DgAKBe0r.js",
-      "bytes": 2314,
-      "gzipBytes": 1096,
-      "sha256": "a5cf5425784f04223503bbebd02c95a25190604640b15c238143c65585dd3146"
-    },
-    {
-      "path": "assets/crystal-Bl6YKCG_.js",
-      "bytes": 5014,
-      "gzipBytes": 2099,
-      "sha256": "bdf8b7992a956195c017fa0ff93bcb83f9b4c08a2fa68fe63bc5934776eb8d4c"
-    },
-    {
-      "path": "assets/css-CnaYoQib.js",
-      "bytes": 24664,
-      "gzipBytes": 8209,
-      "sha256": "196216d43c6f0da651aed4b274a684b1ccb5b693a057e26e01ac66002f5434f6"
-    },
-    {
-      "path": "assets/cypher-p9eYesGn.js",
-      "bytes": 3182,
-      "gzipBytes": 1484,
-      "sha256": "cd05736f31fba1aa9830d94e6b3799236e0b8cd2b989674fb9b074532a8bb42c"
-    },
-    {
-      "path": "assets/d-DWkQyNnU.js",
-      "bytes": 3691,
-      "gzipBytes": 1668,
-      "sha256": "eb4116d03dcda3c7dcb1f8681fe9858eb6f7c7b24213a8397c4862151627d532"
-    },
-    {
-      "path": "assets/diff-ChtP43wD.js",
-      "bytes": 302,
-      "gzipBytes": 234,
-      "sha256": "cf4c32c773b4aec08498fd170b7f74733a695fdbcbb18170413e05c8d64d4848"
-    },
-    {
-      "path": "assets/dist-B19DCIVv.js",
-      "bytes": 314287,
-      "gzipBytes": 100287,
-      "sha256": "70b38131c2f2e94c16888aefab045582977410fe217d4870abe1185914eb780c"
-    },
-    {
-      "path": "assets/dist-B2SsycUD.js",
-      "bytes": 32152,
-      "gzipBytes": 12940,
-      "sha256": "244ad523dda85450a818412462f5fe197bf6ddeb0db6dd3bb511017797e038d9"
-    },
-    {
-      "path": "assets/dist-B5KsbvGh.js",
-      "bytes": 1991,
-      "gzipBytes": 1259,
-      "sha256": "6a33d80f273ff4e85eb571aabb3416497c9606e8b5697fedc62ae13b569c6449"
-    },
-    {
-      "path": "assets/dist-BNOVlJlv.js",
-      "bytes": 3328,
-      "gzipBytes": 1692,
-      "sha256": "7718a93063805f62b67543b2f10dcf7cf875e2e016531a6729b11eed8d84f247"
-    },
-    {
-      "path": "assets/dist-BRMtNCyn.js",
-      "bytes": 26866,
-      "gzipBytes": 12705,
-      "sha256": "93a2d39dddcf2d355d61570c9ccc51aac7bcf10022cb8a63f7513ff47769a0bb"
-    },
-    {
-      "path": "assets/dist-BkhUrAro.js",
-      "bytes": 84675,
-      "gzipBytes": 33429,
-      "sha256": "947ad2d9833ac7d17e1b7738820ef0236206847043a04bf0791dd09f3bea7e01"
-    },
-    {
-      "path": "assets/dist-Bl_xXT3R.js",
-      "bytes": 4934,
-      "gzipBytes": 2332,
-      "sha256": "2f5dd57b8b9674471be926cc8111c6f9b869751c611b7d9b8a9d39f835dc9d36"
-    },
-    {
-      "path": "assets/dist-Bp3Xq9bL.js",
-      "bytes": 2609,
-      "gzipBytes": 1494,
-      "sha256": "35beb9c4610dbda74bc95a2c45390d819d751a258edb99fe053bf8359b01cd08"
-    },
-    {
-      "path": "assets/dist-BwWqV6GW.js",
-      "bytes": 103897,
-      "gzipBytes": 34289,
-      "sha256": "a04ba7a27b6f91ad37ee8f3a5f971c5da82b44ee3db0bd989c6312183a58dda1"
-    },
-    {
-      "path": "assets/dist-C-9pmUA9.js",
-      "bytes": 47730,
-      "gzipBytes": 19298,
-      "sha256": "795bee016e8fc2984b9573d8ad82aa93085937e8b173e243a80025f203303eb1"
-    },
-    {
-      "path": "assets/dist-CEp6weUv.js",
-      "bytes": 28373,
-      "gzipBytes": 11475,
-      "sha256": "3d254d648738cea259b90cf996d172cb642f62746cd80867ee5d0fd58a5711ac"
-    },
-    {
-      "path": "assets/dist-CaRnGvor.js",
-      "bytes": 22956,
-      "gzipBytes": 10328,
-      "sha256": "292068cd722591835f9855c5c41f697bc00d80129f2f557aa2401583b39bfbf5"
-    },
-    {
-      "path": "assets/dist-Ck0s0cAv.js",
-      "bytes": 21717,
-      "gzipBytes": 10005,
-      "sha256": "da75cea3edfeb480325aae53868d85cf67ccc1fcb176385785a81c0d5bc74baa"
-    },
-    {
-      "path": "assets/dist-CxgzrP-7.js",
-      "bytes": 44587,
-      "gzipBytes": 15197,
-      "sha256": "7ce3132263fe7a606f50dc1476acd42c721929bfa27e03253c357c9e58076bf3"
-    },
-    {
-      "path": "assets/dist-CzlBalHv.js",
-      "bytes": 98135,
-      "gzipBytes": 28472,
-      "sha256": "a95e5dd7c7f11d456514a7eaa82a83e02dbe91fb111446b571d60004cd59b0a2"
-    },
-    {
-      "path": "assets/dist-DCaQvTA4.js",
-      "bytes": 16234,
-      "gzipBytes": 7403,
-      "sha256": "75900c4b265fa784fc2990d3e4d441d68a9398122befe0bb6b54a74de66d4a94"
-    },
-    {
-      "path": "assets/dist-DV_p2IRh.js",
-      "bytes": 14301,
-      "gzipBytes": 5755,
-      "sha256": "82786d8332caada0816d3e44823ae4d5e9f72e29cb26e4b9d54f036abef25337"
-    },
-    {
-      "path": "assets/dist-Ddk5IKzf.js",
-      "bytes": 26898,
-      "gzipBytes": 8691,
-      "sha256": "42132f44316c5871b0b5701970e914acf6e631432f35c68a5a9b824ebb2151df"
-    },
-    {
-      "path": "assets/dist-DpGi8aqI.js",
-      "bytes": 11558,
-      "gzipBytes": 5149,
-      "sha256": "3e4a4179c87978493d5f24618d6398877ada0cedb0ded4c6b5a1d75263f19b42"
-    },
-    {
-      "path": "assets/dist-DpLg-7Rm.js",
-      "bytes": 30724,
-      "gzipBytes": 12594,
-      "sha256": "70f9497a68d367e29a4b204b894c84e7fd21597d13f7bb37d1a63bac641f79ef"
-    },
-    {
-      "path": "assets/dist-E4lz-12Y.js",
-      "bytes": 44579,
-      "gzipBytes": 19041,
-      "sha256": "e517eecb50232a2ca23fbf89c4e5673633ead965b16760f79c4be9bc42722454"
-    },
-    {
-      "path": "assets/dist-G9bT2iMT.js",
-      "bytes": 83683,
-      "gzipBytes": 30293,
-      "sha256": "bd653ab49f8923ee79c65c6114e89e7c393908760ef232bea9f13281e05d0dfa"
-    },
-    {
-      "path": "assets/dist-bnD_Nkth.js",
-      "bytes": 20693,
-      "gzipBytes": 9220,
-      "sha256": "10097ba13c75d46a3069e6243698f2b65ec5c7a64dcb71aa2ac57e440c11d425"
-    },
-    {
-      "path": "assets/dockerfile-DJkHQgkl.js",
-      "bytes": 1906,
-      "gzipBytes": 652,
-      "sha256": "c86168d3e36da3ebce319561f0be8af50366b8c9889ea2822b18aba45febe8fb"
-    },
-    {
-      "path": "assets/dtd-DTF72YNO.js",
-      "bytes": 2092,
-      "gzipBytes": 869,
-      "sha256": "8f289b3c0a603c2de057f44cfb513dcb9e24dfeff1ac299a0acde4f1279385a9"
-    },
-    {
-      "path": "assets/dylan-S7ucR4pR.js",
-      "bytes": 4033,
-      "gzipBytes": 1627,
-      "sha256": "00102c7a939f9bd81c23d292bf4bb6a3d657e722db0bffcd85ff9401730c849a"
-    },
-    {
-      "path": "assets/ebnf-D4c0_ac3.js",
-      "bytes": 1979,
-      "gzipBytes": 798,
-      "sha256": "e39d883c18e1d0436f36926b7b46617128b40cfd7ed0a10bd66af695fcadfe97"
-    },
-    {
-      "path": "assets/ecl-BVIeWmwY.js",
-      "bytes": 5110,
-      "gzipBytes": 2299,
-      "sha256": "fa4f1534359480b3174b2ca9ff915972f9475bdaa74aab645bfda1eca46074e9"
-    },
-    {
-      "path": "assets/editorjs-LO-D52ze.js",
+      "path": "assets/editorjs-BWAgBKKF.js",
       "bytes": 354417,
       "gzipBytes": 94771,
-      "sha256": "cdbeb46f4b962924d092c6fae6d135118869dd6a49f4d2e1ac42f0c5357631f8"
+      "sha256": "e2a54d33542d56b30358703dbc5bb77f41efdd72c43e6a0765b8d9cdc2f9810b"
     },
     {
-      "path": "assets/eiffel-BEjRio4Q.js",
-      "bytes": 1692,
-      "gzipBytes": 908,
-      "sha256": "df2f416a891d40045c83ff1900af1cb87f72695ad4d87c50682738624c38a266"
-    },
-    {
-      "path": "assets/elm-Cshzl8qu.js",
-      "bytes": 1866,
-      "gzipBytes": 811,
-      "sha256": "7dc9b8c8a1289df3800c9ca773519840019d47deefb03dca7f7302b9882f12e9"
-    },
-    {
-      "path": "assets/erlang-BV0c4Hdn.js",
-      "bytes": 7846,
-      "gzipBytes": 2895,
-      "sha256": "17d201413a70fc04906b3d0265bc6b80e7d8f176c38f46979c366ecbea144e77"
-    },
-    {
-      "path": "assets/factor-LKH5gN8L.js",
-      "bytes": 1669,
-      "gzipBytes": 608,
-      "sha256": "985d490b848506f5c777d7a0584fc9343798e03d2a69c2a556a486d43db1237a"
-    },
-    {
-      "path": "assets/fcl-ClOhbFR7.js",
-      "bytes": 2029,
-      "gzipBytes": 945,
-      "sha256": "08ce5e646edb4d614970bead56bd5b06f14093bc904af846e33b1d60fa142052"
-    },
-    {
-      "path": "assets/forth-D6RzAl64.js",
-      "bytes": 2539,
-      "gzipBytes": 1321,
-      "sha256": "89cdf42385551ba2c763602802e59a86ec8587db8f43527160095244e48552cd"
-    },
-    {
-      "path": "assets/fortran-Bt6PBEDR.js",
-      "bytes": 3862,
-      "gzipBytes": 1926,
-      "sha256": "0ee1b38b1c87eddf928e6d11929c96ad15d006d477182f4d6fb181475cbaaa25"
-    },
-    {
-      "path": "assets/gas-BHEdbvp9.js",
-      "bytes": 4550,
-      "gzipBytes": 1263,
-      "sha256": "72ce032bf8e2f97291cb8070c844d7a36255c89a0b32f65d8f2865b9344ef472"
-    },
-    {
-      "path": "assets/gherkin-oBAE_ms0.js",
-      "bytes": 10156,
-      "gzipBytes": 5088,
-      "sha256": "ca63055e8d4e39e3280607c357763a89ff08c3e719f48a2749f3d8cde1fea56d"
-    },
-    {
-      "path": "assets/groovy-CUrWKPia.js",
-      "bytes": 4119,
-      "gzipBytes": 1739,
-      "sha256": "16f67c3049122d437e325ca5e80eea28368331f9f6f42d9865aa337276747e00"
-    },
-    {
-      "path": "assets/haskell-BRsoo5mP.js",
-      "bytes": 4159,
-      "gzipBytes": 1888,
-      "sha256": "868e8b21da5021140b51775df3d9ebb51bf5aa0925b2dba75b9923e71a717e6d"
-    },
-    {
-      "path": "assets/haxe-DjVOVvNP.js",
-      "bytes": 7862,
-      "gzipBytes": 2922,
-      "sha256": "d82d48ac4fdb69dd2dca969ecfb5e59dca97e15d10ec4872afe73d5ac1253325"
-    },
-    {
-      "path": "assets/http-CLVgA2GD.js",
-      "bytes": 845,
-      "gzipBytes": 424,
-      "sha256": "94a0d68f2fa36fd78ed3f3c9483b33062fee90c694f4e70797d9cc5a6715b914"
-    },
-    {
-      "path": "assets/idl-BUZw3wgd.js",
-      "bytes": 9826,
-      "gzipBytes": 4378,
-      "sha256": "438714d3559726d0a0a3ac7a0a08267c929d0bb690fa2eef514b82322be2f6a4"
-    },
-    {
-      "path": "assets/javascript-lS2r2ifg.js",
-      "bytes": 16961,
-      "gzipBytes": 5684,
-      "sha256": "3e2eb2585ac62100e9562dd996f9c4f77ef6014a0287ef300c47cfa1a32c6603"
-    },
-    {
-      "path": "assets/jodit-B0NXT6FF.css",
-      "bytes": 165596,
-      "gzipBytes": 36159,
-      "sha256": "a88105d7c15c3159657b74f9cb22bc88f7a3cd9003414c55d4cc62e91151e5bc"
-    },
-    {
-      "path": "assets/jodit-BVoqckhs.js",
-      "bytes": 569538,
-      "gzipBytes": 169948,
-      "sha256": "2f57309c88e1423532173c9293e1766b0e8ae540fde7ce17c5794186a168942f"
-    },
-    {
-      "path": "assets/julia-CQfgDRfP.js",
-      "bytes": 5263,
-      "gzipBytes": 2163,
-      "sha256": "0c2cf72d1ac90213c3b42a91c800c587f75ee81e2bcde2712dddfd386d8967eb"
-    },
-    {
-      "path": "assets/lexical-CkjuXuH7.js",
+      "path": "assets/lexical-O6DscQTb.js",
       "bytes": 277774,
       "gzipBytes": 83988,
-      "sha256": "b6e1b160b6998f9341edbd50f7d1b42624b13d0cbe0e64b4217f92a68b70c3d9"
+      "sha256": "d5896e60b0f2a31e3120b75a13df7fcf63a23a53a1e108d8f942ffd5770d373f"
     },
     {
-      "path": "assets/livescript-BXxG0Yva.js",
-      "bytes": 4081,
-      "gzipBytes": 1624,
-      "sha256": "fe8dcb554ae3e959a556e5e0d4c1d6b186818e451a4269ae603062c478094f96"
+      "path": "assets/rolldown-runtime-WkwZ5CU-.js",
+      "bytes": 599,
+      "gzipBytes": 368,
+      "sha256": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e"
     },
     {
-      "path": "assets/lua-DPCEkfD_.js",
-      "bytes": 3128,
-      "gzipBytes": 1394,
-      "sha256": "2f4183f6b44b5ad6d9e5fe805a843c7d9336a4e95ef811b7bff81a03562295d6"
-    },
-    {
-      "path": "assets/mathematica-u8YMmbU0.js",
-      "bytes": 1899,
-      "gzipBytes": 806,
-      "sha256": "84ae4ba6bf879a4608696af785e17cedd8b581bdbea0c90f856585d451b34190"
-    },
-    {
-      "path": "assets/mbox-BEMVcqjs.js",
-      "bytes": 1386,
-      "gzipBytes": 650,
-      "sha256": "44dc8f20f0534aa78d31245211628291e31351f36bee1ac1d7aeb8a59a11d254"
-    },
-    {
-      "path": "assets/milkdown-B7T99w4O.js",
-      "bytes": 914385,
-      "gzipBytes": 281470,
-      "sha256": "495ce9719104ea70831720c6c35c6dec0d56a9f64fd6e07f80f79e7eca4c3d6d"
-    },
-    {
-      "path": "assets/milkdown-C1UVQ-uL.css",
-      "bytes": 81771,
-      "gzipBytes": 15687,
-      "sha256": "39b786ac811f0516bdfb55d9aaf36297796d59ab6eed3dcb74a87773bec8fcbe"
-    },
-    {
-      "path": "assets/mirc-C9zpzAZU.js",
-      "bytes": 5917,
-      "gzipBytes": 2683,
-      "sha256": "edc1c63e88e0942b88240b589af3bc3e6ada91a4996eb5eff61d64d069d8085a"
-    },
-    {
-      "path": "assets/mllike-B45xgp2S.js",
-      "bytes": 4823,
-      "gzipBytes": 1558,
-      "sha256": "0530b163f7297af3234377ec8d70cc26919c6e38f3dd34c8069a30387ff666a0"
-    },
-    {
-      "path": "assets/modelica-CqHI_q-D.js",
-      "bytes": 2795,
-      "gzipBytes": 1283,
-      "sha256": "e620fa810ea18a71a5d491ea8da8638f6113f1ae435c7300b9a2f2d332c5691f"
-    },
-    {
-      "path": "assets/mscgen-qgSLujhx.js",
-      "bytes": 3499,
-      "gzipBytes": 973,
-      "sha256": "53b24ee7c56bc57af791aed5bc20b0cf51333dd20c6f48eb9dd7d7a222a4d96b"
-    },
-    {
-      "path": "assets/mumps-BSzj6Xyz.js",
-      "bytes": 1822,
-      "gzipBytes": 952,
-      "sha256": "b74f315529764ac8bd1dc5de0000a81e8ec336ca167b130a9380af3f8e2c2527"
-    },
-    {
-      "path": "assets/nginx-C-ORUuei.js",
-      "bytes": 7404,
-      "gzipBytes": 2715,
-      "sha256": "55818a361adedcb7d6c45456f0476c8f08d332d13179837c9969448420885b16"
-    },
-    {
-      "path": "assets/nsis-viPvXFiq.js",
-      "bytes": 7061,
-      "gzipBytes": 3072,
-      "sha256": "650cc541455f7d197edf02bba71ab1fcf7303a805d017b0b00c562bf4b2abfa9"
-    },
-    {
-      "path": "assets/ntriples-CzMBulkp.js",
-      "bytes": 2057,
-      "gzipBytes": 722,
-      "sha256": "cfc533a57da0f333fdb2ffe1b9371eef808de4f72917a34140bdaf4caf88dab4"
-    },
-    {
-      "path": "assets/octave-D2Q8cUp1.js",
-      "bytes": 2101,
-      "gzipBytes": 1077,
-      "sha256": "435819b2e5cd3263138c94a8970bb09101e4c3f186594eb4649f8bc604eecad9"
-    },
-    {
-      "path": "assets/oz-BwTct_5T.js",
-      "bytes": 2881,
-      "gzipBytes": 1269,
-      "sha256": "122d799c67d18e54c5ef26e7786f81ae0fc4ce2dbdeb57aa2ff4b2e5f23fb0a8"
-    },
-    {
-      "path": "assets/pascal-Dp_KdFgX.js",
-      "bytes": 2256,
-      "gzipBytes": 1174,
-      "sha256": "2d5e3c493596b6ffcc688ab63c6501d11be92ccb669d92b5c2a36cc876b7acdd"
-    },
-    {
-      "path": "assets/pell-BHnlgLMG.js",
-      "bytes": 8334,
-      "gzipBytes": 2857,
-      "sha256": "bbb54f1736c4423987442e2359ed26604997aeb4557c2be166becbcda3dd357e"
-    },
-    {
-      "path": "assets/pell-Dd3-zTaF.css",
-      "bytes": 381,
-      "gzipBytes": 219,
-      "sha256": "3a8af881b31fe24b99061ae3149a36db197d55a7617d9b5329b632fc65aa5a26"
-    },
-    {
-      "path": "assets/perl-BkSkiI9m.js",
-      "bytes": 9733,
-      "gzipBytes": 3445,
-      "sha256": "efd47f9ae8043b2e00b8ac2ecf12d5b3916d049fd230d4e2de748e79c633d125"
-    },
-    {
-      "path": "assets/pig-AF4Hwhju.js",
-      "bytes": 2513,
-      "gzipBytes": 1373,
-      "sha256": "fff5fffe6757c1708a03dec395f9b3bd038d30fce56b70e00960da5ea203c78e"
-    },
-    {
-      "path": "assets/powershell-D8WpQPaX.js",
-      "bytes": 7689,
-      "gzipBytes": 3277,
-      "sha256": "19fed4e3b21edac914eba6a26cbc7e476a94ea6028dcc22e9b77600f4a618f8f"
-    },
-    {
-      "path": "assets/properties-C357ku5U.js",
-      "bytes": 664,
-      "gzipBytes": 342,
-      "sha256": "265cd5a3bc8e8e1426825db6da7dfd6398db08f4ca5dc266b3f432a982868452"
-    },
-    {
-      "path": "assets/prosemirror-Bpb8Xr40.js",
-      "bytes": 218509,
-      "gzipBytes": 66302,
-      "sha256": "1ddf59a05894f282beed2c1b8de861a783b40cdcfea8e9ab8bdd4a4e6c49c4e3"
-    },
-    {
-      "path": "assets/prosemirror-DK40xfPZ.css",
-      "bytes": 2713,
-      "gzipBytes": 842,
-      "sha256": "77a9f0418e7022ebaf924c9123c1f1d6b704b7e73fd9d93d6d8139b998686fb1"
-    },
-    {
-      "path": "assets/protobuf-D1ij_kNL.js",
-      "bytes": 802,
-      "gzipBytes": 507,
-      "sha256": "7c936836371bd94a649f756e6c07bb3f3139555c4a2c18c0ac6060ca26332d77"
-    },
-    {
-      "path": "assets/pug-BqCHZ5xT.js",
-      "bytes": 6613,
-      "gzipBytes": 1946,
-      "sha256": "9f979f4dacff2010ae46b0ba7d92c33ba3ed28b78c820c00c34d0650050f1f6e"
-    },
-    {
-      "path": "assets/puppet-BZyAS7I4.js",
-      "bytes": 2517,
-      "gzipBytes": 1198,
-      "sha256": "a600a4c00b1745a13b1e619a137f2c67ae87352aa1ab57dad71cf94d633265a7"
-    },
-    {
-      "path": "assets/python-B_1Jd8HM.js",
-      "bytes": 6272,
-      "gzipBytes": 2671,
-      "sha256": "8e6518c2f97a6057d9801d6401b2da865382f8d54b8e718c794e011b74f3a53a"
-    },
-    {
-      "path": "assets/q-B9NhS7L_.js",
-      "bytes": 3691,
-      "gzipBytes": 1691,
-      "sha256": "b1aacfc6dada3beff2530353c44dbd3b7c9fa39f6c315e27de6b44825fcd7cb4"
-    },
-    {
-      "path": "assets/quill-BJwsjeG4.js",
-      "bytes": 193824,
-      "gzipBytes": 56251,
-      "sha256": "1950b940cd7f4fd8ac77b9547a4770427a165d1d845ccc314305633fecf3e3cc"
-    },
-    {
-      "path": "assets/quill-DVB7LGv8.css",
-      "bytes": 24367,
-      "gzipBytes": 3685,
-      "sha256": "f77202e3b7746dabc7942d056e3d051c3906e03930838e9120d282e965518d65"
-    },
-    {
-      "path": "assets/r-CxDmU1I4.js",
-      "bytes": 2920,
-      "gzipBytes": 1338,
-      "sha256": "ce1385db9dc69828b103ea845015e5ebdad1b624eef79f4c9f5dc56d5d23a7ad"
-    },
-    {
-      "path": "assets/rolldown-runtime-XKyaHtl9.js",
-      "bytes": 726,
-      "gzipBytes": 429,
-      "sha256": "548d1dbf321e7d2ae804fcc158b588706a7c52f8ca175de1490c6ccb4dbe55b7"
-    },
-    {
-      "path": "assets/rpm-gpDK5sbt.js",
-      "bytes": 1597,
-      "gzipBytes": 818,
-      "sha256": "5ad9e795d1d7fe0390cc015a03d54aef739a2244340e2deaf5df4f6ed013a8df"
-    },
-    {
-      "path": "assets/ruby-ChfNwlCY.js",
-      "bytes": 5077,
-      "gzipBytes": 2149,
-      "sha256": "bf7640300ec2fcda90331b55594a232b76d5a3542be898d4b6565b6cb3a61ce7"
-    },
-    {
-      "path": "assets/sas-C2OyD2Y6.js",
-      "bytes": 9331,
-      "gzipBytes": 4101,
-      "sha256": "9c51535bc98848d00a7a16101ad2ff162cb44106468b7a7d595f04719e082cab"
-    },
-    {
-      "path": "assets/scheme-D9qYN0V5.js",
-      "bytes": 6357,
-      "gzipBytes": 2370,
-      "sha256": "92e00992b5c67b8d38c35f9088b09ee58175c3dd1ea45f9d135fd95269bb0dbe"
-    },
-    {
-      "path": "assets/shell-DwuoZtxw.js",
-      "bytes": 2434,
-      "gzipBytes": 1199,
-      "sha256": "eada594fb1134cc2dfb8874e055a8db889b2685fa6aa6342841343be30038937"
-    },
-    {
-      "path": "assets/sieve-tLWDfEkZ.js",
-      "bytes": 1613,
-      "gzipBytes": 769,
-      "sha256": "9e46e1396212c04e17b36ef6995ccff254c31c158ee297a17dce13a027cc968f"
-    },
-    {
-      "path": "assets/simple-mode-DXiLM1-G.js",
-      "bytes": 2275,
-      "gzipBytes": 1089,
-      "sha256": "1da2ff3f952ded0f8e8080499e58b44d3b22bc7c5e2ae8db2f99a3a6105310b2"
-    },
-    {
-      "path": "assets/smalltalk-BLp5-jwC.js",
-      "bytes": 1996,
-      "gzipBytes": 847,
-      "sha256": "559d0a977880456b4f916cf9b1592b375c96047cd9dd0a13b3598b4369072553"
-    },
-    {
-      "path": "assets/solr-B78wSQJQ.js",
-      "bytes": 861,
-      "gzipBytes": 452,
-      "sha256": "b3d8aa05e7f39b5b77c41817b02ff8f0e8ec11e6b8f3a91a8ae260f91dd3b01a"
-    },
-    {
-      "path": "assets/sparql-Dz-mlCAC.js",
-      "bytes": 3331,
-      "gzipBytes": 1594,
-      "sha256": "02e59f6539d324beb643eee727f0b4356549cafe15f7aaceb3d3c34ee5bdad0d"
-    },
-    {
-      "path": "assets/spreadsheet-CTIncYxj.js",
-      "bytes": 1135,
-      "gzipBytes": 533,
-      "sha256": "d3af197570b0a504e7c45dcd619b58422c5cb2f54b9028e556768e2213b070f6"
-    },
-    {
-      "path": "assets/sql-DuQMFDvy.js",
-      "bytes": 36836,
-      "gzipBytes": 10809,
-      "sha256": "648b34cda3d7da91025ed7ec142ffbd5bf26528407740383bdf690643a16c73c"
-    },
-    {
-      "path": "assets/squire-CrTXuGEp.js",
+      "path": "assets/squire-DWd5RBZ3.js",
       "bytes": 64925,
-      "gzipBytes": 19346,
-      "sha256": "4182b52d9256f4c6ab6439a1e679af8b7e57315ea7d9573e83fc2e88cfd8413e"
+      "gzipBytes": 19347,
+      "sha256": "188f90920a59f4c48521dd2898627bec989d51cbae59199103140b0ba7ef1efe"
     },
     {
-      "path": "assets/stex-DNzd62Q_.js",
-      "bytes": 3092,
-      "gzipBytes": 1174,
-      "sha256": "f12ad11c2bff04c45c80f79d02250c76f0b1d01b254d04da7b195f4ad15b556f"
+      "path": "assets/tiptap-BCL9K5RZ.js",
+      "bytes": 396541,
+      "gzipBytes": 123095,
+      "sha256": "35383e80236cedcaff49b1bb9c5a9a5d61e0ea4192ff4edd94f9cbc1c23737d7"
     },
     {
-      "path": "assets/stylus-BOVgKnng.js",
-      "bytes": 23515,
-      "gzipBytes": 8509,
-      "sha256": "8522dc37629aa3153da10fac7505ac8f289219c3eb79246bc6d9e05f1a5ed148"
-    },
-    {
-      "path": "assets/suneditor-C3hlgvIq.js",
-      "bytes": 815002,
-      "gzipBytes": 209368,
-      "sha256": "110d05380cb39b49337de823896e50591097b6c99b74889ad161983cd69af0a1"
-    },
-    {
-      "path": "assets/suneditor-CbgatFFb.css",
-      "bytes": 140463,
-      "gzipBytes": 24518,
-      "sha256": "9b80b927e09b993c7133269649236861b5d927ca5b626fad37a04616e1c6ac01"
-    },
-    {
-      "path": "assets/swift-DKB6_1j6.js",
-      "bytes": 3762,
-      "gzipBytes": 1814,
-      "sha256": "f0835c04896ba11cf7884b2175e31574762723655d4e6461ce6ec7046479eaa3"
-    },
-    {
-      "path": "assets/tcl-BGfruO1u.js",
-      "bytes": 2353,
-      "gzipBytes": 1215,
-      "sha256": "3e07cc02b94880557cd297c19f467421a7f452c8240534e7e9e7dbc4607b1813"
-    },
-    {
-      "path": "assets/textile-C4jVoHG1.js",
-      "bytes": 6745,
-      "gzipBytes": 2441,
-      "sha256": "87165770d704543ebf20f4da7f1a84f4c97bd43dc707f71759b32239f9516f9e"
-    },
-    {
-      "path": "assets/tiddlywiki-VlUiK86J.js",
-      "bytes": 2760,
-      "gzipBytes": 1071,
-      "sha256": "1bd675104bdfd2ac7ec250cefe80d8f48581bf103519f1c7407b2a4e3502da93"
-    },
-    {
-      "path": "assets/tiki-CvUEFusT.js",
-      "bytes": 3217,
-      "gzipBytes": 1249,
-      "sha256": "1b5539b74a02c17b6b93ae400056d5c4af6f1a67be9aff07b4c08c4f44474249"
-    },
-    {
-      "path": "assets/tiptap-O8XVU7j7.js",
-      "bytes": 181421,
-      "gzipBytes": 58833,
-      "sha256": "14a271d39adc7b18135e6cdb1dcfb86f17e6a0712bb719aaaf3ba53d18cc2c5f"
-    },
-    {
-      "path": "assets/toml-BPTmHmyx.js",
-      "bytes": 1045,
-      "gzipBytes": 529,
-      "sha256": "55c50c3d69b919264e6f1d9e6d9279d381d88c1c9a9e1cd4a75c82abe9680de8"
+      "path": "assets/tiptap-Dee3NewH.css",
+      "bytes": 1916,
+      "gzipBytes": 645,
+      "sha256": "4cb96febb9323596b46d4b33395ce67669419fea7a87ea9606fba066fba37a49"
     },
     {
       "path": "assets/trix-BHHJkEUP.css",
@@ -1118,247 +62,110 @@
       "sha256": "1b405f01596f90a0b33197c020eed50e6fe6a2f9702877c611e09ef9c6fe6f9c"
     },
     {
-      "path": "assets/trix-BSTSM6F-.js",
+      "path": "assets/trix-BsMMgtiE.js",
       "bytes": 202273,
       "gzipBytes": 52288,
-      "sha256": "abaaa36fd2cca1dac692e903ddf156fb026d0f09869be684eb1e5904cd3756c6"
+      "sha256": "5d02cb9318831c81ca3d411676b1656cce938d29bce6248d42e147f406726dc2"
     },
     {
-      "path": "assets/troff-C2dAgh7P.js",
-      "bytes": 957,
-      "gzipBytes": 435,
-      "sha256": "46bba1f3f4223fd204bf913bbeebdbc0256db1e69bd9a2e804175c5841ec8fe5"
+      "path": "assets/trumbowyg-BWon2-xz.js",
+      "bytes": 27471,
+      "gzipBytes": 9432,
+      "sha256": "0b60eadc5c494961d135ee8182769ca56ac93904b5e34ef6973d0e63de16cf13"
     },
     {
-      "path": "assets/ttcn-PPSTk1ow.js",
-      "bytes": 4842,
-      "gzipBytes": 2137,
-      "sha256": "6d53eb1b3bceb8f3a212937286bfdaeed42149560fa0e815d735527686a7f6d2"
+      "path": "assets/trumbowyg-CrH7d0ev.js",
+      "bytes": 123683,
+      "gzipBytes": 42411,
+      "sha256": "722c13974b5eb3d0d097c32f31c9c32ced4aa7c159ab1e05df6a6deeca0abc4d"
     },
     {
-      "path": "assets/ttcn-cfg-2b4Gb5sE.js",
-      "bytes": 4096,
-      "gzipBytes": 1725,
-      "sha256": "ac7fc0a6da171cc715153f966c7907e688604a7e78cc00db914af119e976eb68"
+      "path": "assets/trumbowyg-rajbXNs8.css",
+      "bytes": 19399,
+      "gzipBytes": 3289,
+      "sha256": "fb6bd91a9b7dac4b5e64128dfe516c226c3cdf523e2ae8b28a249f4d5beacfcf"
     },
     {
-      "path": "assets/turtle-Cx3rYX2g.js",
-      "bytes": 1955,
-      "gzipBytes": 887,
-      "sha256": "ceb6ee2aef9f2a911bd3d33a4913af35ce960f77ce309d0e3173e5f257c50afc"
+      "path": "assets/trumbowyg.history-CNWCUj6s.js",
+      "bytes": 2290,
+      "gzipBytes": 820,
+      "sha256": "f7bd2fa9ca3ea43f306d07100d5449975e8ebd8d307db9380ab82bfaf378c894"
     },
     {
-      "path": "assets/vb-BthdM_4N.js",
-      "bytes": 3650,
-      "gzipBytes": 1807,
-      "sha256": "e025945bc97ae2640b26c11b737636cc735b0600387077412dbbae1e488d2686"
-    },
-    {
-      "path": "assets/vbscript-D9f6rSsU.js",
-      "bytes": 5431,
-      "gzipBytes": 2547,
-      "sha256": "17756f99b070ecf14eb93e21030c15c6fb5f483d189b18d34943ebef3802b173"
-    },
-    {
-      "path": "assets/velocity-CqftRsjg.js",
-      "bytes": 2703,
-      "gzipBytes": 1106,
-      "sha256": "73fe5a94c56d83b21ad4bca500a377e32d2ecaab55df875ecae446a65a680cbe"
-    },
-    {
-      "path": "assets/verilog-CjI9Y6RI.js",
-      "bytes": 8182,
-      "gzipBytes": 3461,
-      "sha256": "1b2591bfbefcfda9f59a0657cec762e2eae0fe3adb897dce65a68e119be58b9d"
-    },
-    {
-      "path": "assets/vhdl-kS471soi.js",
-      "bytes": 3315,
-      "gzipBytes": 1494,
-      "sha256": "dcbd07bcd5b806eee08ab28b0b0819438abebb9b05aee10a5b983fec08e5b828"
-    },
-    {
-      "path": "assets/webidl-D5jiJvOU.js",
-      "bytes": 2449,
-      "gzipBytes": 1247,
-      "sha256": "fc2dfdc276c574d2bbda79a675c05f6cebc4a24313b1c3a5743ef0b31290e05e"
-    },
-    {
-      "path": "assets/xquery-BKJx4mf9.js",
-      "bytes": 6159,
-      "gzipBytes": 2556,
-      "sha256": "852b1dc43c633b82ad40b05b4175872080ca8df85e84b39a6005a55dbdb23c49"
-    },
-    {
-      "path": "assets/yacas-CXXgtw0p.js",
-      "bytes": 2141,
-      "gzipBytes": 1084,
-      "sha256": "717ca22d8f94a5a221635a01bc506c11f0fe36088ed98f3a08532a7da9297831"
-    },
-    {
-      "path": "assets/z80-Co3PbHdE.js",
-      "bytes": 1756,
-      "gzipBytes": 790,
-      "sha256": "8d4374929f96885f45950a5964b6aec62e4b769e2c62d2d76535b74b833330f9"
+      "path": "assets/trumbowyg.preformatted-DuzITMLl.js",
+      "bytes": 1836,
+      "gzipBytes": 869,
+      "sha256": "8d0e42eb1bbf276ccb51ae038b8ce64fe3573fc36d1eafbb4f5095b4f3aebfd3"
     },
     {
       "path": "editorjs/index.html",
-      "bytes": 670,
-      "gzipBytes": 488,
-      "sha256": "76a2437000f978cc07c25c50d7057b1dfaa5f7c6db6ff99d7c4893f6d961a41b"
+      "bytes": 669,
+      "gzipBytes": 486,
+      "sha256": "1d6aa8804f1548834e2281958988738f980a70bb11d7329a1ef7a04707130605"
     },
     {
       "path": "index.html",
-      "bytes": 674,
-      "gzipBytes": 488,
-      "sha256": "8a95102f13d960065b7765af9f21c1fc2efaf097bb447182a1df44f643f46925"
-    },
-    {
-      "path": "jodit/index.html",
-      "bytes": 663,
-      "gzipBytes": 488,
-      "sha256": "6471494b24ac37b4d7d2a211d81e3614970bd917018548ef40a6434bd0fd1d76"
+      "bytes": 672,
+      "gzipBytes": 486,
+      "sha256": "f9b25cf35feff080a19a7d1fbef160256a38147189ad10814300009a8efc5a62"
     },
     {
       "path": "lexical/index.html",
-      "bytes": 667,
-      "gzipBytes": 489,
-      "sha256": "129186943c4e92e2b79048abf4e9166e64a12f1c48fdefc5e99792395013b3bb"
-    },
-    {
-      "path": "milkdown/index.html",
-      "bytes": 669,
-      "gzipBytes": 491,
-      "sha256": "bf6729d9b9d784c665171bd84278536c2c833ee3fcdff30bc459ff2d7fe1952e"
-    },
-    {
-      "path": "pell/index.html",
-      "bytes": 661,
+      "bytes": 666,
       "gzipBytes": 488,
-      "sha256": "aee7b126ad4c15cf4a3ed4b768b416da042e8fbabd3c1c1cb65e7466539b1d02"
-    },
-    {
-      "path": "quill/index.html",
-      "bytes": 663,
-      "gzipBytes": 489,
-      "sha256": "8fa233a50de696e4ce13ffad6d6f3c326c76993e732ed1d624db9a1aa7041316"
+      "sha256": "3c6881d2af0f3c538c0bd30fbe9b9578e6b85d6033b2b7e2ccd060c97956edb4"
     },
     {
       "path": "squire/index.html",
-      "bytes": 665,
-      "gzipBytes": 489,
-      "sha256": "35f90da5a38254cf1b3bbea4d393bd5c1533be9325f3b37685375f18a86756c1"
-    },
-    {
-      "path": "suneditor/index.html",
-      "bytes": 671,
-      "gzipBytes": 489,
-      "sha256": "c906e501f55ae5ad571a3099ff0450674e3aa8a940f14687278630b471403d87"
+      "bytes": 664,
+      "gzipBytes": 488,
+      "sha256": "192a55fdd813040c2c6a494c109a16dc1055dac9033b05f9f7499963ba7c29c8"
     },
     {
       "path": "tiptap/index.html",
-      "bytes": 665,
-      "gzipBytes": 488,
-      "sha256": "c3699c0757d4031cc79be8dc8f9bab3ee95f6ecd9efa5cacb570d81d237192cb"
+      "bytes": 664,
+      "gzipBytes": 487,
+      "sha256": "3dabbebe3b99176e991a7064cf399b6eafeb503c529beb1ff3691235259bdebb"
     },
     {
       "path": "trix/index.html",
-      "bytes": 661,
-      "gzipBytes": 488,
-      "sha256": "fb42cd19a25d87d93fae09d76f7270f10f16cfae9a5aef2bea8cff96d90ed3da"
+      "bytes": 660,
+      "gzipBytes": 487,
+      "sha256": "d2294372446319127201badf22f53bdb59ae4eecf10252f289ff577a4908d86f"
+    },
+    {
+      "path": "trumbowyg/index.html",
+      "bytes": 670,
+      "gzipBytes": 491,
+      "sha256": "2f154dab28a2721459197a995cb4948fcd616dde00227a1438af3294306edba0"
     }
   ],
   "editors": {
-    "pell": {
-      "entry": "pell/index.html",
-      "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/pell-BHnlgLMG.js",
-        "assets/pell-Dd3-zTaF.css",
-        "assets/rolldown-runtime-XKyaHtl9.js",
-        "pell/index.html"
-      ],
-      "bytes": 103733,
-      "gzipBytes": 35699,
-      "sourceBytes": 10518,
-      "license": "MIT",
-      "version": "1.0.6"
-    },
     "squire": {
       "entry": "squire/index.html",
       "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/squire-CrTXuGEp.js",
+        "assets/app-C4hp0y_2.css",
+        "assets/app-DSlhIy1G.js",
+        "assets/squire-DWd5RBZ3.js",
         "squire/index.html"
       ],
-      "bytes": 159221,
-      "gzipBytes": 51541,
+      "bytes": 156051,
+      "gzipBytes": 50377,
       "sourceBytes": 11150,
       "license": "MIT",
       "version": "2.4.10"
     },
-    "jodit": {
-      "entry": "jodit/index.html",
-      "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/jodit-B0NXT6FF.css",
-        "assets/jodit-BVoqckhs.js",
-        "assets/rolldown-runtime-XKyaHtl9.js",
-        "jodit/index.html"
-      ],
-      "bytes": 830154,
-      "gzipBytes": 238730,
-      "sourceBytes": 10261,
-      "license": "MIT",
-      "version": "4.18.10"
-    },
-    "suneditor": {
-      "entry": "suneditor/index.html",
-      "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/rolldown-runtime-XKyaHtl9.js",
-        "assets/suneditor-C3hlgvIq.js",
-        "assets/suneditor-CbgatFFb.css",
-        "suneditor/index.html"
-      ],
-      "bytes": 1050493,
-      "gzipBytes": 266510,
-      "sourceBytes": 9580,
-      "license": "MIT",
-      "version": "3.3.3"
-    },
-    "quill": {
-      "entry": "quill/index.html",
-      "files": [
-        "assets/_baseMerge-VtkfrMWh.js",
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/quill-BJwsjeG4.js",
-        "assets/quill-DVB7LGv8.css",
-        "assets/rolldown-runtime-XKyaHtl9.js",
-        "quill/index.html"
-      ],
-      "bytes": 324308,
-      "gzipBytes": 96684,
-      "sourceBytes": 10551,
-      "license": "BSD-3-Clause",
-      "version": "2.0.3"
-    },
     "trix": {
       "entry": "trix/index.html",
       "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
+        "assets/app-C4hp0y_2.css",
+        "assets/app-DSlhIy1G.js",
         "assets/trix-BHHJkEUP.css",
-        "assets/trix-BSTSM6F-.js",
+        "assets/trix-BsMMgtiE.js",
         "trix/index.html"
       ],
-      "bytes": 314330,
-      "gzipBytes": 88503,
+      "bytes": 311160,
+      "gzipBytes": 87338,
       "sourceBytes": 14174,
       "license": "MIT",
       "version": "2.1.19"
@@ -1366,225 +173,28 @@
     "tiptap": {
       "entry": "tiptap/index.html",
       "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/prosemirror-Bpb8Xr40.js",
-        "assets/prosemirror-DK40xfPZ.css",
-        "assets/tiptap-O8XVU7j7.js",
+        "assets/app-C4hp0y_2.css",
+        "assets/app-DSlhIy1G.js",
+        "assets/tiptap-BCL9K5RZ.js",
+        "assets/tiptap-Dee3NewH.css",
         "tiptap/index.html"
       ],
-      "bytes": 496939,
-      "gzipBytes": 158171,
+      "bytes": 489583,
+      "gzipBytes": 154769,
       "sourceBytes": 11060,
       "license": "MIT",
       "version": "3.32.0"
     },
-    "milkdown": {
-      "entry": "milkdown/index.html",
-      "files": [
-        "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
-        "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
-        "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
-        "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
-        "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
-        "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
-        "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
-        "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
-        "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
-        "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
-        "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
-        "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
-        "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
-        "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
-        "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
-        "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
-        "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
-        "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
-        "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
-        "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
-        "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
-        "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
-        "assets/KaTeX_Main-Italic-BMLOBm91.woff",
-        "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
-        "assets/KaTeX_Main-Regular-B22Nviop.woff2",
-        "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
-        "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
-        "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
-        "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
-        "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
-        "assets/KaTeX_Math-Italic-DA0__PXp.woff",
-        "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
-        "assets/KaTeX_Math-Italic-t53AETM-.woff2",
-        "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
-        "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
-        "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
-        "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
-        "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
-        "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
-        "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
-        "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
-        "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
-        "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
-        "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
-        "assets/KaTeX_Script-Regular-D5yQViql.woff",
-        "assets/KaTeX_Size1-Regular-C195tn64.woff",
-        "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
-        "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
-        "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
-        "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
-        "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
-        "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
-        "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
-        "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
-        "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
-        "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
-        "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
-        "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
-        "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
-        "assets/_baseMerge-VtkfrMWh.js",
-        "assets/apl-gfMMiTNf.js",
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/asciiarmor-C_eisQCp.js",
-        "assets/asn1-DCl_8MCW.js",
-        "assets/asterisk-BEn0Cwpx.js",
-        "assets/brainfuck-D5EjA2JK.js",
-        "assets/clike-xvONpD0Z.js",
-        "assets/clojure-BflJGmDX.js",
-        "assets/cmake-84nbDH0I.js",
-        "assets/cobol-DHLQUbN7.js",
-        "assets/coffeescript-De_zI4J0.js",
-        "assets/commonlisp-DgAKBe0r.js",
-        "assets/crystal-Bl6YKCG_.js",
-        "assets/css-CnaYoQib.js",
-        "assets/cypher-p9eYesGn.js",
-        "assets/d-DWkQyNnU.js",
-        "assets/diff-ChtP43wD.js",
-        "assets/dist-B19DCIVv.js",
-        "assets/dist-B2SsycUD.js",
-        "assets/dist-B5KsbvGh.js",
-        "assets/dist-BNOVlJlv.js",
-        "assets/dist-BRMtNCyn.js",
-        "assets/dist-BkhUrAro.js",
-        "assets/dist-Bl_xXT3R.js",
-        "assets/dist-Bp3Xq9bL.js",
-        "assets/dist-BwWqV6GW.js",
-        "assets/dist-C-9pmUA9.js",
-        "assets/dist-CEp6weUv.js",
-        "assets/dist-CaRnGvor.js",
-        "assets/dist-Ck0s0cAv.js",
-        "assets/dist-CxgzrP-7.js",
-        "assets/dist-CzlBalHv.js",
-        "assets/dist-DCaQvTA4.js",
-        "assets/dist-DV_p2IRh.js",
-        "assets/dist-Ddk5IKzf.js",
-        "assets/dist-DpGi8aqI.js",
-        "assets/dist-DpLg-7Rm.js",
-        "assets/dist-E4lz-12Y.js",
-        "assets/dist-G9bT2iMT.js",
-        "assets/dist-bnD_Nkth.js",
-        "assets/dockerfile-DJkHQgkl.js",
-        "assets/dtd-DTF72YNO.js",
-        "assets/dylan-S7ucR4pR.js",
-        "assets/ebnf-D4c0_ac3.js",
-        "assets/ecl-BVIeWmwY.js",
-        "assets/eiffel-BEjRio4Q.js",
-        "assets/elm-Cshzl8qu.js",
-        "assets/erlang-BV0c4Hdn.js",
-        "assets/factor-LKH5gN8L.js",
-        "assets/fcl-ClOhbFR7.js",
-        "assets/forth-D6RzAl64.js",
-        "assets/fortran-Bt6PBEDR.js",
-        "assets/gas-BHEdbvp9.js",
-        "assets/gherkin-oBAE_ms0.js",
-        "assets/groovy-CUrWKPia.js",
-        "assets/haskell-BRsoo5mP.js",
-        "assets/haxe-DjVOVvNP.js",
-        "assets/http-CLVgA2GD.js",
-        "assets/idl-BUZw3wgd.js",
-        "assets/javascript-lS2r2ifg.js",
-        "assets/julia-CQfgDRfP.js",
-        "assets/livescript-BXxG0Yva.js",
-        "assets/lua-DPCEkfD_.js",
-        "assets/mathematica-u8YMmbU0.js",
-        "assets/mbox-BEMVcqjs.js",
-        "assets/milkdown-B7T99w4O.js",
-        "assets/milkdown-C1UVQ-uL.css",
-        "assets/mirc-C9zpzAZU.js",
-        "assets/mllike-B45xgp2S.js",
-        "assets/modelica-CqHI_q-D.js",
-        "assets/mscgen-qgSLujhx.js",
-        "assets/mumps-BSzj6Xyz.js",
-        "assets/nginx-C-ORUuei.js",
-        "assets/nsis-viPvXFiq.js",
-        "assets/ntriples-CzMBulkp.js",
-        "assets/octave-D2Q8cUp1.js",
-        "assets/oz-BwTct_5T.js",
-        "assets/pascal-Dp_KdFgX.js",
-        "assets/perl-BkSkiI9m.js",
-        "assets/pig-AF4Hwhju.js",
-        "assets/powershell-D8WpQPaX.js",
-        "assets/properties-C357ku5U.js",
-        "assets/prosemirror-Bpb8Xr40.js",
-        "assets/prosemirror-DK40xfPZ.css",
-        "assets/protobuf-D1ij_kNL.js",
-        "assets/pug-BqCHZ5xT.js",
-        "assets/puppet-BZyAS7I4.js",
-        "assets/python-B_1Jd8HM.js",
-        "assets/q-B9NhS7L_.js",
-        "assets/r-CxDmU1I4.js",
-        "assets/rolldown-runtime-XKyaHtl9.js",
-        "assets/rpm-gpDK5sbt.js",
-        "assets/ruby-ChfNwlCY.js",
-        "assets/sas-C2OyD2Y6.js",
-        "assets/scheme-D9qYN0V5.js",
-        "assets/shell-DwuoZtxw.js",
-        "assets/sieve-tLWDfEkZ.js",
-        "assets/simple-mode-DXiLM1-G.js",
-        "assets/smalltalk-BLp5-jwC.js",
-        "assets/solr-B78wSQJQ.js",
-        "assets/sparql-Dz-mlCAC.js",
-        "assets/spreadsheet-CTIncYxj.js",
-        "assets/sql-DuQMFDvy.js",
-        "assets/stex-DNzd62Q_.js",
-        "assets/stylus-BOVgKnng.js",
-        "assets/swift-DKB6_1j6.js",
-        "assets/tcl-BGfruO1u.js",
-        "assets/textile-C4jVoHG1.js",
-        "assets/tiddlywiki-VlUiK86J.js",
-        "assets/tiki-CvUEFusT.js",
-        "assets/toml-BPTmHmyx.js",
-        "assets/troff-C2dAgh7P.js",
-        "assets/ttcn-PPSTk1ow.js",
-        "assets/ttcn-cfg-2b4Gb5sE.js",
-        "assets/turtle-Cx3rYX2g.js",
-        "assets/vb-BthdM_4N.js",
-        "assets/vbscript-D9f6rSsU.js",
-        "assets/velocity-CqftRsjg.js",
-        "assets/verilog-CjI9Y6RI.js",
-        "assets/vhdl-kS471soi.js",
-        "assets/webidl-D5jiJvOU.js",
-        "assets/xquery-BKJx4mf9.js",
-        "assets/yacas-CXXgtw0p.js",
-        "assets/z80-Co3PbHdE.js",
-        "milkdown/index.html"
-      ],
-      "bytes": 3940323,
-      "gzipBytes": 1847794,
-      "sourceBytes": 17823,
-      "license": "MIT",
-      "version": "7.22.3"
-    },
     "lexical": {
       "entry": "lexical/index.html",
       "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/lexical-CkjuXuH7.js",
+        "assets/app-C4hp0y_2.css",
+        "assets/app-DSlhIy1G.js",
+        "assets/lexical-O6DscQTb.js",
         "lexical/index.html"
       ],
-      "bytes": 372072,
-      "gzipBytes": 116183,
+      "bytes": 368902,
+      "gzipBytes": 115018,
       "sourceBytes": 17932,
       "license": "MIT",
       "version": "0.52.0"
@@ -1592,380 +202,39 @@
     "editorjs": {
       "entry": "editorjs/index.html",
       "files": [
-        "assets/app-BdUwefRJ.js",
-        "assets/app-DrhQW88Y.css",
-        "assets/editorjs-LO-D52ze.js",
-        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/app-C4hp0y_2.css",
+        "assets/app-DSlhIy1G.js",
+        "assets/editorjs-BWAgBKKF.js",
+        "assets/rolldown-runtime-WkwZ5CU-.js",
         "editorjs/index.html"
       ],
-      "bytes": 449444,
-      "gzipBytes": 127394,
+      "bytes": 446147,
+      "gzipBytes": 126167,
       "sourceBytes": 21918,
       "license": "Apache-2.0",
       "version": "2.31.7"
+    },
+    "trumbowyg": {
+      "entry": "trumbowyg/index.html",
+      "files": [
+        "assets/app-C4hp0y_2.css",
+        "assets/app-DSlhIy1G.js",
+        "assets/rolldown-runtime-WkwZ5CU-.js",
+        "assets/trumbowyg-BWon2-xz.js",
+        "assets/trumbowyg-CrH7d0ev.js",
+        "assets/trumbowyg-rajbXNs8.css",
+        "assets/trumbowyg.history-CNWCUj6s.js",
+        "assets/trumbowyg.preformatted-DuzITMLl.js",
+        "trumbowyg/index.html"
+      ],
+      "bytes": 266410,
+      "gzipBytes": 88222,
+      "sourceBytes": 6711,
+      "license": "MIT",
+      "version": "2.31.0"
     }
   },
   "licenses": [
-    {
-      "name": "@babel/helper-string-parser",
-      "version": "7.29.7",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@babel/helper-validator-identifier",
-      "version": "7.29.7",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@babel/parser",
-      "version": "7.29.9",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@babel/types",
-      "version": "7.29.8",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/autocomplete",
-      "version": "6.20.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/commands",
-      "version": "6.11.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-angular",
-      "version": "0.1.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-cpp",
-      "version": "6.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-css",
-      "version": "6.3.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-go",
-      "version": "6.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-html",
-      "version": "6.4.12",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-java",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-javascript",
-      "version": "6.2.5",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-jinja",
-      "version": "6.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-json",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-less",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-liquid",
-      "version": "6.3.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-markdown",
-      "version": "6.5.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-php",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-python",
-      "version": "6.2.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-rust",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-sass",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-sql",
-      "version": "6.10.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-vue",
-      "version": "0.1.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-wast",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-xml",
-      "version": "6.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lang-yaml",
-      "version": "6.1.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/language",
-      "version": "6.13.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/language-data",
-      "version": "6.5.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/legacy-modes",
-      "version": "6.5.5",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/lint",
-      "version": "6.9.7",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/search",
-      "version": "6.7.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/state",
-      "version": "6.7.6",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/streamparser",
-      "version": "6.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/theme-one-dark",
-      "version": "6.1.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@codemirror/view",
-      "version": "6.43.15",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
     {
       "name": "@codexteam/icons",
       "version": "0.3.3",
@@ -2073,46 +342,6 @@
       "chosenLicense": "MIT",
       "development": false,
       "noticeFiles": []
-    },
-    {
-      "name": "@floating-ui/core",
-      "version": "1.8.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@floating-ui/dom",
-      "version": "1.8.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@floating-ui/utils",
-      "version": "0.2.12",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@jridgewell/sourcemap-codec",
-      "version": "1.6.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
     },
     {
       "name": "@lexical/a11y",
@@ -2247,426 +476,6 @@
     {
       "name": "@lexical/utils",
       "version": "0.52.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/common",
-      "version": "1.5.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/cpp",
-      "version": "1.1.6",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/css",
-      "version": "1.3.9",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/go",
-      "version": "1.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/highlight",
-      "version": "1.2.5",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/html",
-      "version": "1.3.13",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/java",
-      "version": "1.1.5",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/javascript",
-      "version": "1.5.6",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/json",
-      "version": "1.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/lr",
-      "version": "1.4.11",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/markdown",
-      "version": "1.8.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/php",
-      "version": "1.0.6",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/python",
-      "version": "1.1.19",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/rust",
-      "version": "1.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/sass",
-      "version": "1.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/xml",
-      "version": "1.0.6",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@lezer/yaml",
-      "version": "1.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@marijn/find-cluster-break",
-      "version": "1.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/components",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/core",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/crepe",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/ctx",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/exception",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/kit",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-block",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-clipboard",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-cursor",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-diff",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-history",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-indent",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-listener",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-slash",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-streaming",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-tooltip",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-trailing",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/plugin-upload",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/preset-commonmark",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/preset-gfm",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/prose",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/transformer",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@milkdown/utils",
-      "version": "7.22.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@ocavue/utils",
-      "version": "1.9.0",
       "license": "MIT",
       "chosenLicense": "MIT",
       "development": false,
@@ -3082,71 +891,11 @@
       ]
     },
     {
-      "name": "@types/debug",
-      "version": "4.1.13",
+      "name": "@types/jquery",
+      "version": "3.5.34",
       "license": "MIT",
       "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@types/hast",
-      "version": "3.0.5",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@types/katex",
-      "version": "0.16.8",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@types/lodash",
-      "version": "4.17.27",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@types/lodash-es",
-      "version": "4.17.12",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@types/mdast",
-      "version": "4.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@types/ms",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
+      "development": true,
       "noticeFiles": [
         "LICENSE"
       ]
@@ -3162,18 +911,18 @@
       ]
     },
     {
-      "name": "@types/trusted-types",
-      "version": "2.0.7",
+      "name": "@types/sizzle",
+      "version": "2.3.10",
       "license": "MIT",
       "chosenLicense": "MIT",
-      "development": false,
+      "development": true,
       "noticeFiles": [
         "LICENSE"
       ]
     },
     {
-      "name": "@types/unist",
-      "version": "3.0.3",
+      "name": "@types/trusted-types",
+      "version": "2.0.7",
       "license": "MIT",
       "chosenLicense": "MIT",
       "development": false,
@@ -3326,146 +1075,6 @@
       "development": false
     },
     {
-      "name": "@vue/compiler-core",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/compiler-dom",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/compiler-sfc",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/compiler-ssr",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/reactivity",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/runtime-core",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/runtime-dom",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/server-renderer",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "@vue/shared",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "bail",
-      "version": "2.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "ccount",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "character-entities",
-      "version": "2.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "clsx",
-      "version": "2.1.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "codemirror",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
       "name": "codex-notifier",
       "version": "1.1.2",
       "license": "MIT",
@@ -3486,66 +1095,6 @@
       ]
     },
     {
-      "name": "commander",
-      "version": "15.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "crelt",
-      "version": "1.0.7",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "csstype",
-      "version": "3.2.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "debug",
-      "version": "4.4.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "decode-named-character-reference",
-      "version": "1.3.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "dequal",
-      "version": "2.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
       "name": "detect-libc",
       "version": "2.1.2",
       "license": "Apache-2.0",
@@ -3553,16 +1102,6 @@
       "development": true,
       "noticeFiles": [
         "LICENSE"
-      ]
-    },
-    {
-      "name": "devlop",
-      "version": "1.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
       ]
     },
     {
@@ -3586,66 +1125,6 @@
       ]
     },
     {
-      "name": "entities",
-      "version": "7.0.1",
-      "license": "BSD-2-Clause",
-      "chosenLicense": "BSD-2-Clause",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "escape-string-regexp",
-      "version": "5.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "estree-walker",
-      "version": "2.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "eventemitter3",
-      "version": "5.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "extend",
-      "version": "3.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "fast-diff",
-      "version": "1.3.0",
-      "license": "Apache-2.0",
-      "chosenLicense": "Apache-2.0",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
       "name": "fdir",
       "version": "6.5.0",
       "license": "MIT",
@@ -3663,33 +1142,13 @@
       "development": true
     },
     {
-      "name": "is-plain-obj",
-      "version": "4.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "jodit",
-      "version": "4.18.10",
+      "name": "jquery",
+      "version": "3.7.1",
       "license": "MIT",
       "chosenLicense": "MIT",
       "development": false,
       "noticeFiles": [
         "LICENSE.txt"
-      ]
-    },
-    {
-      "name": "katex",
-      "version": "0.19.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
       ]
     },
     {
@@ -3803,536 +1262,6 @@
       ]
     },
     {
-      "name": "lodash-es",
-      "version": "4.18.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "lodash.clonedeep",
-      "version": "4.5.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "lodash.isequal",
-      "version": "4.5.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "longest-streak",
-      "version": "3.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "magic-string",
-      "version": "0.30.21",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "markdown-table",
-      "version": "3.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-definitions",
-      "version": "6.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-find-and-replace",
-      "version": "3.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-from-markdown",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-gfm",
-      "version": "3.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-gfm-autolink-literal",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-gfm-footnote",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-gfm-strikethrough",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-gfm-table",
-      "version": "2.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-gfm-task-list-item",
-      "version": "2.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-math",
-      "version": "3.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-phrasing",
-      "version": "4.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-to-markdown",
-      "version": "2.2.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "mdast-util-to-string",
-      "version": "4.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark",
-      "version": "4.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-core-commonmark",
-      "version": "2.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm",
-      "version": "3.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm-autolink-literal",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm-footnote",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm-strikethrough",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm-table",
-      "version": "2.1.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm-tagfilter",
-      "version": "2.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-gfm-task-list-item",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-extension-math",
-      "version": "3.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "commander",
-      "version": "8.3.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "katex",
-      "version": "0.16.47",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "micromark-factory-destination",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-factory-label",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-factory-space",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-factory-title",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-factory-whitespace",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-character",
-      "version": "2.1.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-chunked",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-classify-character",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-combine-extensions",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-decode-numeric-character-reference",
-      "version": "2.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-decode-string",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-edit-map",
-      "version": "1.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-encode",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-html-tag-name",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-normalize-identifier",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-resolve-all",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-sanitize-uri",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-subtokenize",
-      "version": "2.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-symbol",
-      "version": "2.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "micromark-util-types",
-      "version": "2.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "ms",
-      "version": "2.1.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license.md"
-      ]
-    },
-    {
-      "name": "nanoid",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
       "name": "orderedmap",
       "version": "2.1.1",
       "license": "MIT",
@@ -4343,31 +1272,11 @@
       ]
     },
     {
-      "name": "parchment",
-      "version": "3.0.0",
-      "license": "BSD-3-Clause",
-      "chosenLicense": "BSD-3-Clause",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "pell",
-      "version": "1.0.6",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE.md"
-      ]
-    },
-    {
       "name": "picocolors",
       "version": "1.1.1",
       "license": "ISC",
       "chosenLicense": "ISC",
-      "development": false,
+      "development": true,
       "noticeFiles": [
         "LICENSE"
       ]
@@ -4409,7 +1318,7 @@
       "version": "8.5.31",
       "license": "MIT",
       "chosenLicense": "MIT",
-      "development": false,
+      "development": true,
       "noticeFiles": [
         "LICENSE"
       ]
@@ -4419,7 +1328,7 @@
       "version": "3.3.20",
       "license": "MIT",
       "chosenLicense": "MIT",
-      "development": false,
+      "development": true,
       "noticeFiles": [
         "LICENSE"
       ]
@@ -4437,16 +1346,6 @@
     {
       "name": "prosemirror-commands",
       "version": "1.7.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "prosemirror-drop-indicator",
-      "version": "0.1.4",
       "license": "MIT",
       "chosenLicense": "MIT",
       "development": false,
@@ -4515,16 +1414,6 @@
       ]
     },
     {
-      "name": "prosemirror-safari-ime-span",
-      "version": "1.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
       "name": "prosemirror-schema-list",
       "version": "1.5.1",
       "license": "MIT",
@@ -4575,94 +1464,6 @@
       ]
     },
     {
-      "name": "prosemirror-virtual-cursor",
-      "version": "0.4.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "quill",
-      "version": "2.0.3",
-      "license": "BSD-3-Clause",
-      "chosenLicense": "BSD-3-Clause",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "quill-delta",
-      "version": "5.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "remark",
-      "version": "15.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "remark-gfm",
-      "version": "4.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "remark-inline-links",
-      "version": "7.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "remark-math",
-      "version": "6.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": []
-    },
-    {
-      "name": "remark-parse",
-      "version": "11.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "remark-stringify",
-      "version": "11.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
       "name": "rolldown",
       "version": "1.2.15",
       "license": "MIT",
@@ -4687,7 +1488,7 @@
       "version": "1.2.2",
       "license": "BSD-3-Clause",
       "chosenLicense": "BSD-3-Clause",
-      "development": false,
+      "development": true,
       "noticeFiles": [
         "LICENSE"
       ]
@@ -4700,26 +1501,6 @@
       "development": false,
       "noticeFiles": [
         "LICENSE"
-      ]
-    },
-    {
-      "name": "style-mod",
-      "version": "4.1.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
-      "name": "suneditor",
-      "version": "3.3.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE.txt"
       ]
     },
     {
@@ -4743,13 +1524,13 @@
       ]
     },
     {
-      "name": "trough",
-      "version": "2.2.0",
+      "name": "trumbowyg",
+      "version": "2.31.0",
       "license": "MIT",
       "chosenLicense": "MIT",
       "development": false,
       "noticeFiles": [
-        "license"
+        "LICENSE"
       ]
     },
     {
@@ -4774,66 +1555,6 @@
       ]
     },
     {
-      "name": "unified",
-      "version": "11.0.5",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "unist-util-is",
-      "version": "6.0.1",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "unist-util-remove-position",
-      "version": "5.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "unist-util-stringify-position",
-      "version": "4.0.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "unist-util-visit",
-      "version": "5.1.0",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "unist-util-visit-parents",
-      "version": "6.0.2",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
       "name": "vanilla-caret-js",
       "version": "1.1.0",
       "license": "MIT",
@@ -4841,26 +1562,6 @@
       "development": false,
       "noticeFiles": [
         "LICENSE"
-      ]
-    },
-    {
-      "name": "vfile",
-      "version": "6.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
-    },
-    {
-      "name": "vfile-message",
-      "version": "4.0.3",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
       ]
     },
     {
@@ -4874,16 +1575,6 @@
       ]
     },
     {
-      "name": "vue",
-      "version": "3.5.44",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "LICENSE"
-      ]
-    },
-    {
       "name": "w3c-keyname",
       "version": "2.2.8",
       "license": "MIT",
@@ -4892,18 +1583,8 @@
       "noticeFiles": [
         "LICENSE"
       ]
-    },
-    {
-      "name": "zwitch",
-      "version": "2.0.4",
-      "license": "MIT",
-      "chosenLicense": "MIT",
-      "development": false,
-      "noticeFiles": [
-        "license"
-      ]
     }
   ],
-  "totalBytes": 7624462,
-  "totalGzipBytes": 2738886
+  "totalBytes": 2008010,
+  "totalGzipBytes": 527663
 }

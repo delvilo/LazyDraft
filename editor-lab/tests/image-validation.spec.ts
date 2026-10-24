@@ -18,8 +18,7 @@ const __dirname = path.dirname(__filename);
 const FIXTURE_SVG_PATH = path.join(__dirname, 'fixtures', 'sample.svg');
 
 test.describe('Image Validation, Boundary and Security Enforcement', () => {
-  const targetEditor = 'quill';
-
+  const targetEditor = 'trumbowyg';
   test('accepts an original PNG at exactly 5MiB and preserves its bytes', async ({ page }) => {
     await page.goto(`${targetEditor}/`);
     await waitForEditorReady(page, targetEditor);

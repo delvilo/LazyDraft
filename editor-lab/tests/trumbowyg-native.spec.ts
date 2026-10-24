@@ -1,0 +1,32 @@
+import { test, expect } from '@playwright/test';
+import { getEditorEditable, typeIntoEditor, waitForDraftSaved, waitForEditorReady } from './helpers.ts';
+
+test('Trumbowyg native formatting history and HTML source preserve editable content safely', async ({ page }) => {
+  await page.goto('trumbowyg/');
+  await waitForEditorReady(page, 'trumbowyg');
+  await typeIntoEditor(page, 'trumbowyg', '原生工具列 繁體中文 🚀');
+  const editor = getEditorEditable(page, 'trumbowyg');
+  await page.keyboard.press('ControlOrMeta+A');
+  await page.locator('.trumbowyg-strong-button').click();
+  await expect(editor.locator('b, strong')).toContainText('原生工具列');
+  await page.locator('.trumbowyg-historyUndo-button').click();
+  await expect(editor.locator('b, strong')).toHaveCount(0);
+  await expect(editor).toContainText('原生工具列 繁體中文 🚀');
+  await page.locator('.trumbowyg-historyRedo-button').click();
+  await expect(editor.locator('b, strong')).toContainText('原生工具列');
+  await page.locator('.trumbowyg-viewHTML-button').click();
+  const source = page.locator('.trumbowyg-textarea');
+  await expect(source).toBeVisible();
+  await source.fill('<h2>原始碼編輯 繁體中文 🎯</h2><img src="invalid-image" onerror="document.body.dataset.sourceScriptExecuted=\'true\'">');
+  await waitForDraftSaved(page, 'trumbowyg', { expectedText: '原始碼編輯' });
+  await page.locator('.trumbowyg-viewHTML-button').click();
+  await expect(editor).toBeVisible();
+  await expect(editor.locator('h2')).toHaveText('原始碼編輯 繁體中文 🎯');
+  await expect(editor.locator('[onerror]')).toHaveCount(0);
+  await expect(page.locator('body')).not.toHaveAttribute('data-source-script-executed', 'true');
+  await waitForDraftSaved(page, 'trumbowyg', { expectedText: '原始碼編輯' });
+  await page.reload();
+  await waitForEditorReady(page, 'trumbowyg');
+  await expect(getEditorEditable(page, 'trumbowyg').locator('h2')).toHaveText('原始碼編輯 繁體中文 🎯');
+  await expect(page.locator('body')).not.toHaveAttribute('data-source-script-executed', 'true');
+});

@@ -6,6 +6,7 @@ import type {
   FormatCommand,
   SaveState,
 } from './contracts.ts';
+import { EDITOR_IDS } from './contracts.ts';
 import { catalogue } from './catalogue.ts';
 import { getLabBase } from './environment.ts';
 import { openAssetStore } from './assets.ts';
@@ -49,18 +50,6 @@ interface MeasurementReport {
   }>>;
 }
 
-const IS_HEADLESS_BY_ID: Record<EditorId, boolean> = {
-  pell: false,
-  squire: true,
-  jodit: false,
-  suneditor: false,
-  quill: false,
-  trix: false,
-  tiptap: true,
-  milkdown: false,
-  lexical: true,
-  editorjs: false,
-};
 
 function isKnownEditorId(value: string | undefined): value is EditorId {
   return typeof value === 'string' && Object.prototype.hasOwnProperty.call(catalogue, value);
@@ -265,7 +254,7 @@ function openAboutDialog(info?: EditorDescription): void {
       content.appendChild(dl);
     } else {
       const p = document.createElement('p');
-      p.textContent = 'LazyDraft Editor Lab 是針對十款主流與代表性富文字/區塊編輯器所設計的橫向實體對比環境。所有編輯器皆運行於純靜態託管環境，採用獨立 localStorage 儲存原生草稿，本機圖片保存於專用 IndexedDB，並透過 Service Worker 提供完整離線可用性。';
+      p.textContent = `LazyDraft Editor Lab 是針對 ${EDITOR_IDS.length} 款富文字／區塊編輯器的實體比較環境。各編輯器運行於靜態網站，草稿分開存入 LocalStorage，本機圖片保存於專用 IndexedDB，並透過 Service Worker 提供離線使用。Trumbowyg 使用 jQuery，其依賴也納入資源比較。`;
       content.appendChild(p);
     }
   }
@@ -356,7 +345,7 @@ async function renderHub(labBase: URL): Promise<void> {
   hero.className = 'lab-hub-hero';
 
   const heroTitle = document.createElement('h1');
-  heroTitle.textContent = '十款編輯器實測';
+  heroTitle.textContent = `${EDITOR_IDS.length} 款編輯器實測`;
 
   const heroDesc = document.createElement('p');
   heroDesc.textContent = '保留各編輯器的原生介面與文件格式。草稿分開自動儲存，本機圖片存入 IndexedDB；支援 HTML 匯出與列印／另存 PDF。不預設勝出者，請實際編輯後再選擇。';
@@ -389,8 +378,7 @@ async function renderHub(labBase: URL): Promise<void> {
   const grid = document.createElement('section');
   grid.className = 'lab-hub-grid';
 
-  const editorIds = Object.keys(catalogue) as EditorId[];
-  for (const id of editorIds) {
+  for (const id of EDITOR_IDS) {
     const desc = catalogue[id];
     const card = document.createElement('article');
     card.className = 'lab-card';
@@ -461,7 +449,7 @@ async function renderHub(labBase: URL): Promise<void> {
     cardMeta.append(metaFormat, metaIntegration, metaFootprint, metaTiming);
 
     const cardRisk = document.createElement('div');
-    cardRisk.className = id === 'pell' ? 'lab-card-risk high' : 'lab-card-risk';
+    cardRisk.className = 'lab-card-risk';
     cardRisk.textContent = desc.risk;
 
     const cardFooter = document.createElement('div');
@@ -648,7 +636,7 @@ function renderEditorShell(editorId: EditorId, labBase: URL): void {
   
   const details = document.createElement('details');
   details.id = 'shared-commands';
-  details.open = IS_HEADLESS_BY_ID[editorId];
+  details.open = !desc.nativeUI;
 
   const summary = document.createElement('summary');
   summary.textContent = '共通操作（自製轉接控制）';

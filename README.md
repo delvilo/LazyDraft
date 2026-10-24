@@ -66,13 +66,15 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 
 ## 編輯器比較實驗室
 
-[比較入口](editor-lab/dist/)提供 Pell、Squire、Jodit、SunEditor、Quill、Trix、Tiptap、Milkdown、Lexical 與 Editor.js。不替換既有 Rich Text Notes，也不預選勝出者。
+[比較入口](editor-lab/)提供 Squire、Trix、Tiptap、Lexical、Editor.js 與 Trumbowyg（依賴 jQuery 3.7.1）。不替換既有 Rich Text Notes，也不預選勝出者。
 
-- 各頁保留原生文件格式與介面。Squire、Tiptap、Lexical 使用標示為自製的工具列。共用契約見 [`src/contracts.ts`](editor-lab/src/contracts.ts)。
+`editor-lab/index.html` 會轉至 `dist/` 的建置版本；`hub.html` 僅供 Vite 建置使用。
+
+- 各頁保留原生文件格式與介面。Squire、Tiptap、Lexical 使用標示為自製的工具列；Trumbowyg 保留原生工具列並依賴鎖定的 jQuery 3.7.1。共用契約見 [`src/contracts.ts`](editor-lab/src/contracts.ts)。
 - 草稿按編輯器分開存入 LocalStorage。本機 PNG、JPEG、WebP、GIF 原始檔存入獨立 IndexedDB，每檔上限 **5 MiB**，不把 Base64 圖片寫進草稿。
 - HTML 匯出內嵌本機圖片。PDF 使用瀏覽器列印，僅列印文件與影音來源連結，不包含工具列。
 - 實驗室需要 HTTPS 或 localhost。Service Worker 不可用時會停止初始化並提示，不清除既有草稿。
-- 等待「離線可用」後，十款編輯器與本機圖片可離線使用。網址圖片、YouTube、Vimeo 與遠端影音仍需連線，不下載影片。
+- 等待「離線可用」後，六款編輯器與本機圖片可離線使用。網址圖片、YouTube、Vimeo 與遠端影音仍需連線，不下載影片。
 - 比較頁顯示建置資源圖與 Chrome 實測。載入、儲存時間包含測試工具往返，僅代表該次環境，不是跨設備效能保證。
 
 ## 快捷鍵

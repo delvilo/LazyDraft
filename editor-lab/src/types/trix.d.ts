@@ -97,4 +97,3 @@ declare module 'trix' {
 }
 
 declare module 'trix/dist/trix.css';
-declare module 'quill/dist/quill.snow.css';

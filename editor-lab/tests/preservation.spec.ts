@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { waitForEditorReady, typeIntoEditor, waitForDraftSaved } from './helpers.ts';
+import { ALL_EDITORS, waitForEditorReady, typeIntoEditor, waitForDraftSaved } from './helpers.ts';
 
 test.describe('Existing Data Preservation & Storage Namespace Isolation', () => {
   const SEED_RICH_NOTES = JSON.stringify({
@@ -58,7 +58,7 @@ test.describe('Existing Data Preservation & Storage Namespace Isolation', () => 
   test('preserves root richNotes, plain notes, and NotesDB intact after extensive lab usage', async ({
     page,
   }) => {
-    const testEditors = ['quill', 'editorjs', 'tiptap', 'pell'] as const;
+    const testEditors = ALL_EDITORS;
 
     for (const editorId of testEditors) {
       await page.goto(`${editorId}/`);

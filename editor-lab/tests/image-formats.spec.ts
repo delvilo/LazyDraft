@@ -13,8 +13,8 @@ const animatedGif = Buffer.from(
 );
 
 test('preserves JPEG, WebP and two-frame GIF bytes through storage, rendering and HTML export', async ({ page }) => {
-  await page.goto('quill/');
-  await waitForEditorReady(page, 'quill');
+  await page.goto('trumbowyg/');
+  await waitForEditorReady(page, 'trumbowyg');
   const raster = await page.evaluate(() => {
     const canvas = document.createElement('canvas');
     canvas.width = 2;
@@ -33,19 +33,19 @@ test('preserves JPEG, WebP and two-frame GIF bytes through storage, rendering an
     { mime: 'image/gif', name: 'animated.gif', bytes: animatedGif },
   ];
   for (const original of originals) {
-    const before = await getEditorDraft(page, 'quill');
+    const before = await getEditorDraft(page, 'trumbowyg');
     await page.locator('#image-file').setInputFiles({
       name: original.name, mimeType: original.mime, buffer: original.bytes,
     });
-    await waitForDraftSaved(page, 'quill', { minRevision: (before?.revision ?? 0) + 1 });
-    const stored = (await getStoredImagesFromIDB(page, 'quill')).find((record) => record.name === original.name);
+    await waitForDraftSaved(page, 'trumbowyg', { minRevision: (before?.revision ?? 0) + 1 });
+    const stored = (await getStoredImagesFromIDB(page, 'trumbowyg')).find((record) => record.name === original.name);
     expect(stored?.mime).toBe(original.mime);
     expect(stored?.dataBase64).toBe(original.bytes.toString('base64'));
     const image = page.locator(`#editor-host img[src$="/${stored?.id}"]`);
     await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.naturalWidth)).toBe(original.mime === 'image/gif' ? 1 : 2);
   }
   await page.reload();
-  await waitForEditorReady(page, 'quill');
+  await waitForEditorReady(page, 'trumbowyg');
   const html = await readExportedHTML(page);
   const sources = await page.evaluate((html) => {
     const document = new DOMParser().parseFromString(html, 'text/html');
@@ -56,16 +56,16 @@ test('preserves JPEG, WebP and two-frame GIF bytes through storage, rendering an
 
 for (const declaredMime of ['text/html', '']) {
   test(`normalizes a PNG declared as ${JSON.stringify(declaredMime)} without executing trailing HTML`, async ({ page }) => {
-    await page.goto('quill/');
-    await waitForEditorReady(page, 'quill');
+    await page.goto('trumbowyg/');
+    await waitForEditorReady(page, 'trumbowyg');
     const png = readFileSync(new URL('./fixtures/sample.png', import.meta.url));
     const original = Buffer.concat([
       png,
       Buffer.from('<script>parent.document.body.setAttribute("data-image-script-executed","true")</script>'),
     ]);
     await page.locator('#image-file').setInputFiles({ name: 'declared.html', mimeType: declaredMime, buffer: original });
-    await waitForDraftSaved(page, 'quill');
-    const image = page.locator('#editor-host .ql-editor img');
+    await waitForDraftSaved(page, 'trumbowyg');
+    const image = page.locator('#editor-host .trumbowyg-editor img');
     await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.naturalWidth)).toBe(1);
     const source = await image.getAttribute('src');
     if (!source) throw new Error('Stored image source unavailable');

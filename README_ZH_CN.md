@@ -66,13 +66,15 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 
 ## 编辑器比较实验室
 
-[比较入口](editor-lab/dist/)提供 Pell、Squire、Jodit、SunEditor、Quill、Trix、Tiptap、Milkdown、Lexical 与 Editor.js。不替换 Rich Text Notes，也不预选胜出者。
+[比较入口](editor-lab/)提供 Squire、Trix、Tiptap、Lexical、Editor.js 与 Trumbowyg（依赖 jQuery 3.7.1）。不替换 Rich Text Notes，也不预选胜出者。
 
-- 各页保留原生文件格式。Squire、Tiptap、Lexical 使用标示为自制的工具栏。共用契约见 [`src/contracts.ts`](editor-lab/src/contracts.ts)。
+`editor-lab/index.html` 会转至 `dist/` 的构建版本；`hub.html` 仅供 Vite 构建使用。
+
+- 各页保留原生文件格式。Squire、Tiptap、Lexical 使用标示为自制的工具栏；Trumbowyg 保留原生工具栏并依赖锁定的 jQuery 3.7.1。共用契约见 [`src/contracts.ts`](editor-lab/src/contracts.ts)。
 - 草稿按编辑器分别存入 LocalStorage。本地 PNG、JPEG、WebP、GIF 原始文件存入独立 IndexedDB，每文件上限 **5 MiB**。
 - HTML 导出内嵌本地图片。PDF 使用浏览器打印，仅包含文档与影音来源链接，不包含工具栏。
 - 实验室需要 HTTPS 或 localhost。Service Worker 不可用时停止初始化并提示，不清除原有草稿。
-- 等待“离线可用”后再断网。网址图片与远程影音仍需联网，不下载影片。
+- 等待“离线可用”后再断网，六款编辑器与本地图片支持离线使用。网址图片与远程影音仍需联网，不下载影片。
 - 比较页显示构建资源图与 Chrome 实测。时间包含测试工具往返，仅代表该次环境。
 
 构建与验证指令见[实验室开发说明](README.md#編輯器實驗室的建置與測試)。测试中的合成组字事件不等同实体键盘、系统输入法或手机验证。

@@ -27,8 +27,8 @@ test.beforeAll(async () => {
 });
 
 test('a newer edit during asynchronous serialization never publishes the older snapshot', async ({ page }) => {
-  await page.goto('pell/');
-  await waitForEditorReady(page, 'pell');
+  await page.goto('trumbowyg/');
+  await waitForEditorReady(page, 'trumbowyg');
   const result = await page.evaluate(async (source) => {
     // The browser loads Vite's in-memory output, not the Node runner's module instance.
     const module: typeof SessionModule = await import(`data:text/javascript;charset=utf-8,${encodeURIComponent(source)}`);

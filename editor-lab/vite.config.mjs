@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { catalogue } from './src/catalogue.ts';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
-const input = { hub: resolve(root, 'index.html') };
+const input = { hub: resolve(root, 'hub.html') };
 for (const id of Object.keys(catalogue)) input[id] = resolve(root, id, 'index.html');
 
 export default defineConfig({

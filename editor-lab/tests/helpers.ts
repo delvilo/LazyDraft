@@ -1,42 +1,20 @@
 import { Buffer } from 'node:buffer';
 import type { Page, Locator } from '@playwright/test';
 
-export type EditorId =
-  | 'pell'
-  | 'squire'
-  | 'jodit'
-  | 'suneditor'
-  | 'quill'
-  | 'trix'
-  | 'tiptap'
-  | 'milkdown'
-  | 'lexical'
-  | 'editorjs';
+import type { EditorId } from '../src/contracts.ts';
+import { EDITOR_IDS } from '../src/contracts.ts';
 
-export const ALL_EDITORS: readonly EditorId[] = [
-  'pell',
-  'squire',
-  'jodit',
-  'suneditor',
-  'quill',
-  'trix',
-  'tiptap',
-  'milkdown',
-  'lexical',
-  'editorjs',
-] as const;
+export type { EditorId };
+
+export const ALL_EDITORS = EDITOR_IDS;
 
 export const EDITOR_EDITABLE_SELECTORS: Record<EditorId, string> = {
-  pell: '#editor-host .pell-content',
   squire: '#editor-host [contenteditable="true"]',
-  jodit: '#editor-host .jodit-wysiwyg',
-  suneditor: '#editor-host .sun-editor-editable',
-  quill: '#editor-host .ql-editor',
   trix: '#editor-host trix-editor',
   tiptap: '#editor-host .ProseMirror',
-  milkdown: '#editor-host .ProseMirror',
   lexical: '#editor-host [data-lexical-editor="true"]',
   editorjs: '#editor-host .ce-paragraph, #editor-host .ce-block__content',
+  trumbowyg: '#editor-host .trumbowyg-editor',
 };
 
 export interface DraftRecordShape {

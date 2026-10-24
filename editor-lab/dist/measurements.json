@@ -1,0 +1,110 @@
+{
+  "timestamp": "2026-10-24T09:52:46.285Z",
+  "browser": "Chrome 156.0.8078.47",
+  "fixture": "基準測量筆記 Benchmark Entry 🚀 12345",
+  "baseUrl": "http://127.0.0.1:38417/editor-lab/dist/",
+  "measurements": {
+    "squire": {
+      "editorId": "squire",
+      "coldReadyMs": 562,
+      "warmReadyMs": 194,
+      "changeToSavedMs": 44,
+      "resourceBytes": {
+        "jsBytes": 79609,
+        "cssBytes": 11453,
+        "totalTransferBytes": 93916,
+        "releaseGraph": {
+          "bytes": 156051,
+          "gzipBytes": 50377,
+          "filesCount": 4
+        }
+      },
+      "error": null
+    },
+    "trix": {
+      "editorId": "trix",
+      "coldReadyMs": 735,
+      "warmReadyMs": 200,
+      "changeToSavedMs": 88,
+      "resourceBytes": {
+        "jsBytes": 79609,
+        "cssBytes": 11453,
+        "totalTransferBytes": 93912,
+        "releaseGraph": {
+          "bytes": 311160,
+          "gzipBytes": 87338,
+          "filesCount": 5
+        }
+      },
+      "error": null
+    },
+    "tiptap": {
+      "editorId": "tiptap",
+      "coldReadyMs": 705,
+      "warmReadyMs": 192,
+      "changeToSavedMs": 59,
+      "resourceBytes": {
+        "jsBytes": 79609,
+        "cssBytes": 11453,
+        "totalTransferBytes": 93916,
+        "releaseGraph": {
+          "bytes": 489583,
+          "gzipBytes": 154769,
+          "filesCount": 5
+        }
+      },
+      "error": null
+    },
+    "lexical": {
+      "editorId": "lexical",
+      "coldReadyMs": 533,
+      "warmReadyMs": 159,
+      "changeToSavedMs": 46,
+      "resourceBytes": {
+        "jsBytes": 79609,
+        "cssBytes": 11453,
+        "totalTransferBytes": 93918,
+        "releaseGraph": {
+          "bytes": 368902,
+          "gzipBytes": 115018,
+          "filesCount": 4
+        }
+      },
+      "error": null
+    },
+    "editorjs": {
+      "editorId": "editorjs",
+      "coldReadyMs": 713,
+      "warmReadyMs": 176,
+      "changeToSavedMs": 34,
+      "resourceBytes": {
+        "jsBytes": 79609,
+        "cssBytes": 11453,
+        "totalTransferBytes": 93921,
+        "releaseGraph": {
+          "bytes": 446147,
+          "gzipBytes": 126167,
+          "filesCount": 5
+        }
+      },
+      "error": null
+    },
+    "trumbowyg": {
+      "editorId": "trumbowyg",
+      "coldReadyMs": 687,
+      "warmReadyMs": 193,
+      "changeToSavedMs": 48,
+      "resourceBytes": {
+        "jsBytes": 79609,
+        "cssBytes": 11453,
+        "totalTransferBytes": 93922,
+        "releaseGraph": {
+          "bytes": 266410,
+          "gzipBytes": 88222,
+          "filesCount": 9
+        }
+      },
+      "error": null
+    }
+  }
+}

@@ -376,11 +376,7 @@ body {
   overflow-y: auto;
 }
 
-#editor-host .pell-content,
 #editor-host .squire-editor-container,
-#editor-host .jodit-wysiwyg,
-#editor-host .sun-editor-editable,
-#editor-host .ql-editor,
 #editor-host trix-editor,
 #editor-host .ProseMirror,
 #editor-host .lexical-content-editable,
@@ -399,20 +395,13 @@ body.dark #editor-host,
 }
 
 /* Native editor theme adaptations */
-body.dark .ql-editor,
 body.dark .ProseMirror,
 body.dark .trix-content,
-body.dark .codex-editor,
-body.dark .pell-content,
-body.dark .sun-editor-editable,
-body.dark .jodit-wysiwyg {
+body.dark .codex-editor {
   color: var(--lab-text) !important;
   background-color: transparent !important;
 }
 
-body.dark .ql-toolbar,
-body.dark .sun-editor,
-body.dark .jodit-container,
 body.dark .trix-button-row {
   background-color: var(--lab-surface-secondary) !important;
   border-color: var(--lab-border) !important;
@@ -656,12 +645,6 @@ dialog::backdrop {
   color: var(--lab-text-muted);
   border-left: 3px solid var(--lab-warning);
   margin-bottom: 12px;
-}
-
-.lab-card-risk.high {
-  border-left-color: var(--lab-danger);
-  background-color: var(--lab-danger-bg);
-  color: var(--lab-danger);
 }
 
 .lab-card-footer {

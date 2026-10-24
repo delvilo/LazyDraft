@@ -66,13 +66,15 @@ Open [AI-RegExr](ai-regexr/) to test JavaScript RegExp or **PCRE2 10.49 (WASM)**
 
 ## Editor comparison lab
 
-The [comparison lab](editor-lab/dist/) runs Pell, Squire, Jodit, SunEditor, Quill, Trix, Tiptap, Milkdown, Lexical, and Editor.js without replacing Rich Text Notes or choosing a winner.
+The [comparison lab](editor-lab/) runs Squire, Trix, Tiptap, Lexical, Editor.js, and Trumbowyg (which introduces a jQuery 3.7.1 dependency) without replacing Rich Text Notes or choosing a winner.
 
-- Each editor keeps its native document format. Squire, Tiptap, and Lexical use labeled custom controls. See [`src/contracts.ts`](editor-lab/src/contracts.ts).
+The static `editor-lab/index.html` entry opens the built `dist/` app. `hub.html` is the Vite build input.
+
+- Each editor keeps its native document format. Squire, Tiptap, and Lexical use labeled custom controls; Trumbowyg uses its native toolbar backed by pinned jQuery 3.7.1. See [`src/contracts.ts`](editor-lab/src/contracts.ts).
 - Drafts use separate LocalStorage keys. Original PNG, JPEG, WebP, and GIF files use a separate IndexedDB database, with a **5 MiB** limit per file.
 - HTML embeds local images. Native printing saves documents as PDF without editor controls and replaces media players with source links.
 - The lab requires HTTPS or localhost. If Service Worker setup fails, initialization stops with an error and existing drafts remain untouched.
-- Wait for offline readiness before disconnecting. Remote images and media still require a network connection. The lab does not download videos.
+- Wait for offline readiness before disconnecting; all six editors and local images are available offline. Remote images and media still require a network connection. The lab does not download videos.
 - Resource sizes come from the build graph. Chrome timings include automation overhead and describe one measured environment.
 
 Build and verification commands are in the [lab development section](README.md#編輯器實驗室的建置與測試). Tests simulate composition events. They do not verify physical keyboards, OS input methods, or mobile devices.

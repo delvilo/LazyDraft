@@ -94,14 +94,14 @@ test('rejects arbitrary frames and executable media URLs without changing the sa
   }
 });
 
-test('jodit inserts media at the caret as one valid undo step without deleting surrounding text', async ({ page }) => {
-  await page.goto('jodit/');
-  await waitForEditorReady(page, 'jodit');
-  await typeIntoEditor(page, 'jodit', '前段文字後段文字');
-  await waitForDraftSaved(page, 'jodit', { expectedText: '前段文字後段文字' });
+test('trumbowyg inserts media at the caret as one valid undo step without deleting surrounding text', async ({ page }) => {
+  await page.goto('trumbowyg/');
+  await waitForEditorReady(page, 'trumbowyg');
+  await typeIntoEditor(page, 'trumbowyg', '前段文字後段文字');
+  await waitForDraftSaved(page, 'trumbowyg', { expectedText: '前段文字後段文字' });
   await page.evaluate(() => {
-    const root = document.querySelector<HTMLElement>('#editor-host .jodit-wysiwyg');
-    if (!root) throw new Error('Missing Jodit editor');
+    const root = document.querySelector<HTMLElement>('#editor-host .trumbowyg-editor');
+    if (!root) throw new Error('Missing Trumbowyg editor');
     root.focus();
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let text = walker.nextNode();
@@ -119,21 +119,21 @@ test('jodit inserts media at the caret as one valid undo step without deleting s
   await page.locator('#insert-media').click();
   await page.locator('#source-url').fill(source);
   await page.locator('#source-submit').click();
-  const inserted = await waitForDraftSaved(page, 'jodit', { expectedText: source });
-  const root = page.locator('#editor-host .jodit-wysiwyg');
+  const inserted = await waitForDraftSaved(page, 'trumbowyg', { expectedText: source });
+  const root = page.locator('#editor-host .trumbowyg-editor');
   await expect(root.locator('p p, p figure, p div')).toHaveCount(0);
   const html = await root.innerHTML();
   expect(html.indexOf('前段文字')).toBeLessThan(html.indexOf(source));
   expect(html.indexOf(source)).toBeLessThan(html.indexOf('後段文字'));
   await executeFormatCommand(page, 'undo');
-  const undone = await waitForDraftSaved(page, 'jodit', {
+  const undone = await waitForDraftSaved(page, 'trumbowyg', {
     expectedText: '前段文字',
     minRevision: inserted.revision + 1,
   });
   expect(undone.snapshot).not.toContain(source);
   expect((await root.textContent())?.replace(/\s/g, '')).toBe('前段文字後段文字');
   await executeFormatCommand(page, 'redo');
-  await waitForDraftSaved(page, 'jodit', {
+  await waitForDraftSaved(page, 'trumbowyg', {
     expectedText: source,
     minRevision: undone.revision + 1,
   });

@@ -1,0 +1,118 @@
+#editor-host .trumbowyg-box {
+  width: 100%;
+  margin: 0;
+  border: 1px solid var(--lab-border);
+  border-radius: var(--lab-radius);
+  background-color: var(--lab-surface);
+  min-height: 480px;
+}
+
+#editor-host .trumbowyg-button-pane {
+  background-color: var(--lab-surface-secondary);
+  border-bottom: 1px solid var(--lab-border);
+}
+
+#editor-host .trumbowyg-editor {
+  min-height: 400px;
+  font-family: var(--lab-font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--lab-text);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+#editor-host .trumbowyg-textarea {
+  min-height: 400px;
+  font-family: var(--lab-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--lab-text);
+  background-color: var(--lab-surface);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+body.dark #editor-host .trumbowyg-box,
+[data-theme="dark"] #editor-host .trumbowyg-box {
+  border-color: var(--lab-border);
+  background-color: var(--lab-surface);
+}
+
+body.dark #editor-host .trumbowyg-button-pane,
+[data-theme="dark"] #editor-host .trumbowyg-button-pane {
+  background-color: var(--lab-surface-secondary);
+  border-bottom-color: var(--lab-border);
+}
+
+body.dark #editor-host .trumbowyg-button-pane button,
+[data-theme="dark"] #editor-host .trumbowyg-button-pane button {
+  color: var(--lab-text);
+}
+
+body.dark #editor-host .trumbowyg-button-pane svg,
+[data-theme="dark"] #editor-host .trumbowyg-button-pane svg {
+  fill: var(--lab-text);
+  color: var(--lab-text);
+}
+
+body.dark #editor-host .trumbowyg-button-pane .trumbowyg-active,
+[data-theme="dark"] #editor-host .trumbowyg-button-pane .trumbowyg-active {
+  background-color: var(--lab-border);
+}
+
+body.dark .trumbowyg-dropdown,
+[data-theme="dark"] .trumbowyg-dropdown {
+  background-color: var(--lab-surface);
+  border-color: var(--lab-border);
+}
+
+body.dark .trumbowyg-dropdown button,
+[data-theme="dark"] .trumbowyg-dropdown button {
+  color: var(--lab-text);
+}
+
+body.dark .trumbowyg-dropdown button:hover,
+[data-theme="dark"] .trumbowyg-dropdown button:hover {
+  background-color: var(--lab-surface-secondary);
+}
+
+body.dark .trumbowyg-modal-box,
+[data-theme="dark"] .trumbowyg-modal-box {
+  background-color: var(--lab-surface);
+  color: var(--lab-text);
+  border-color: var(--lab-border);
+}
+
+#editor-host .trumbowyg-editor video[data-lab-media],
+#editor-host .trumbowyg-editor audio[data-lab-media],
+#editor-host .trumbowyg-editor iframe[data-lab-media],
+#editor-host .trumbowyg-editor .lab-media-embed {
+  display: block;
+  max-width: 100%;
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+#editor-host .trumbowyg-editor iframe[data-lab-media] {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+#editor-host .trumbowyg-editor video[data-lab-media] {
+  width: 100%;
+  max-height: 480px;
+  background: #000;
+}
+
+#editor-host .trumbowyg-editor audio[data-lab-media] {
+  width: 100%;
+}
+
+#editor-host .trumbowyg-editor img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.75rem 0;
+  border-radius: 4px;
+}

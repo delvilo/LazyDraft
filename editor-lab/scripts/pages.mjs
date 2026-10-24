@@ -3,9 +3,25 @@ import { fileURLToPath } from 'node:url';
 import { catalogue } from '../src/catalogue.ts';
 
 const root = new URL('../', import.meta.url);
+const editorCount = Object.keys(catalogue).length;
 const escape = (value) => value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 
-for (const [id, editor] of [['hub', { name: '十款編輯器比較' }], ...Object.entries(catalogue)]) {
+await writeFile(new URL('index.html', root), `<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="refresh" content="0;url=./dist/">
+  <meta name="description" content="${editorCount} 款開源編輯器的實際比較。獨立自動存檔、原始圖片、HTML 匯出與瀏覽器列印。">
+  <title>${editorCount} 款編輯器比較 · Editor Lab · LazyDraft</title>
+</head>
+<body>
+  <p>正在開啟編輯器比較頁面。<a href="./dist/">開啟 Editor Lab</a></p>
+</body>
+</html>
+`);
+
+for (const [id, editor] of [['hub', { name: `${editorCount} 款編輯器比較` }], ...Object.entries(catalogue)]) {
   const directory = new URL(id === 'hub' ? './' : `${id}/`, root);
   await mkdir(directory, { recursive: true });
   const base = id === 'hub' ? './' : '../';
@@ -15,7 +31,7 @@ for (const [id, editor] of [['hub', { name: '十款編輯器比較' }], ...Objec
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="editor-lab-base" content="${base}">
-  <meta name="description" content="十款開源編輯器的實際比較。獨立自動存檔、原始圖片、HTML 匯出與瀏覽器列印。">
+  <meta name="description" content="${editorCount} 款開源編輯器的實際比較。獨立自動存檔、原始圖片、HTML 匯出與瀏覽器列印。">
   <title>${escape(editor.name)} · Editor Lab · LazyDraft</title>
 </head>
 <body data-editor="${id}">
@@ -24,6 +40,6 @@ for (const [id, editor] of [['hub', { name: '十款編輯器比較' }], ...Objec
 </body>
 </html>
 `;
-  await writeFile(new URL('index.html', directory), html);
+  await writeFile(new URL(id === 'hub' ? 'hub.html' : 'index.html', directory), html);
 }
 console.log(`Generated ${Object.keys(catalogue).length + 1} pages in ${fileURLToPath(root)}`);

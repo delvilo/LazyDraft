@@ -31,10 +31,10 @@ const formatCases = [
   { command: 'bulletList', dom: 'ul, li[data-list="bullet"]', html: 'ul' },
   { command: 'orderedList', dom: 'ol, li[data-list="ordered"]', html: 'ol' },
   { command: 'quote', dom: 'blockquote, .cdx-quote', html: 'blockquote' },
-  { command: 'codeBlock', dom: 'pre, code, textarea, .ql-code-block, .cm-content', html: 'pre' },
+  { command: 'codeBlock', dom: 'pre, code, textarea', html: 'pre' },
 ];
 
-test.describe('Editor Lab - All Ten Editors Integration Matrix', () => {
+test.describe('Editor Lab - All Six Editors Integration Matrix', () => {
   for (const editorId of ALL_EDITORS) {
     test.describe(`Engine: ${editorId}`, () => {
       test('persists exact Chinese and Emoji fixture across edit, auto-save and reload', async ({
@@ -253,7 +253,7 @@ test.describe('Editor Lab - All Ten Editors Integration Matrix', () => {
         await expect(printView.locator('#save-status')).toHaveCount(0);
         await expect(printView.locator('#error-status')).toHaveCount(0);
         await expect(
-          printView.locator('.ql-toolbar, .jodit-toolbar__box, .se-toolbar, .pell-actionbar')
+          printView.locator('.trumbowyg-button-pane')
         ).toHaveCount(0);
 
         await expect(printView.locator('iframe, video, audio')).toHaveCount(0);

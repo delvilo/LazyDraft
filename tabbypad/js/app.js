@@ -1,3 +1,5 @@
+import { toTypedKey } from '../../js/tabbypad/backup-core.js';
+
 const gridContainer = document.getElementById('gridContainer');
 const noteModal = document.getElementById('noteModal');
 const fullscreenNote = document.getElementById('fullscreenNote');
@@ -6,15 +8,18 @@ const saveNoteBtn = document.getElementById('saveNoteBtn');
 const deleteNoteBtn = document.getElementById('deleteNoteBtn');
 const copyNoteBtn = document.getElementById('copyNoteBtn');
 const downloadNoteBtn = document.getElementById('downloadNoteBtn');
+const downloadAllNotesBtn = document.getElementById('downloadAllNotesBtn');
 const sortToggleBtn = document.getElementById('sortToggleBtn');
 const sortText = document.querySelector('.sort-text');
 const themeToggleBtn = document.getElementById('themeToggle');
-let currentNoteId = null; // To track the index of the current note being edited
-let sortOrder = 'newest'; // 'newest' or 'oldest'
+let currentNoteId = null;
+let sortOrder = 'newest';
 
-let notes = [], db;
-
-
+let notes = [];
+let currentBaselineRecord = null;
+let editorRevision = 1;
+let editorSessionId = 1;
+let isSaveInProgress = false;
 const themeStorageKey = 'tabbypadTheme';
 const darkMetaColor = '#0f131a';
 const lightMetaColor = '#f8f9fa';
@@ -71,60 +76,31 @@ function initTheme() {
 }
 
 
-function initIndexedDB() {
-    const request = indexedDB.open('NotesDB', 1);
-
-    request.onupgradeneeded = function(event) {
-        db = event.target.result;
-        const objectStore = db.createObjectStore('notes', { keyPath: 'id' });
-    };
-
-    request.onsuccess = function(event) {
-        db = event.target.result;
-        migrateNotesFromLocalStorage(); // Migrate notes from localStorage
-        loadNotesFromIndexedDB(); // Load notes from IndexedDB on success
-    };
-
-    request.onerror = function(event) {
-        console.error('Database error: ' + event.target.errorCode);
-    };
-}
-
-function migrateNotesFromLocalStorage() {
-    const storedNotes = JSON.parse(localStorage.getItem('notes'));
-
-    if (storedNotes && Array.isArray(storedNotes)) {
-        const transaction = db.transaction(['notes'], 'readwrite');
-        const objectStore = transaction.objectStore('notes');
-
-        storedNotes.forEach(note => {
-            objectStore.add(note); // Add each note to IndexedDB
-        });
-
-        transaction.oncomplete = function() {
-            console.log('Notes migrated to IndexedDB successfully.');
-            localStorage.removeItem('notes'); // Remove notes from localStorage
-        };
-
-        transaction.onerror = function(event) {
-            console.error('Error migrating notes to IndexedDB:', event.target.errorCode);
-        };
+async function loadNotesFromStorage() {
+    if (!window.TabbypadStorage) return;
+    try {
+        const notesFromDB = await window.TabbypadStorage.getAllNotes();
+        notes = notesFromDB || [];
+        renderNotes();
+    } catch (err) {
+        console.error('Failed to load notes from TabbypadStorage:', err);
     }
 }
 
-function loadNotesFromIndexedDB() {
-    const transaction = db.transaction(['notes'], 'readonly');
-    const objectStore = transaction.objectStore('notes');
-    const request = objectStore.getAll();
+function initStorage() {
+    if (window.TabbypadStorage && typeof window.TabbypadStorage.subscribe === 'function') {
+        window.TabbypadStorage.subscribe(() => {
+            loadNotesFromStorage();
+        });
+    }
 
-    request.onsuccess = function(event) {
-        const notesFromDB = event.target.result;
-        if (notesFromDB.length > 0) {
-            notes = notesFromDB; // Use notes from IndexedDB
-        }
+    if (typeof window !== 'undefined') {
+        window.addEventListener('focus', () => {
+            loadNotesFromStorage();
+        });
+    }
 
-        renderNotes(); // Render the notes
-    };
+    loadNotesFromStorage();
 }
 
 // Function to update the selected color in the UI and apply it to the modal
@@ -152,90 +128,125 @@ function updateSelectedColor(color) {
     }
 }
 
-// Function to open note in fullscreen
 function openFullscreen(note, index) {
-    // Handle both string and object notes
+    editorSessionId++;
+    editorRevision++;
+
     if (typeof note === 'string') {
         fullscreenNote.value = note;
         updateSelectedColor('default-grid-color');
-        currentNoteId = null; // New note
-    } else {
+        currentNoteId = null;
+        currentBaselineRecord = { id: null, content: note, color: 'default-grid-color' };
+    } else if (note && typeof note === 'object') {
         fullscreenNote.value = note.content || '';
         const noteColor = note.color || 'default-grid-color';
         updateSelectedColor(noteColor);
-        currentNoteId = note.id; // Existing note
+        currentNoteId = note.id;
+        currentBaselineRecord = { ...note };
+    } else {
+        fullscreenNote.value = '';
+        updateSelectedColor('default-grid-color');
+        currentNoteId = null;
+        currentBaselineRecord = { id: null, content: '', color: 'default-grid-color' };
     }
-    
-    deleteNoteBtn.style.display = 'inline-block';
+
+    deleteNoteBtn.style.display = currentNoteId !== null ? 'inline-block' : 'none';
     copyNoteBtn.style.display = 'inline-block';
     downloadNoteBtn.style.display = 'inline-block';
     noteModal.style.display = "flex";
     fullscreenNote.focus();
 }
 
-// Color picker functionality
+function closeModalCleanly() {
+    noteModal.style.display = "none";
+    editorSessionId++;
+    editorRevision++;
+    currentNoteId = null;
+    currentBaselineRecord = null;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Set up color picker
     document.querySelectorAll('.color-option').forEach(option => {
         option.addEventListener('click', (e) => {
             e.stopPropagation();
             const color = option.getAttribute('data-color');
             updateSelectedColor(color);
+            editorRevision++;
         });
     });
-    
-    // Set default color for new notes
     updateSelectedColor('default-grid-color');
 });
 
-// Save note functionality
-saveNoteBtn.addEventListener('click', () => {
-    const noteContent = fullscreenNote.value;
-    const selectedColor = document.querySelector('.color-option.selected')?.getAttribute('data-color') || 'default-grid-color';
-    
-    const transaction = db.transaction(['notes'], 'readwrite');
-    const objectStore = transaction.objectStore('notes');
-
-    if (currentNoteId) {
-        // Update existing note
-        const existingNote = notes.find(note => note.id === currentNoteId);
-        if (existingNote) {
-            existingNote.content = noteContent;
-            existingNote.color = selectedColor;
-            objectStore.put(existingNote); // Update the existing note
-        }
-
-        currentNoteId = null;
-    } else {
-        // Add new note
-        const note = {
-            id: Date.now(), // Only generate new ID for new notes
-            content: noteContent,
-            created_at: new Date().toISOString(),
-            color: selectedColor
-        };
-        objectStore.add(note);
-        notes.push(note); // Add to beginning of array to show newest first
-    }
-
-    transaction.oncomplete = function() {
-        renderNotes();
-        noteModal.style.display = "none";
-    };
-});
-
-// Close modal functionality
-closeModal.onclick = function() {
-    noteModal.style.display = "none";
+if (fullscreenNote) {
+    fullscreenNote.addEventListener('input', () => {
+        editorRevision++;
+    });
 }
 
-// Close modal on outside click
+async function performSave() {
+    if (isSaveInProgress) return false;
+    const saveSession = editorSessionId;
+    const saveRev = editorRevision;
+    const targetId = currentNoteId;
+    const targetContent = fullscreenNote.value;
+    const targetColor = document.querySelector('.color-option.selected')?.getAttribute('data-color') || 'default-grid-color';
+    const baseline = currentBaselineRecord;
+
+    if (!window.TabbypadStorage) {
+        alert('儲存功能不可用，請重新整理頁面');
+        return false;
+    }
+
+    isSaveInProgress = true;
+    try {
+        if (targetId !== null && targetId !== undefined) {
+            const updated = await window.TabbypadStorage.updateNote(targetId, targetContent, {
+                expectedRecord: baseline,
+                color: targetColor
+            });
+            await loadNotesFromStorage();
+
+            if (editorSessionId === saveSession && editorRevision === saveRev) {
+                closeModalCleanly();
+            } else if (editorSessionId === saveSession) {
+                currentBaselineRecord = { ...updated };
+            }
+        } else {
+            const created = await window.TabbypadStorage.createNote(targetContent, targetColor);
+            await loadNotesFromStorage();
+
+            if (editorSessionId === saveSession && editorRevision === saveRev) {
+                closeModalCleanly();
+            } else if (editorSessionId === saveSession) {
+                currentNoteId = created.id;
+                currentBaselineRecord = { ...created };
+            }
+        }
+        return true;
+    } catch (err) {
+        console.error('Failed to save note:', err);
+        const msg = err && err.message ? err.message : '';
+        if (msg.includes('STALE')) {
+            alert('此筆記已被其他視窗或分頁修改。目前編輯內容已保留，請檢查後另存。');
+        } else if (msg.includes('NOTE_NOT_FOUND')) {
+            alert('此筆記已被其他視窗或分頁刪除。目前編輯內容已保留，您可存為新項目。');
+        } else {
+            alert('儲存失敗，目前編輯內容已保留。');
+        }
+        return false;
+    } finally {
+        isSaveInProgress = false;
+    }
+}
+
+saveNoteBtn.addEventListener('click', performSave);
+
+closeModal.onclick = closeModalCleanly;
 window.onclick = function(event) {
     if (event.target == noteModal) {
-        noteModal.style.display = "none";
+        closeModalCleanly();
     }
-}
-
+};
 const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
 
 fullscreenToggleBtn.addEventListener('click', () => {
@@ -251,28 +262,27 @@ deleteNoteBtn.addEventListener('click', () => {
 });
 
 // Handle confirmation of deletion
-document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
-    if (currentNoteId !== null) {
-        const noteId = currentNoteId; // Get the ID of the note to delete
+document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (currentNoteId !== null && currentNoteId !== undefined) {
+        const noteId = currentNoteId;
 
-        // Delete from IndexedDB
-        const transaction = db.transaction(['notes'], 'readwrite');
-        const objectStore = transaction.objectStore('notes');
-        objectStore.delete(noteId); // Delete note from IndexedDB
+        if (!window.TabbypadStorage) {
+            alert('刪除功能不可用');
+            return;
+        }
 
-        transaction.oncomplete = function() {
-            const noteIndex = notes.findIndex(note => note.id === currentNoteId);
-            if (noteIndex > -1) {
-                notes.splice(noteIndex, 1); // Remove from notes array using the found index
-            }
-            renderNotes(); // Re-render notes
-            noteModal.style.display = "none"; // Close modal
-            $('#confirmDeleteModal').modal('hide'); // Hide confirmation modal
-        };
-
-        transaction.onerror = function(event) {
-            console.error('Error deleting note from IndexedDB:', event.target.errorCode);
-        };
+        try {
+            await window.TabbypadStorage.deleteNote(noteId, {
+                expectedRecord: currentBaselineRecord
+            });
+            closeModalCleanly();
+            $('#confirmDeleteModal').modal('hide');
+            await loadNotesFromStorage();
+        } catch (err) {
+            console.error('Error deleting note from IndexedDB:', err);
+            alert('刪除失敗：此項目可能已在其他分頁被變更。');
+            $('#confirmDeleteModal').modal('hide');
+        }
     }
 });
 
@@ -280,9 +290,7 @@ const searchInput = document.getElementById('searchInput');
 const escToCancel = document.querySelector('.esc-to-cancel');
 
 document.addEventListener('mousedown', function(e) {
-  clickedElementOnMouseDown = e.target;
-
-  if (clickedElementOnMouseDown.closest('.esc-to-cancel')) {
+  if (e.target instanceof Element && e.target.closest('.esc-to-cancel')) {
     searchInput.value = '';
     escToCancel.style.display = 'none';
     renderNotes();
@@ -307,12 +315,12 @@ searchInput.addEventListener('input', () => {
 // Close the modal when the Escape key is pressed
 document.addEventListener('keydown', (event) => {
     if (event.key === "Escape") {
-        // if the delete confirmation modal is open, don't close it
         if (!$('#confirmDeleteModal').is(':visible')) {
-            noteModal.style.display = "none"; // Close the modal
+            if (noteModal.style.display === "flex") {
+                closeModalCleanly();
+            }
         }
 
-        // if searchInput has focus
         if (searchInput === document.activeElement) {
             searchInput.value = '';
             escToCancel.style.display = 'none';
@@ -360,15 +368,18 @@ function getSortedNotes(notesToSort = notes) {
 }
 
 // Modify renderNotes function to accept an optional parameter
+function findNoteByTypedId(typedKey) {
+    return notes.find(n => toTypedKey(n.id) === typedKey) || null;
+}
+
 function renderNotes(filteredNotes = null) {
     const notesToRender = filteredNotes !== null ? getSortedNotes(filteredNotes) : getSortedNotes();
     
-    const existing = new Map(
-        [...gridContainer.querySelectorAll('.grid-item')]
-            .map(el => [el.dataset.id, el])
-    );
+    const existing = new Map();
+    gridContainer.querySelectorAll('.grid-item').forEach(el => {
+        if (el.dataset.typedId) existing.set(el.dataset.typedId, el);
+    });
 
-    // Empty state handling
     const emptyState = gridContainer.querySelector('.empty-state');
     if (notesToRender.length === 0) {
         if (!emptyState) {
@@ -383,18 +394,17 @@ function renderNotes(filteredNotes = null) {
             `;
             gridContainer.appendChild(emptyStateDiv);
         }
-        // Remove any existing grid-items
         existing.forEach(el => el.remove());
         return;
     } else if (emptyState) {
         emptyState.remove();
     }
 
-    // Helper to build a note node
     function createNoteElement(note, index) {
         const noteDiv = document.createElement('div');
         noteDiv.className = `grid-item ${note.color || 'default-grid-color'}`;
-        noteDiv.dataset.id = String(note.id);
+        const typedKey = toTypedKey(note.id);
+        noteDiv.dataset.typedId = typedKey;
 
         const contentDiv = document.createElement('div');
         contentDiv.className = 'note-content';
@@ -403,11 +413,11 @@ function renderNotes(filteredNotes = null) {
         const actionsDiv = document.createElement('div');
         actionsDiv.className = 'note-actions';
 
-        // Add date display on the left
         const dateDiv = document.createElement('div');
         dateDiv.className = 'note-date';
-        const relativeTime = getRelativeTime(note.created_at);
-        const formattedDate = getFormattedDate(note.created_at);
+        const hasValidDate = typeof note.created_at === 'string' && note.created_at && !Number.isNaN(new Date(note.created_at).getTime());
+        const relativeTime = hasValidDate ? getRelativeTime(note.created_at) : 'Undated';
+        const formattedDate = hasValidDate ? getFormattedDate(note.created_at) : 'Undated';
         dateDiv.textContent = relativeTime;
         dateDiv.title = formattedDate;
 
@@ -427,7 +437,8 @@ function renderNotes(filteredNotes = null) {
         `;
         copyBtn.addEventListener('click', e => {
             e.stopPropagation();
-            navigator.clipboard.writeText(note.content).then(() => {
+            const current = findNoteByTypedId(typedKey) || note;
+            navigator.clipboard.writeText(current.content).then(() => {
                 copyBtn.classList.add('copied');
                 setTimeout(() => copyBtn.classList.remove('copied'), 800);
             });
@@ -443,41 +454,53 @@ function renderNotes(filteredNotes = null) {
         `;
         downloadBtn.addEventListener('click', e => {
             e.stopPropagation();
+            const current = findNoteByTypedId(typedKey) || note;
             const a = document.createElement('a');
-            const file = new Blob([note.content], { type: 'text/plain' });
+            const file = new Blob([current.content], { type: 'text/plain' });
             a.href = URL.createObjectURL(file);
-            a.download = `note-${new Date(note.created_at).toISOString().split('T')[0]}.txt`;
+            const datePart = (typeof current.created_at === 'string' && current.created_at && !Number.isNaN(new Date(current.created_at).getTime()))
+                ? new Date(current.created_at).toISOString().split('T')[0]
+                : 'undated';
+            a.download = `note-${encodeURIComponent(String(current.id))}-${datePart}.txt`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
         });
 
         actionButtonsDiv.append(copyBtn, downloadBtn);
         actionsDiv.append(dateDiv, actionButtonsDiv);
         noteDiv.append(contentDiv, actionsDiv);
 
-        contentDiv.addEventListener('click', () => openFullscreen(note, index));
+        contentDiv.addEventListener('click', () => {
+            const current = findNoteByTypedId(typedKey) || note;
+            openFullscreen(current);
+        });
 
         return noteDiv;
     }
 
-    // Remove nodes that no longer exist
-    const incomingIds = new Set(notesToRender.map(n => String(n.id)));
-    existing.forEach((el, id) => {
-        if (!incomingIds.has(id)) el.remove();
+    const incomingKeys = new Set(notesToRender.map(n => toTypedKey(n.id)));
+    existing.forEach((el, key) => {
+        if (!incomingKeys.has(key)) el.remove();
     });
 
-    // Insert/update in correct order
     notesToRender.forEach((note, index) => {
-        const id = String(note.id);
-        let el = existing.get(id);
+        const key = toTypedKey(note.id);
+        let el = existing.get(key);
 
         if (!el) {
             el = createNoteElement(note, index);
         } else {
-            // Update mutable parts
             el.className = `grid-item ${note.color || 'default-grid-color'}`;
-            el.querySelector('.note-content').textContent = note.content;
+            const contentEl = el.querySelector('.note-content');
+            if (contentEl) contentEl.textContent = note.content;
+            const dateEl = el.querySelector('.note-date');
+            if (dateEl) {
+                const hasValidDate = typeof note.created_at === 'string' && note.created_at && !Number.isNaN(new Date(note.created_at).getTime());
+                dateEl.textContent = hasValidDate ? getRelativeTime(note.created_at) : 'Undated';
+                dateEl.title = hasValidDate ? getFormattedDate(note.created_at) : 'Undated';
+            }
         }
 
         const ref = gridContainer.children[index];
@@ -514,45 +537,48 @@ copyNoteBtn.addEventListener('click', () => {
 
 downloadNoteBtn.addEventListener('click', () => {
     const noteContent = fullscreenNote.value;
-    const noteId = currentNoteId !== null ? currentNoteId : Date.now(); 
+    const noteId = currentNoteId !== null ? currentNoteId : 'undated';
     const blob = new Blob([noteContent], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `note-${noteId}.txt`; 
+    link.download = `note-${encodeURIComponent(String(noteId))}.txt`;
     link.click();
     URL.revokeObjectURL(link.href); 
 });
 
-function getCurrentDate() {
-    const currentDate = new Date();
+downloadAllNotesBtn.addEventListener('click', async () => {
+    downloadAllNotesBtn.disabled = true;
+    try {
+        const savedNotes = await window.TabbypadStorage.getAllNotes();
+        if (savedNotes.length === 0) {
+            showToast('No notes to download!');
+            return;
+        }
 
-    return currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getFullYear();
-}
+        const date = new Date();
+        const folderName = `tabbypad-notes-bundle-${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        const zip = new window.JSZip();
+        const folder = zip.folder(folderName);
+        savedNotes.forEach((note, index) => {
+            folder.file(`note_${index + 1}.txt`, note.content);
+        });
 
-function downloadAllNotes() {
-    if (notes.length === 0) {
-        showToast('No notes to download!');
-        return;
-    }
-
-    const folderName = "tabbypad-notes-bundle-"+ getCurrentDate();
-    const zip = new JSZip();
-    const folder = zip.folder(folderName); // Create a folder in the ZIP
-
-    notes.forEach(note => {
-        // Create a text file for each note
-        folder.file(`note_${note.id}.txt`, note.content);
-    });
-
-    // Generate the ZIP file and trigger download
-    zip.generateAsync({ type: "blob" }).then(content => {
+        const content = await zip.generateAsync({ type: 'blob' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(content);
-        link.download = folderName +".zip"; // Name of the ZIP file
+        link.download = `${folderName}.zip`;
+        document.body.appendChild(link);
         link.click();
-        URL.revokeObjectURL(link.href); // Clean up
-    });
-}
+        link.remove();
+        URL.revokeObjectURL(link.href);
+    } catch (err) {
+        console.error('Failed to download notes:', err);
+        showToast('Failed to download notes. Please try again.');
+    } finally {
+        downloadAllNotesBtn.disabled = false;
+    }
+});
+
 
 let lastUsedColor = null;
 
@@ -619,15 +645,7 @@ function getRandomPastelColor() {
 }
 
 function createNewNote() {
-    fullscreenNote.value = '';
-    currentNoteId = null;
-    deleteNoteBtn.style.display = 'none';
-    copyNoteBtn.style.display = 'none';
-    downloadNoteBtn.style.display = 'none';
-    noteModal.style.display = "flex";
-    // Set default color for new note
-    updateSelectedColor('default-grid-color');
-    fullscreenNote.focus();
+    openFullscreen(null);
 }
 
 document.onkeydown = function (event) {
@@ -639,7 +657,6 @@ document.onkeydown = function (event) {
     }
 };
 
-document.getElementById('downloadAllNotesBtn').addEventListener('click', downloadAllNotes);
 
 // Floating Add Note Button
 document.getElementById('floatingAddBtn').addEventListener('click', () => {
@@ -651,10 +668,58 @@ initTheme();
 
 
 // Initialize IndexedDB
-initIndexedDB();
+initStorage();
 
 // Initialize sort button
 updateSortButton();
 
 // Initial rendering of notes on page load
 renderNotes();
+window.TabbypadEditor = {
+    hasUnsavedChanges() {
+        const isModalOpen = (noteModal && noteModal.style.display === 'flex');
+        if (!isModalOpen) return false;
+        const currentContent = fullscreenNote ? fullscreenNote.value : '';
+        const selectedColor = document.querySelector('.color-option.selected')?.getAttribute('data-color') || 'default-grid-color';
+        if (currentBaselineRecord && currentBaselineRecord.id !== null) {
+            return currentContent !== currentBaselineRecord.content || selectedColor !== currentBaselineRecord.color;
+        }
+        return currentContent.length > 0 || selectedColor !== 'default-grid-color';
+    },
+    getEditorState() {
+        const isModalOpen = (noteModal && noteModal.style.display === 'flex');
+        return {
+            isOpen: isModalOpen,
+            noteId: currentNoteId,
+            isDirty: this.hasUnsavedChanges(),
+            revision: editorRevision,
+            sessionId: editorSessionId
+        };
+    },
+    getEditorGuard() {
+        const capturedSession = editorSessionId;
+        const capturedRev = editorRevision;
+        const wasModalOpen = (noteModal && noteModal.style.display === 'flex');
+        return () => {
+            const isModalOpen = (noteModal && noteModal.style.display === 'flex');
+            if (!wasModalOpen && isModalOpen) return false;
+            if (wasModalOpen && !isModalOpen) return false;
+            if (editorSessionId !== capturedSession || editorRevision !== capturedRev) return false;
+            if (isModalOpen && window.TabbypadEditor.hasUnsavedChanges()) return false;
+            return true;
+        };
+    },
+    closeEditorIfClean() {
+        if (!this.hasUnsavedChanges()) {
+            closeModalCleanly();
+            return true;
+        }
+        return false;
+    },
+    saveCurrentNote() {
+        return performSave();
+    },
+    reloadNotes() {
+        return loadNotesFromStorage();
+    }
+};

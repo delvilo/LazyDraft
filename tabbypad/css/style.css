@@ -1006,3 +1006,85 @@ body.dark .modal-header .close:focus {
     opacity: 0;
   }
 }
+
+[hidden] {
+    display: none !important;
+}
+
+.nav-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none !important;
+}
+
+.nav-action-btn:hover {
+    color: #cbd5e1 !important;
+}
+
+.cloud-auth-bar {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+body.dark .cloud-auth-bar {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+body.dark #cloudModal .text-muted {
+    color: #a4b1c2 !important;
+}
+
+body.dark #cloudModal .alert .text-muted {
+    color: inherit !important;
+}
+
+.cloud-auth-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#cloudModal .list-group-item {
+    cursor: pointer;
+    background-color: transparent;
+    color: inherit;
+    border-color: #e2e8f0;
+}
+
+body.dark #cloudModal .list-group-item {
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+#cloudModal .list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+body.dark #cloudModal .list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#cloudModal .list-group-item.active {
+    background-color: #e0f2fe;
+    border-color: #38bdf8;
+    color: #0369a1;
+}
+
+body.dark #cloudModal .list-group-item.active {
+    background-color: #0c4a6e;
+    border-color: #0284c7;
+    color: #bae6fd;
+}
+
+@media (max-width: 576px) {
+    .nav-btn-text {
+        display: none;
+    }
+}

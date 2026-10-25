@@ -836,9 +836,12 @@ $(document).ready(function () {
 	let activeFloatingWindow = null;
 
 	const pipButton = document.getElementById('pip');
+	const isMobileOrTablet = /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(navigator.userAgent)
+		|| (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+		|| window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-	if (pipButton) {
-		$('#pipContainer').show();
+	if (pipButton && !isMobileOrTablet) {
+		$('#pipContainer').prop('hidden', false);
 
 		pipButton.addEventListener('click', async () => {
 			const appTextarea = document.getElementById("textareaContainer");
@@ -1099,7 +1102,7 @@ $(document).ready(function () {
 	document.onkeydown = function (event) {
 		event = event || window.event;
 
-		if (event.key === 'Escape') {
+		if (event.key === 'Escape' && !event.defaultPrevented) {
 			$('.modal').modal('hide');
 			turnOffFocusMode(notepad);
 		}
@@ -1266,7 +1269,7 @@ $(document).ready(function () {
 	}
 
 	function updateTabbypadPillUI() {
-		if (!currentLinkedTabbypadId) {
+		if (currentLinkedTabbypadId === null) {
 			notepad.tabbypadLinkedPill.hide();
 			notepad.tabbypadUpdateLinkedBtn.hide();
 			return;
@@ -1328,15 +1331,15 @@ $(document).ready(function () {
 		notepad.tabbypadList.empty();
 		filtered.forEach(note => {
 			const title = getFirstLineTitle(note.content);
-			const dateStr = formatTabbypadDate(note.created_at || note.id);
+			const dateStr = formatTabbypadDate(note.created_at) || '日期不明';
 			const isCurrentlyActive = (note.id === currentLinkedTabbypadId);
 
 			const li = $(`
-				<li class="tabbypad-item ${isCurrentlyActive ? 'active-item' : ''}" data-id="${note.id}">
+				<li class="tabbypad-item ${isCurrentlyActive ? 'active-item' : ''}">
 					<div class="tabbypad-item-info">
 						<div class="tabbypad-item-title">${escapeHtml(title)}</div>
 						<div class="tabbypad-item-meta">
-							<span>建立時間：${dateStr}</span>
+							<span>建立時間：${escapeHtml(dateStr)}</span>
 							<span>字數：${(note.content || '').length}</span>
 						</div>
 					</div>
@@ -1345,6 +1348,7 @@ $(document).ready(function () {
 					</div>
 				</li>
 			`);
+			li.attr('data-id', String(note.id));
 
 			li.find('.tabbypad-load-btn').on('click', function (e) {
 				e.stopPropagation();
@@ -1443,7 +1447,7 @@ $(document).ready(function () {
 	}
 
 	async function updateLinkedTabbypadItem() {
-		if (!currentLinkedTabbypadId) {
+		if (currentLinkedTabbypadId === null) {
 			Swal.fire({
 				toast: true,
 				position: 'bottom',
@@ -1539,7 +1543,7 @@ $(document).ready(function () {
 
 		// Safe to update
 		try {
-			await window.TabbypadStorage.updateNote(draft.linkedId, content);
+			await window.TabbypadStorage.updateNote(draft.linkedId, content, { expectedContent: draft.linkedBase });
 		} catch (err) {
 			console.error('Failed to update Tabbypad item:', err);
 			showTabbypadNotice('更新失敗，原草稿與連結已保留', 'error');
@@ -1659,10 +1663,17 @@ $(document).ready(function () {
 	// Monitor editor input to update linked pill dirty status
 	notepad.note.on('input', function () {
 		tabbypadDraftRevision++;
-		if (currentLinkedTabbypadId) {
+		if (currentLinkedTabbypadId !== null) {
 			updateTabbypadPillUI();
 		}
 	});
+	if (window.TabbypadStorage && typeof window.TabbypadStorage.subscribe === 'function') {
+		window.TabbypadStorage.subscribe(() => {
+			if (notepad.tabbypadModal.is(':visible')) {
+				refreshTabbypadList(notepad.tabbypadSearchInput.val());
+			}
+		});
+	}
 
 	// Local imports stay text-only, including HTML, SVG and executable source files.
 	const localFileExtensions = new Set([

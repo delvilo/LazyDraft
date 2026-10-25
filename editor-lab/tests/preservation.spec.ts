@@ -108,7 +108,7 @@ test.describe('Existing Data Preservation & Storage Namespace Isolation', () => 
 
     const dbCheck = await page.evaluate(() => {
       const { promise, resolve, reject } = Promise.withResolvers<{ id: string; data: string } | null>();
-      const req = indexedDB.open('NotesDB', 1);
+      const req = indexedDB.open('NotesDB');
       req.onerror = () => reject(req.error);
       req.onsuccess = () => {
         const db = req.result;

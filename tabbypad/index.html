@@ -18,7 +18,7 @@
 
     <title>Tabbypad | Take and manage multiple notes effortlessly | note.lazyai.day</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=93">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,10 +29,23 @@
                 <span>Tabbypad</span>
             </span>
             <div class="generic-flex btn-container">
-                <button class="btn btn-link text-white" id="downloadAllNotesBtn" title="Download All Notes">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                <button type="button" class="btn btn-link text-white nav-action-btn" id="downloadAllNotesBtn" aria-label="Download all notes" title="Download all notes as ZIP">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
+                    <span class="nav-btn-text">Download all notes</span>
+                </button>
+                <button type="button" class="btn btn-link text-white nav-action-btn" id="backupBtn" aria-label="Backup" title="Backup notes to Google Drive">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                    </svg>
+                    <span class="nav-btn-text">Backup</span>
+                </button>
+                <button type="button" class="btn btn-link text-white nav-action-btn" id="restoreBtn" aria-label="Restore" title="Restore notes from Google Drive or Local Recovery">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                    <span class="nav-btn-text">Restore</span>
                 </button>
                 <button class="btn btn-link text-white theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
                     <svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
@@ -133,7 +146,8 @@
                     <ul>
                         <li>Write multiple notes in plain text</li>
                         <li>Search across notes</li>
-                        <li>Ability to download all notes as a ZIP bundle</li>
+                        <li>Download all saved notes as a ZIP of text files</li>
+                        <li>Google Drive backup and restore</li>
                         <li>Fullscreen notes to write notes distraction-free</li>
                         <li>Grid layout for easy navigation</li>
                         <li>Simple by design</li>
@@ -149,7 +163,7 @@
         </div>
     </div>
 
-    <div id="toast" class="toast">
+    <div id="toast" class="toast" role="status" aria-live="polite">
         <div class="toast-body">
         </div>
     </div>
@@ -157,7 +171,7 @@
 
     <div class="delete-confirmation-container">
         <!-- Confirmation Modal -->
-        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -177,6 +191,190 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="cloudModal" tabindex="-1" role="dialog" aria-labelledby="cloudModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cloudModalLabel">Google Drive Backup</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cloudModalCloseBtn">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="editorDirtyAlert" class="alert alert-warning" style="display: none;" role="alert">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <span><strong>Unsaved changes in editor:</strong> Save your current note or cancel this restore.</span>
+                            <div class="mt-2 mt-sm-0">
+                                <button type="button" class="btn btn-sm btn-primary" id="saveEditorBtn">Save Note</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cloudAuthBar" class="cloud-auth-bar mb-3 p-3 rounded">
+                        <div id="cloudConfigNotice" hidden style="display: none;">
+                            <div class="alert alert-info mb-0">
+                                <h6 class="alert-heading font-weight-bold">Google Drive Setup Required</h6>
+                                <p class="mb-1">To enable cloud backup and restore, please configure a Google OAuth Client ID.</p>
+                                <p class="mb-0 small text-muted">Create <code>tabbypad/drive-config.json</code> with: <code>{ "clientId": "YOUR_CLIENT_ID.apps.googleusercontent.com" }</code></p>
+                            </div>
+                        </div>
+                        <div id="cloudDisconnectedState" hidden style="display: none;" class="cloud-auth-row">
+                            <div>
+                                <span class="text-muted">Connect your Google account to access Google Drive AppData backup.</span>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-sm" id="cloudConnectBtn">
+                                Connect Google Drive
+                            </button>
+                        </div>
+                        <div id="cloudConnectedState" hidden style="display: none;" class="cloud-auth-row">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge badge-success">Connected</span>
+                                <span class="font-weight-bold text-truncate" id="cloudAccountDisplay"></span>
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="cloudDisconnectBtn">
+                                Disconnect
+                            </button>
+                        </div>
+                        <div id="cloudConnectingState" hidden style="display: none;" class="text-center py-2 text-muted">
+                            <div class="spinner-border spinner-border-sm text-primary mr-2" role="status"></div>
+                            <span>Connecting to Google Drive...</span>
+                        </div>
+                    </div>
+
+                    <div id="cloudStatusAlert" class="alert" style="display: none;" role="alert"></div>
+
+                    <div id="cloudBackupView" style="display: none;">
+                        <div class="card p-3 mb-3 bg-transparent border-secondary">
+                            <h6>Notebook Backup Summary</h6>
+                            <p class="mb-1">Local notes ready for backup: <strong id="backupLocalNoteCount">0</strong></p>
+                            <p class="small text-muted mb-0">Only saved notes are backed up to hidden Google Drive app data, without additional client-side encryption. Uploads are verified before permanently deleting versions beyond the newest five. Failed cleanup can temporarily leave more than five backups.</p>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" id="confirmBackupBtn">
+                                Confirm Backup
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="cloudRestoreView" style="display: none;">
+                        <div id="localRecoverySection" class="card p-3 mb-4 bg-transparent border-info">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div>
+                                    <h6 class="text-info font-weight-bold mb-1">Local Recovery (Undo)</h6>
+                                    <div id="recoveryCheckpointInfo" class="small text-muted">
+                                        Checking local recovery checkpoint...
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-outline-info btn-sm" id="undoRestoreBtn" disabled>
+                                        Undo Last Restore
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="undoConfirmSection" class="mt-3 pt-3 border-top border-secondary" style="display: none;">
+                                <div class="alert alert-warning mb-2" id="undoConfirmText">
+                                    Are you sure you want to revert your notes to the previous local checkpoint?
+                                </div>
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button type="button" class="btn btn-sm btn-secondary mr-2" id="cancelUndoBtn">Cancel</button>
+                                    <button type="button" class="btn btn-sm btn-warning" id="confirmUndoBtn">Confirm Undo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="cloudRestoreSection">
+                            <h6 class="font-weight-bold mb-2">Cloud Backups</h6>
+                            <div id="cloudBackupsLoading" class="text-center py-3 text-muted" style="display: none;">
+                                <div class="spinner-border spinner-border-sm mr-2" role="status"></div>
+                                <span>Loading cloud backups...</span>
+                            </div>
+                            <div id="cloudBackupsEmpty" class="alert alert-secondary text-center py-3" style="display: none;">
+                                No cloud backups found in this Google account.
+                            </div>
+                            <div id="cloudBackupsListContainer" class="list-group mb-3" style="max-height: 200px; overflow-y: auto;">
+                            </div>
+
+                            <div id="restoreModeSection" class="mb-3" style="display: none;">
+                                <label class="font-weight-bold d-block mb-1">Restore Mode</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="restoreMode" id="restoreModeMerge" value="merge" checked>
+                                    <label class="form-check-label" for="restoreModeMerge">
+                                        <strong>Merge</strong> (Preserve local notes, union with backup)
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="restoreMode" id="restoreModeOverwrite" value="overwrite">
+                                    <label class="form-check-label" for="restoreModeOverwrite">
+                                        <strong>Overwrite</strong> (Replace local notes completely)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="overwriteConfirmSection" class="alert alert-danger mb-3" style="display: none;">
+                                <h6 class="alert-heading font-weight-bold mb-1">Warning: Destructive Operation</h6>
+                                <p class="mb-2" id="overwriteCountsText">Overwrite will replace all local notes.</p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="confirmOverwriteCheckbox">
+                                    <label class="form-check-label font-weight-bold text-danger" for="confirmOverwriteCheckbox">
+                                        I understand that Overwrite will replace my local notes.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="restorePreviewSection" class="card p-3 mb-3 bg-transparent border-secondary" hidden style="display: none;">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="font-weight-bold mb-0">Restore Preview</h6>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="recalculatePreviewBtn" title="Recalculate preview against current notebook state">
+                                        Recalculate Preview
+                                    </button>
+                                </div>
+                                <div id="previewLoading" class="text-center py-2 text-muted" style="display: none;">
+                                    <div class="spinner-border spinner-border-sm mr-2" role="status"></div>
+                                    <span>Calculating plan...</span>
+                                </div>
+                                <div id="previewContent" style="display: none;">
+                                    <div class="row text-center mb-2">
+                                        <div class="col">
+                                            <div class="small text-muted">Added</div>
+                                            <span class="badge badge-success px-2 py-1" id="previewAddedCount">0</span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="small text-muted">Updated</div>
+                                            <span class="badge badge-primary px-2 py-1" id="previewUpdatedCount">0</span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="small text-muted">Conflicts</div>
+                                            <span class="badge badge-warning px-2 py-1" id="previewConflictCount">0</span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="small text-muted">Unchanged</div>
+                                            <span class="badge badge-secondary px-2 py-1" id="previewUnchangedCount">0</span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="small text-muted">Final Total</div>
+                                            <span class="badge badge-info px-2 py-1" id="previewFinalCount">0</span>
+                                        </div>
+                                    </div>
+                                    <div id="previewNoOpNotice" class="alert alert-info py-1 px-2 small mb-0" style="display: none;">
+                                        Selected backup is identical to local notes. No changes will occur.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary" id="applyRestoreBtn" disabled>
+                                    Apply Restore
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Add Note Button -->
     <button id="floatingAddBtn" class="floating-add-btn" title="Add Note (Alt/Option + N)">
@@ -189,7 +387,9 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jszip.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="../js/tabbypad-bridge.js?v=94"></script>
+    <script type="module" src="js/app.js?v=94"></script>
+    <script type="module" src="js/drive-ui.js?v=94"></script>
 
     <script type="module">
         import autoAnimate from "./js/auto-animate.es.js";
@@ -198,13 +398,5 @@
         autoAnimate(list);
     </script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics - GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43339302-6"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-43339302-6');
-    </script>
 </body>
 </html>

@@ -10,12 +10,12 @@ Forked from [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notep
 
 ## Editor & Tools
 
-- **Autosave**: Drafts persist in browser `localStorage`; Tabbypad uses IndexedDB. Clearing site data removes local content; download separate backups of important notes.
+- **Autosave**: Drafts persist in browser `localStorage`; Tabbypad uses IndexedDB. Clearing site data removes local content; keep separate backups of important notes.
 - **Download and copy**: Copy the entire note or download `.txt`. The filename uses the first line, falling back to `Notes-DD-MM-YYYY.txt` when that line is blank.
 - **Appearance**: Light, dark, or system theme; fonts, size, line height, paper textures, optimal line width, spellcheck, and Tab indentation.
 - **Count summary**: Optional bottom-right totals for characters, Chinese characters, and English words. Characters count Unicode code points, including whitespace; Chinese counts individual Han characters, English counts letter-based words. Compound emoji may count as more than one character.
-- **Floating window**: Requires desktop Document Picture-in-Picture support; close or return through native frame controls. Focus and fullscreen modes are also available.
-- **Utilities**: Open Rich Text Notes, Markdown Editor, Tabbypad, and AI-RegExr from the toolbar without replacing the draft.
+- Floating windows are desktop-only. The icon is hidden on phones and tablets, including iPad desktop-site mode. Desktop browsers use Document Picture-in-Picture when available, otherwise a regular popup. Focus and fullscreen modes remain available.
+- Open Rich Text Notes, Markdown Editor, Tabbypad, AI-RegExr, and Editor Lab from **LazyDraft** at the top left. Tabbypad opens its item manager. The other tools open new tabs and preserve the draft. The top-right GitHub icon links to this repository.
 - **Text QR**: The toolbar opens a display-only text QR snapshot; prefers selected text, falling back to the full draft. The limit is **2,048 UTF-8 bytes** (inclusive), preserving whitespace, newlines, Chinese, and emoji; empty or oversized text is refused without truncation or multi-code splitting. The QR code displays plain text without download/export buttons or receive acknowledgements; closing clears the preview, snapshot, and code without saving history, modifying drafts, or altering Tabbypad.
 - **Scanning & offline**: Scan with an external camera/scanner and manually copy/paste; no synchronization or automatic draft clearing. Dense codes may not scan or expose full text on every camera. Generation works offline after initial online precaching; the encoder executes only on first opening QR, without CDNs, servers, or WebRTC.
 
@@ -34,6 +34,19 @@ Forked from [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notep
 - **Tabbypad**: Load existing items to edit or save a new item. Successful creation or manual **更新原項目 (Update Original)**, including the bottom-right button, clears and unlinks an unchanged draft, closes the manager, and focuses the plain-text editor. Reloading keeps it blank.
 - **Save protection**: Failed/cancelled saves, unresolved conflicts, or draft/link changes while waiting never clear current content. If Tabbypad commits but persisting the empty local draft fails, a “saved, but not cleared” notice preserves the content and link for recovery.
 - **Backup and load**: Loading another item offers backup or discard; a successful backup proceeds to the target rather than an empty editor, while failure retains the draft. Updates still detect other-tab changes/deletions. Unarchived local drafts survive reopening, but their item link is removed.
+- **Download all notes** in standalone [Tabbypad](tabbypad/) exports every saved note as a UTF-8 `.txt` file inside a ZIP. No Google login is required. Search filters do not limit the export. Unsaved drafts and note metadata are excluded.
+- **Google Drive**: Standalone [Tabbypad](tabbypad/) provides **Backup / Restore**. Manual backups contain complete UTF-8 JSON of committed notes, preserving IDs, text, colors and known dates. Main-page drafts, preferences and credentials are excluded. Files use hidden `appDataFolder` storage without additional client-side encryption. Upload verification precedes permanent deletion of snapshots beyond the newest five. Concurrent operations or failed cleanup can temporarily exceed five; the next Backup retries cleanup. Matching the latest valid backup creates no new version.
+- **Restore protection**: Merge is the default. It combines IDs, prefers later trustworthy edits and keeps both uncertain or equal-time conflicts. It does not propagate deletions, so older notes can return. Overwrite requires a separate count confirmation. Restore and one local recovery point commit atomically; confirmed Undo is available in Restore and is never uploaded. Unsaved edits require explicit Save or cancellation. Local changes invalidate the preview.
+
+#### Google Drive setup
+
+Enable Drive API in [Google Cloud](https://console.cloud.google.com/), create a **Web application** OAuth Client and authorize the actual deployment and local origins, such as `http://localhost:8000`. Request only `https://www.googleapis.com/auth/drive.appdata`; add test users when the consent screen is in testing mode. Deploy the public Client ID in `tabbypad/drive-config.json`.
+
+```json
+{ "clientId": "Replace with the Web Client ID issued by Google Cloud" }
+```
+
+No Client Secret or backend is used. Connect, verify the account, then choose Backup or Restore. Tokens remain in memory; expiry or reload requires authorization again. There is no background sync. Once the page is loaded, missing Google setup or network access does not block local editing or recovery; a first offline visit to Tabbypad is not guaranteed. Clearing site data removes local recovery; deleting Drive application data can remove cloud backups. See [Google's appDataFolder guide](https://developers.google.com/workspace/drive/api/guides/appdata).
 
 ## Preview & Highlighting
 
@@ -100,6 +113,8 @@ The main app and AI-RegExr require no build. Run from the repository root, then 
 python3 -m http.server 8000
 ```
 
+Tabbypad browser modules use `.js`; the shared core is `js/tabbypad/backup-core.js`. Static hosts must serve `.js` as `text/javascript` or `application/javascript`. Browsers reject module responses with `application/octet-stream`. Deploy HTML, JavaScript, and `sw.js` together to avoid mixing old and new module paths.
+
 Developer tools require Node.js; ordinary static deployment does not:
 
 ```sh
@@ -128,7 +143,7 @@ npm run release
 ## Deployment & Maintenance
 
 - Deploy the complete static directory over HTTP/HTTPS; PHP/Redis are not required. Offline support requires HTTPS or localhost and a completed initial cache. Upgrades must also delete obsolete files, including the retired cloud-sync backend, rather than only overlay new files. With Nginx/Tengine HTTP/2, keep `keepalive_timeout 60s;`, never `0`.
-- Root `sw.js` uses cache `v91`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v89/` without mixing module versions. AI-RegExr and Editor Lab have separate Service Workers, bypassed by the root worker. Update each tool through its own build process.
+- Root `sw.js` uses cache `v92`; synchronize changed asset URLs and cache entries. Deploy all of `js/ime/v89/` without mixing module versions. Tabbypad shares `NotesDB` v2; close or reload older tabs if they block an upgrade, without clearing data. AI-RegExr and Editor Lab have separate Service Workers, bypassed by the root worker. Update each tool through its own build process.
 - PCRE2 source pins and hashes are in `vendor-manifest.json`; see [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md). Rebuild through tooling rather than hand-editing generated glue.
 - Icon source: `img/lazydraft-icon.svg`. With developer tools and Chrome installed, run `node scripts/build-icons.mjs`; shared icon changes also require `npm run release`.
 - Preserve the existing PWA identity, storage keys, and database names. Installation entry points and prompts are browser-managed; the page has no custom install button. Updates do not require uninstalling or clearing site data; shortcut name/icon refresh is browser/OS-managed.

@@ -16,7 +16,11 @@
     "ai-regexr/js/render.js",
     "ai-regexr/js/runner.js",
     "ai-regexr/js/offline.js",
-    "js/ime/v89/*.js"
+    "js/ime/v89/*.js",
+    "js/tabbypad/backup-core.js",
+    "tabbypad/js/drive-types.d.ts",
+    "tabbypad/js/drive-client.js",
+    "tabbypad/js/drive-ui.js"
   ],
   "exclude": [
     "node_modules",

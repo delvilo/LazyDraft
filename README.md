@@ -10,12 +10,12 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 
 ## 編輯與工具
 
-- **自動儲存**：草稿存於瀏覽器 `localStorage`，重開仍保留；Tabbypad 使用 IndexedDB。清除網站資料會移除本機內容，重要筆記請另行下載備份。
+- **自動儲存**：草稿存於瀏覽器 `localStorage`，重開仍保留；Tabbypad 使用 IndexedDB。清除網站資料會移除本機內容，重要筆記請另行備份。
 - **下載與複製**：一鍵複製全文或下載 `.txt`；檔名取第一行，若第一行空白則使用 `Notes-DD-MM-YYYY.txt`。
 - **外觀**：淺色／深色／跟隨系統，字型、字級、行高、紙張紋理、最佳行寬、拼字檢查與 Tab 縮排皆可調整。
 - **字數摘要**：右下角顯示總字元、中文字數與英文詞數，可隱藏。總字元按 Unicode code point 計算（含空白與換行），中文逐漢字、英文按字母詞段計數；組合 emoji 不一定只計一字。
-- **懸浮視窗**：需桌面瀏覽器支援 Document Picture-in-Picture；以原生外框關閉／返回主頁。另提供專注與全螢幕模式。
-- **獨立工具**：工具列可開啟 Rich Text Notes、Markdown Editor、Tabbypad 與 AI-RegExr，不取代目前草稿。
+- 浮動視窗僅在桌面顯示，手機與平板隱藏，包含 iPad 桌面版網站模式。桌面優先使用 Document Picture-in-Picture，否則開啟一般彈窗。另提供專注與全螢幕模式。
+- 從左上角 **LazyDraft** 選單開啟 Rich Text Notes、Markdown Editor、Tabbypad、AI-RegExr 與 Editor Lab。Tabbypad 開啟項目管理，其餘工具另開分頁，保留草稿。右上角 GitHub 圖示連至本專案。
 - **文字 QR**：工具列開啟唯讀快照，優先使用選取文字，否則使用草稿全文。上限 **2,048 UTF-8 bytes**（含），保留空白、換行、中文與 emoji；無內容或超限不產生、不截斷、不分割。任何看見圖碼的人都能讀取明文；不提供下載或接收確認。關閉即清除預覽與圖碼，不新增傳送紀錄，不更動草稿或 Tabbypad。
 - **掃描與離線**：由外部手機相機或掃描工具讀取後自行複製貼上，非即時同步亦不自動清空草稿；高密度圖碼不保證所有相機皆能辨識或完整複製。完成首次連線快取後可離線產生；編碼器僅於首次開啟 QR 時執行，無須 CDN、伺服器或 WebRTC。
 
@@ -34,6 +34,19 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 - **Tabbypad**：可載入既有項目編輯，或存為新項目。新增與手動「更新原項目」（含右下角按鈕）成功後，若草稿與連結未變更，會清空並解除連結、關閉管理視窗，焦點回到純文字編輯器；重新整理仍維持空白。
 - **儲存保護**：儲存失敗、取消、衝突未解決或等待期間草稿／連結改變，都不清空目前內容。若已存入 Tabbypad，但無法保存空白本機草稿，會提示「已儲存，但未清空」，保留內容與連結供處理。
 - **備份與載入**：載入另一項目前可另存草稿或捨棄；備份成功才繼續載入，不會停在空白畫面，備份失敗則保留原稿。更新仍檢查其他分頁的修改／刪除衝突；未歸檔的本機草稿重開仍保留，但解除項目連結。
+- 獨立 [Tabbypad](tabbypad/) 的 **Download all notes** 將全部已儲存筆記匯出為 ZIP，每則一個 UTF-8 `.txt`。不需 Google 登入，不受搜尋篩選影響；不包含未儲存草稿或筆記中繼資料。
+- **Google Drive**：獨立 [Tabbypad](tabbypad/) 提供 **Backup / Restore**。手動將已儲存筆記備份為完整 UTF-8 JSON，保留文字、ID、顏色與已知日期，不含主頁草稿、偏好或憑證。備份位於隱藏的 `appDataFolder`，沒有額外用戶端加密。確認上傳內容後，永久刪除超過最新五版的舊備份；同時操作或清理失敗可暫時超過五版，下次 Backup 會再清理。與最新有效備份相同時不新增版本。
+- **還原保護**：預設 Merge，按 ID 合併；可信的新編輯以較晚更新為準，舊資料或相同時間的衝突保留兩份。Merge 不傳播刪除，舊筆記可能重新出現。Overwrite 另須確認數量。還原與一份本機復原點以同一筆交易提交，Restore 內可確認 Undo；復原點不上傳。未存編輯須先明確 Save 或取消還原，本機資料變更則須重新預覽。
+
+#### Google Drive 設定
+
+在 [Google Cloud](https://console.cloud.google.com/) 啟用 Drive API，建立 **Web application** OAuth Client，設定實際部署來源及本機測試來源，例如 `http://localhost:8000`。同意畫面僅申請 `https://www.googleapis.com/auth/drive.appdata`；測試模式須加入使用者。將公開 Client ID 放入 `tabbypad/drive-config.json`，隨靜態網站部署。
+
+```json
+{ "clientId": "填入 Google Cloud 產生的 Web Client ID" }
+```
+
+不使用 Client Secret 或後端。按 Connect 後確認帳號，再執行備份／還原；Token 僅存於記憶體，過期或重開需重新授權。沒有背景同步。頁面已載入時，未設定 Google 或斷網仍可編輯及復原本機資料；不保證 Tabbypad 首次離線開頁可用。清除網站資料會失去本機復原點；刪除 Google Drive 的應用程式資料可能移除雲端備份。設定細節見 [Google appDataFolder 文件](https://developers.google.com/workspace/drive/api/guides/appdata)。
 
 ## 預覽與語法標亮
 
@@ -98,6 +111,8 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 python3 -m http.server 8000
 ```
 
+Tabbypad 的瀏覽器模組使用 `.js`，共用核心位於 `js/tabbypad/backup-core.js`。靜態主機須將 `.js` 以 `text/javascript` 或 `application/javascript` 回傳；模組若收到 `application/octet-stream`，瀏覽器會拒絕執行。部署時須一併更新 HTML、JavaScript 與 `sw.js`，避免混用新舊模組路徑。
+
 開發工具需要 Node.js；一般靜態部署不需安裝：
 
 ```sh
@@ -145,7 +160,7 @@ npm run release
 ## 部署與維護
 
 - 完整部署靜態目錄至 HTTP／HTTPS，不需 PHP／Redis；離線功能須 HTTPS 或 localhost 並完成首次快取。升級時同步刪除已移除的舊檔（含雲端同步後端），勿只覆蓋新檔。Nginx／Tengine 使用 HTTP/2 時保留 `keepalive_timeout 60s;`，勿設為 `0`。
-- 主頁 `sw.js` 快取為 `v91`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v89/`，不要混用模組版本。AI-RegExr 與 Editor Lab 有獨立 Service Worker，主頁不攔截其請求；各工具的資源須由各自建置流程更新。
+- 主頁 `sw.js` 快取為 `v92`；變更資源時同步更新對應 URL 與快取清單。完整部署 `js/ime/v89/`，不要混用模組版本。Tabbypad 共用 `NotesDB` v2，舊分頁阻擋升級時須關閉或重新整理，不需清除資料。AI-RegExr 與 Editor Lab 有獨立 Service Worker，主頁不攔截其請求；各工具的資源須由各自建置流程更新。
 - PCRE2 固定來源與雜湊見 `vendor-manifest.json`，授權見 [PCRE2 LICENCE](ai-regexr/vendor/pcre2/LICENCE.md)；請透過建置流程重建，不手改產生的膠水程式。
 - 圖示來源為 `img/lazydraft-icon.svg`；安裝開發工具與 Chrome 後執行 `node scripts/build-icons.mjs`。變更共用圖示後也須執行 `npm run release`。
 - 保留既有 PWA 身分、儲存鍵與資料庫名稱。安裝入口與提示由瀏覽器管理，頁面不提供自訂安裝按鈕。更新不需卸載或清除網站資料；桌面捷徑名稱／圖示更新由瀏覽器與系統管理。

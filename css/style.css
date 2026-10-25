@@ -225,6 +225,13 @@ table tr td {
   filter: drop-shadow(0 0 0.625vw #2196F3) drop-shadow(0 0 3.6979166667vw #2196F3);
 }
 
+.icon-container .tool-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+}
+
 .voice-dictation-btn {
   display: inline-flex;
   align-items: center;

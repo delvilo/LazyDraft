@@ -15,7 +15,7 @@ Fork 自 [amitmerchant1990/notepad](https://github.com/amitmerchant1990/notepad)
 - **外观**：浅色／深色／跟随系统，字体、字号、行高、纸张纹理、最佳行宽、拼写检查与 Tab 缩进皆可调整。
 - **字数摘要**：右下角显示总字符、中文字数与英文词数，可隐藏。总字符按 Unicode code point 计算（含空格与换行），中文按汉字逐字、英文按字母词段计数；复合 emoji 不一定只计一字。
 - 浮动窗口仅在桌面显示，手机与平板隐藏，包含 iPad 桌面版网站模式。桌面优先使用 Document Picture-in-Picture，否则打开普通弹窗。另提供专注与全屏模式。
-- 从左上角 **LazyDraft** 菜单打开 Rich Text Notes、Markdown Editor、Tabbypad、AI-RegExr 与 Editor Lab。Tabbypad 打开项目管理，其余工具另开标签页，保留草稿。右上角 GitHub 图标链接到本项目。
+- 从左上角 **LazyDraft** 菜单以新标签页打开 Rich Text Notes、Markdown Editor、Tabbypad、AI-RegExr 与 Editor Lab，保留草稿。工具栏的 Tabbypad 图标打开项目管理。右上角 GitHub 图标链接到本项目。
 - **文字 QR**：工具栏打开只读快照，优先使用选中文本，否则使用草稿全文。上限 **2,048 UTF-8 bytes**（含），保留空格、换行、中文与 emoji；无内容或超限不生成、不截断、不分割。任何看见图码的人都能读取明文；不提供下载或接收确认。关闭即清除预览与图码，不新增传送记录，不更改草稿或 Tabbypad。
 - **扫描与离线**：由外部手机相机或扫描工具读取后自行复制粘贴，非实时同步亦不自动清空草稿；高密度图码不保证所有相机皆能识别或完整复制。完成首次联网缓存后可离线生成；编码器仅在首次打开 QR 时执行，无需 CDN、服务器或 WebRTC。
 

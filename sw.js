@@ -2,7 +2,7 @@ importScripts('js/libraries/cache-polyfill.js');
 
 // Keep the existing namespace so renamed releases still remove obsolete caches.
 const CACHE_PREFIX = 'notepad:' + self.registration.scope + ':';
-const CACHE_VERSION = CACHE_PREFIX + 'v96';
+const CACHE_VERSION = CACHE_PREFIX + 'v97';
 let CACHE_FILES = [
     './',
     'index.html',
@@ -34,7 +34,7 @@ let CACHE_FILES = [
     'js/utils.js?v=87',
     'js/selector.js?v=78',
     'css/bootstrap.min.css?v=78',
-    'css/style.css?v=96',
+    'css/style.css?v=97',
     'css/boshiamy.css?v=80',
     'css/tabbypad-integration.css?v=78',
     'favicon.ico',

@@ -1,5 +1,5 @@
 {
-  "version": "regexr-v23201f618899",
+  "version": "regexr-v38b8a5b5b94f",
   "assetCount": 17,
   "assets": [
     {
@@ -14,18 +14,18 @@
     },
     {
       "path": "css/style.css",
-      "size": 7935,
-      "sha256": "7e6c4a6b19c1e86e84656256d5ed4d3f86dd35d2ae4f0552b14f7d91bbbdc9dd"
+      "size": 8368,
+      "sha256": "02fb9710e81dfe799323c2b50918ffe668df0bfbeaf2df25429dcf69d10035c0"
     },
     {
       "path": "index.html",
-      "size": 6255,
-      "sha256": "25a1aa010ff1f7650181e721d830015e3b8e1e55e12aeee2ad9824db0facf73f"
+      "size": 6414,
+      "sha256": "ae7003d3665b805d9ae8451f7ed4a541a1efc768a9588a15e24039186d1fcfc8"
     },
     {
       "path": "js/app.js",
-      "size": 16231,
-      "sha256": "b7f61236924ad4cf015a694027efce69f8c7d7359749fce447b0ddb2c010a613"
+      "size": 20030,
+      "sha256": "100c8b3e094b6f20b201ac9b0ac1f845cdce5af4f09c5762be13a70f6ffa9064"
     },
     {
       "path": "js/contracts.js",

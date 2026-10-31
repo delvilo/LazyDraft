@@ -926,6 +926,7 @@ $(document).ready(function () {
 					pipWindow.document.body.classList.toggle('dark', document.body.classList.contains('dark'));
 					refreshBoshiamyDocument();
 					pipWindow.document.addEventListener('keydown', handleBoshiamyShortcut);
+					bindLocalFileDrop(pipWindow.document);
 
 					const mainContainer = document.querySelector("#mainContainer");
 					const overlay = document.querySelector(".overlay");
@@ -1049,6 +1050,7 @@ $(document).ready(function () {
 			popup.document.body.classList.toggle('dark', document.body.classList.contains('dark'));
 			refreshBoshiamyDocument();
 			popup.document.addEventListener('keydown', handleBoshiamyShortcut);
+			bindLocalFileDrop(popup.document);
 
 			const mainContainer = document.querySelector("#mainContainer");
 			const overlay = document.querySelector(".overlay");
@@ -1693,10 +1695,8 @@ $(document).ready(function () {
 		if (!localFileImportBusy) notepad.localFileInput[0].click();
 	});
 
-	notepad.localFileInput.on('change', async function () {
-		const file = this.files[0];
-		this.value = ''; // Allow selecting the same file again, even after a failed read.
-		if (!file || localFileImportBusy) return;
+	async function importLocalFile(file, dropDocument = null) {
+		if (!file || localFileImportBusy || regexrImportBusy) return;
 
 		localFileImportBusy = true;
 		notepad.openLocalFile.prop('disabled', true).attr('aria-busy', 'true');
@@ -1717,13 +1717,16 @@ $(document).ready(function () {
 			failureMessage = '檔案不是有效的 UTF-8，請先轉成 UTF-8 後再開啟。原草稿已保留。';
 			// Match textarea's newline normalization before comparison and persistence.
 			const imported = new TextDecoder('utf-8', { fatal: true }).decode(bytes).replace(/\r\n?/g, '\n');
+			failureMessage = '編輯器已移至浮動視窗，請先返回主頁再拖放。原草稿已保留。';
+			if (dropDocument && notepad.note[0].ownerDocument !== dropDocument) throw new Error('Editor moved during file read');
 			// Capture the latest draft AFTER reading; do not overwrite input typed while reading.
 			const draft = notepad.note.val();
 			const linkedId = currentLinkedTabbypadId;
 			const linkedBase = currentLinkedTabbypadBaseContent;
 			const draftUnchanged = () => notepad.note.val() === draft
 				&& currentLinkedTabbypadId === linkedId
-				&& currentLinkedTabbypadBaseContent === linkedBase;
+				&& currentLinkedTabbypadBaseContent === linkedBase
+				&& (!dropDocument || notepad.note[0].ownerDocument === dropDocument);
 
 			let action = 'overwrite';
 			if (draft !== '' && draft !== imported) {
@@ -1747,14 +1750,14 @@ $(document).ready(function () {
 				action = result.value;
 			}
 
-			failureMessage = '草稿或 Tabbypad 連結已變更，已停止載入。請重新選檔；如已建立備份，該備份仍會保留。';
+			failureMessage = '草稿、Tabbypad 連結或編輯視窗已變更，已停止載入。請重新選檔；如已建立備份，該備份仍會保留。';
 			if (!draftUnchanged()) throw new Error('Draft changed during import');
 
 			if (action === 'backup') {
 				failureMessage = 'Tabbypad 備份失敗，未載入檔案，原草稿已保留。';
 				// Use the committed storage operation, without relinking or mutating the editor.
 				await window.TabbypadStorage.createNote(draft);
-				failureMessage = '備份期間草稿或 Tabbypad 連結已變更，已停止載入；已建立的備份仍會保留。';
+				failureMessage = '備份期間草稿、連結或編輯視窗已變更，已停止載入；已建立的備份仍會保留。';
 				if (!draftUnchanged()) throw new Error('Draft changed during backup');
 			}
 
@@ -1797,7 +1800,115 @@ $(document).ready(function () {
 			localFileImportBusy = false;
 			notepad.openLocalFile.prop('disabled', false).removeAttr('aria-busy');
 		}
+	}
+
+	notepad.localFileInput.on('change', function () {
+		const file = this.files[0];
+		this.value = ''; // Allow selecting the same file again, even after a failed read.
+		void importLocalFile(file);
 	});
+
+	const fileDropArea = document.getElementById('textareaContainer');
+	const fileDropHint = document.getElementById('localFileDropHint');
+	const htmlPreviewFrame = document.getElementById('htmlPreviewFrame');
+	const fileDropDocuments = new WeakSet();
+	let fileDropHintTimer;
+
+	function clearFileDropHint() {
+		clearTimeout(fileDropHintTimer);
+		fileDropHint.hidden = true;
+	}
+
+	function fileDropBlockedReason() {
+		if ((activeFloatingWindow && !activeFloatingWindow.closed) || fileDropArea.ownerDocument !== document) {
+			return '請先返回主頁，再拖放文字檔。';
+		}
+		if (localFileImportBusy || regexrImportBusy) return '正在處理匯入，請完成後再拖放檔案。';
+		if (document.body.classList.contains('modal-open')
+			|| document.querySelector('.modal-backdrop, .swal2-popup:not(.swal2-toast)')) {
+			return '請先關閉目前的對話框，再拖放文字檔。';
+		}
+		return '';
+	}
+
+	function isFileDrag(event) {
+		return event.dataTransfer && Array.from(event.dataTransfer.types).includes('Files');
+	}
+
+	function isEditorFileDrop(event) {
+		return fileDropArea.ownerDocument === document
+			&& (fileDropArea.contains(event.target) || event.currentTarget === htmlPreviewFrame.contentDocument);
+	}
+	function fileDropNoticeDocument(event) {
+		return event.currentTarget === htmlPreviewFrame.contentDocument
+			? htmlPreviewFrame.ownerDocument : event.currentTarget;
+	}
+
+
+	function handleFileDrag(event) {
+		if (!isFileDrag(event)) return;
+		event.preventDefault();
+		const blockedReason = fileDropBlockedReason();
+		const accepted = !blockedReason && isEditorFileDrop(event);
+		event.dataTransfer.dropEffect = accepted ? 'copy' : 'none';
+		if (!accepted) {
+			clearFileDropHint();
+			if (blockedReason) {
+				const noticeDocument = fileDropNoticeDocument(event);
+				const toast = noticeDocument.getElementById('toast');
+				if (!toast?.classList.contains('show') || toast.textContent !== blockedReason) {
+					showToast(blockedReason, noticeDocument);
+				}
+			}
+			return;
+		}
+		clearTimeout(fileDropHintTimer);
+		fileDropHint.hidden = false;
+		// External drag cancellation may not emit a terminal event in this document.
+		fileDropHintTimer = setTimeout(clearFileDropHint, 750);
+	}
+
+	function handleFileDrop(event) {
+		if (!isFileDrag(event)) return;
+		event.preventDefault();
+		clearFileDropHint();
+		const noticeDocument = fileDropNoticeDocument(event);
+		const blockedReason = fileDropBlockedReason();
+		if (blockedReason) {
+			showToast(blockedReason, noticeDocument);
+			return;
+		}
+		if (!isEditorFileDrop(event)) {
+			showToast('請將文字檔拖至主編輯區。', noticeDocument);
+			return;
+		}
+		const transfer = event.dataTransfer;
+		const hasDirectory = Array.from(transfer.items).some(item =>
+			item.kind === 'file' && item.webkitGetAsEntry?.()?.isDirectory);
+		if (hasDirectory || transfer.files.length !== 1) {
+			showToast('一次只可拖入一個文字檔，不接受資料夾；原草稿已保留。');
+			return;
+		}
+		void importLocalFile(transfer.files[0], document);
+	}
+
+	function bindLocalFileDrop(targetDocument) {
+		if (!targetDocument || fileDropDocuments.has(targetDocument)) return;
+		fileDropDocuments.add(targetDocument);
+		targetDocument.addEventListener('dragenter', handleFileDrag, true);
+		targetDocument.addEventListener('dragover', handleFileDrag, true);
+		targetDocument.addEventListener('drop', handleFileDrop, true);
+		targetDocument.addEventListener('dragleave', clearFileDropHint, true);
+		targetDocument.addEventListener('dragend', clearFileDropHint, true);
+		targetDocument.addEventListener('keydown', event => {
+			if (event.key === 'Escape') clearFileDropHint();
+		});
+		targetDocument.defaultView.addEventListener('blur', clearFileDropHint);
+	}
+
+	htmlPreviewFrame.addEventListener('load', () => bindLocalFileDrop(htmlPreviewFrame.contentDocument));
+	bindLocalFileDrop(htmlPreviewFrame.contentDocument);
+	bindLocalFileDrop(document);
 
 	// ==================== Cross-Window Match Receiver (AI-RegExr) ====================
 	async function handleImportedMatches(matchesText) {

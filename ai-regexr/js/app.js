@@ -22,6 +22,8 @@ const copyButton = element('copyPatternBtn', HTMLButtonElement);
 const sendButton = element('sendToNotepadBtn', HTMLButtonElement);
 const openFileButton = element('openFileBtn', HTMLButtonElement);
 const fileInput = element('localFileInput', HTMLInputElement);
+const fileDropArea = element('textDropArea', HTMLElement);
+const fileDropHint = element('localFileDropHint', HTMLDivElement);
 const view = new HighlightView(textarea, element('backdrop', HTMLDivElement), element('highlightsPre', HTMLPreElement));
 
 /** Preference failures must not disable the editor or affect main-notepad storage.
@@ -46,6 +48,11 @@ let debounceTimer;
 let composing = false;
 /** @type {{text: string, ranges: Uint32Array, totalMatches: number} | null} */
 let lastResultData = null;
+let textRevision = 0;
+let localFileImportBusy = false;
+const fileImportBusyMessage = '正在載入另一個檔案，請稍後再試。';
+/** @type {ReturnType<typeof setTimeout> | undefined} */
+let fileDropHintTimer;
 
 /** @param {string} candidate */
 function supportedFlags(candidate) {
@@ -153,7 +160,7 @@ async function execute(expectedRevision) {
 }
 
 patternInput.addEventListener('input', schedule);
-textarea.addEventListener('input', schedule);
+textarea.addEventListener('input', () => { textRevision++; schedule(); });
 for (const input of [patternInput, textarea]) {
     input.addEventListener('compositionstart', () => { composing = true; invalidate(); status('輸入中', '組字完成後開始測試'); });
     input.addEventListener('compositionend', () => { composing = false; schedule(); });
@@ -177,42 +184,131 @@ document.body.classList.toggle('dark', (readPreference('ai_regexr_theme') ?? rea
 element('clearTextBtn', HTMLButtonElement).addEventListener('click', () => {
     if (textarea.value && confirm('確定清空長文本編輯區嗎？')) {
         textarea.value = '';
+        textRevision++;
         schedule();
         textarea.focus();
     }
 });
 
-openFileButton.addEventListener('click', () => {
-    fileInput.click();
-});
-
-fileInput.addEventListener('change', async () => {
-    const file = fileInput.files?.[0];
-    fileInput.value = '';
-    if (!file) return;
-
+/** @param {File} file */
+async function importLocalFile(file) {
+    if (localFileImportBusy) {
+        statusTime.textContent = fileImportBusyMessage;
+        return;
+    }
     if (file.size > MAX_TEXT_BYTES) {
         alert(`檔案大小為 ${(file.size / 1024 / 1024).toFixed(2)} MiB，超過最大限制 10 MiB（10,485,760 bytes），未載入檔案。`);
         return;
     }
 
-    if (textarea.value && textarea.value.trim() !== '') {
-        if (!confirm(`長文本編輯區已有內容，載入「${file.name}」將會覆蓋現有文字，是否確定？`)) {
-            return;
-        }
-    }
-
+    localFileImportBusy = true;
+    clearFileDropHint();
+    const originalText = textarea.value;
+    const expectedTextRevision = textRevision;
+    const textUnchanged = () => textRevision === expectedTextRevision && textarea.value === originalText;
+    let failureMessage = '檔案讀取失敗，原文本已保留。請重新選檔或拖放。';
     try {
         const bytes = await file.arrayBuffer();
+        failureMessage = '檔案不是有效的 UTF-8 純文字檔，請先轉成 UTF-8 編碼後再開啟。原文本已保留。';
         const decoded = new TextDecoder('utf-8', { fatal: true }).decode(bytes).replace(/\r\n?/g, '\n');
+        if (!textUnchanged()) {
+            statusTime.textContent = '讀檔期間文本已變動，已取消載入，保留目前文本。';
+            return;
+        }
+        if (originalText !== '' && !confirm(`長文本編輯區已有內容，載入「${file.name}」將會覆蓋現有文字，是否確定？`)) return;
+        if (!textUnchanged()) {
+            statusTime.textContent = '文本已變動，已取消載入，保留目前文本。';
+            return;
+        }
         textarea.value = decoded;
+        textRevision++;
         schedule();
         textarea.focus();
         statusTime.textContent = `已載入本機檔案：${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-    } catch (error) {
-        alert('檔案不是有效的 UTF-8 純文字檔，請先轉成 UTF-8 編碼後再開啟。');
+    } catch {
+        alert(failureMessage);
+    } finally {
+        localFileImportBusy = false;
     }
+}
+
+openFileButton.addEventListener('click', () => {
+    if (localFileImportBusy) {
+        statusTime.textContent = fileImportBusyMessage;
+        return;
+    }
+    fileInput.click();
 });
+
+fileInput.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    fileInput.value = '';
+    if (file) void importLocalFile(file);
+});
+
+function clearFileDropHint() {
+    clearTimeout(fileDropHintTimer);
+    fileDropHint.hidden = true;
+}
+
+/** @param {string} message */
+function showFileDropHint(message) {
+    clearTimeout(fileDropHintTimer);
+    if (fileDropHint.textContent !== message) fileDropHint.textContent = message;
+    fileDropHint.hidden = false;
+    fileDropHintTimer = setTimeout(clearFileDropHint, 750);
+}
+
+/** @param {DragEvent} event */
+function isFileDrag(event) {
+    return event.dataTransfer?.types.includes('Files') ?? false;
+}
+
+/** @param {DragEvent} event */
+function isEditorFileDrop(event) {
+    return event.target instanceof Node && fileDropArea.contains(event.target);
+}
+
+/** @param {DragEvent} event */
+function handleFileDrag(event) {
+    if (!isFileDrag(event)) return;
+    event.preventDefault();
+    const accepted = isEditorFileDrop(event) && !localFileImportBusy;
+    if (event.dataTransfer) event.dataTransfer.dropEffect = accepted ? 'copy' : 'none';
+    if (isEditorFileDrop(event)) {
+        showFileDropHint(localFileImportBusy ? fileImportBusyMessage : '放開以載入文字檔');
+    } else {
+        clearFileDropHint();
+    }
+}
+
+/** @param {DragEvent} event */
+function handleFileDrop(event) {
+    if (!isFileDrag(event)) return;
+    event.preventDefault();
+    clearFileDropHint();
+    if (!isEditorFileDrop(event) || !event.dataTransfer) return;
+    if (localFileImportBusy) {
+        statusTime.textContent = fileImportBusyMessage;
+        return;
+    }
+    const transfer = event.dataTransfer;
+    const hasDirectory = Array.from(transfer.items).some(item => item.webkitGetAsEntry?.()?.isDirectory);
+    if (transfer.files.length !== 1 || hasDirectory) {
+        alert('請一次拖放一個文字檔；不支援多檔或資料夾，原文本已保留。');
+        return;
+    }
+    void importLocalFile(transfer.files[0]);
+}
+
+document.addEventListener('dragenter', handleFileDrag, true);
+document.addEventListener('dragover', handleFileDrag, true);
+document.addEventListener('drop', handleFileDrop, true);
+document.addEventListener('dragleave', clearFileDropHint, true);
+document.addEventListener('dragend', clearFileDropHint, true);
+document.addEventListener('keydown', event => { if (event.key === 'Escape') clearFileDropHint(); });
+window.addEventListener('blur', clearFileDropHint);
+window.addEventListener('pagehide', clearFileDropHint);
 copyButton.addEventListener('click', async () => {
     try {
         const parsed = parsePattern(patternInput.value, flags, engine);

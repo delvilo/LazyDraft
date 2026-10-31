@@ -93,11 +93,12 @@
         </div>
 
         <!-- Long Textarea with Synchronized Backdrop Highlights -->
-        <main class="regexr-editor-workspace">
+        <main id="textDropArea" class="regexr-editor-workspace">
             <div id="backdrop" class="regexr-backdrop" aria-hidden="true">
                 <pre id="highlightsPre" class="regexr-highlights"></pre>
             </div>
             <textarea id="longTextarea" class="regexr-textarea" aria-label="測試文本" placeholder="在此貼上需要測試的長文本（最大 10 MiB UTF-8）..." spellcheck="false"></textarea>
+            <div id="localFileDropHint" class="regexr-file-drop-hint" role="status" aria-live="polite" hidden>放開以載入文字檔</div>
         </main>
     </div>
 

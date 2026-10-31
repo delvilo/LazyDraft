@@ -60,22 +60,27 @@ No Client Secret or backend is used. Connect, verify the account, then choose Ba
 
 ## Opening Local Files
 
-The folder button reads one file as literal text, never executing code. Maximum **1 MiB (1,048,576 bytes)** per file, valid **UTF-8** only. UTF-8 BOM is accepted and removed; line endings become LF.
+Use the folder button or drop a single file into the main editor. Both load literal text without executing code or modifying the original file on disk. Maximum **1 MiB (1,048,576 bytes)** per file, valid **UTF-8** only. UTF-8 BOM is accepted and removed; line endings become LF.
 
 - Supported formats include text, Markdown, HTML/CSS, common source code, JSON/CSV/logs, YAML/INI, and shell scripts; also `.env`, `.env.*`, `.gitignore`, `.editorconfig`, `Dockerfile`, and `Makefile`. Only supported names are accepted, case-insensitively—not arbitrary extensions.
 - The picker has no extension filter, but selected files are still validated. Enable hidden-file visibility to select dotfiles if needed.
+- File drops reject multiple files and folders. Dropping outside the editor, including on the navbar, neither imports the file nor navigates away.
+- Markdown and HTML previews also accept files. Successful import returns to plain text; cancellation or failure preserves the source and preview. The drop hint appears only while dragging a file.
+- New drops are blocked while a dialog or import is active. Return from the floating window before dropping files. Moving the editor to a floating window during a pending read also stops the import.
 - A different draft, including when importing an empty file, offers **overwrite, append, backup to Tabbypad then load, or cancel**. Append retains the linked item without updating its card; overwrite/backup-then-load unlinks it.
 - Backup and local persistence must succeed before replacement. Invalid format/encoding, oversized files, quota failures, or draft/link changes during confirmation preserve the current draft. Completed backups remain available.
 - Import works offline after the main cache installs. Imported text becomes a local draft; avoid manually Pushing files containing credentials.
 
 ## AI-RegExr
 
-Open [AI-RegExr](ai-regexr/) to test JavaScript RegExp or **PCRE2 10.49 (WASM)**. Local files must contain valid UTF-8, with no extension restriction and a **10 MiB** limit; replacing existing text requires confirmation. Test text and patterns are neither persisted nor uploaded. PCRE2 is not PHP `preg_*`.
+Open [AI-RegExr](ai-regexr/) to test JavaScript RegExp or **PCRE2 10.49 (WASM)**. Local text files must contain valid UTF-8, with no extension restriction and a **10 MiB (10,485,760 bytes, inclusive)** limit. Test text and patterns are neither persisted nor uploaded. PCRE2 is not PHP `preg_*`.
 
+- Use **開啟檔案 (Open file)** or drop one file into the test-text editor. UTF-8 BOM is removed and line endings become LF. HTML and code remain literal text. Drops elsewhere neither import nor navigate; multiple files and folders are rejected as a whole.
+- Replacing any existing text, including whitespace, requires confirmation. Cancellation or read failure leaves the text intact. Editing during a read cancels the import. Only one import runs at a time, with no queue. A successful import preserves the pattern, engine and flags, then automatically reruns matching.
 - Matching runs in a Worker with a **3-second** deadline; background-tab timers may delay termination. Timeouts discard partial results; the next run can retry. Engine loading has a separate 15-second deadline. At most the first **10,000** matches are highlighted.
 - The paper plane sends full matches, not capture groups, separated by newlines to one same-origin main page. More than 10,000 requires confirmation and sends only the first 10,000; joined text over **1 MiB** is rejected. PCRE2 byte boundaries inside characters are expanded to whole characters for display/export.
 - Existing main-page drafts offer overwrite, append, or backup. Cancellation, backup/storage failure, or draft changes during confirmation prevent replacement. Without an open main page, confirmation opens one and copies matches for manual pasting. Imported text then persists as a main-page draft.
-- **Separate offline cache**: Visit the tool and wait for **離線可用 (Offline ready)** before disconnecting; installing the main notepad does not preload it. Updates are SHA-256 verified, retain the old version on failure, and do not force takeover of active tabs.
+- **Separate offline cache**: Visit the tool and wait for **離線可用 (Offline ready)** before disconnecting; installing the main notepad does not preload it. Updates are SHA-256 verified, retain the old version on failure, and do not force takeover of active tabs. Once the new release is cached, save any text you need, then close all AI-RegExr tabs and reopen the tool to apply it.
 
 ## Editor comparison lab
 
